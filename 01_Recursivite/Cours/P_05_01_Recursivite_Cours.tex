@@ -27,7 +27,7 @@
 
 \def\discipline{Informatique}
 \def\xxtete{Informatique}
-\def\classe{PT -- PT $\star$}
+\def\classe{PSI $\star$}
 \def\xxnumpartie{Partie 5}
 \def\xxpartie{Algorithmique \& Programmation II}
 
@@ -106,12 +106,11 @@ La détermination du nième terme est alors aisée. Il suffit d’évaluer $f(n)
 \begin{exemple}
 $\;$
 
-\begin{minipage}[c]{.35\linewidth}
 Puissances de 2 : \textit{Comment évaluer le nombre 2 à la puissance $n$ de manière explicite, $n\in \mathbb{N}$ ?}
 
 On définit de manière explicite la suite :  $u_n=2^n$.
-\end{minipage}\hfill
-\begin{minipage}{.6\linewidth}
+
+%\begin{minipage}[c]{.46\linewidth}
 \begin{pseudo}
 \begin{tabular}{p{.5cm}p{6cm}}
 \hline
@@ -132,7 +131,27 @@ On définit de manière explicite la suite :  $u_n=2^n$.
 \hline
 \end{tabular}
 \end{pseudo}
-\end{minipage}
+
+%\end{minipage}\hfill
+%\begin{minipage}{.46\linewidth}
+%\begin{py}
+%\begin{python}
+%def P2_iterative(n):
+%    """
+%    Entrée : n(int)
+%    Sortie : 2^n
+%    """
+%    res = 1
+%    if n==0:
+%        return res
+%    else : 
+%        while n>0:
+%            res=2*res
+%            n=n-1
+%        return res
+%\end{python}
+%\end{py}
+%\end{minipage}
 
 \end{exemple}
 
