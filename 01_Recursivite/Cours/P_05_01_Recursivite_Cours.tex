@@ -1,0 +1,493 @@
+\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
+\usepackage[%
+    pdftitle={Informatique : Programmation récursive},
+    pdfauthor={Xavier Pessoles}]{hyperref}
+
+\input{style/new_style}
+\input{style/macros_SII}
+
+%\fichetrue
+\fichefalse
+
+%\proftrue
+\proffalse
+
+%\tdtrue
+\tdfalse
+
+\courstrue
+%\coursfalse
+
+\newcommand{\bfsf}[1]{\small\textbf{\textsf{#1}}}%{\textbf{\textsf{#1}}}
+\newcommand{\tsf}[1]{\small{\textsf{#1}}}
+
+% -------------------------------------
+% Déclaration des titres
+% -------------------------------------
+
+\def\discipline{Informatique}
+\def\xxtete{Informatique}
+\def\classe{PT -- PT $\star$}
+\def\xxnumpartie{Partie 5}
+\def\xxpartie{Algorithmique \& Programmation II}
+
+\def\xxnumchapitre{Chapitre 1}
+\def\xxchapitre{\hspace{.12cm} Programmation récursive}
+
+\def\xxposongletx{2}
+\def\xxposonglettext{1.45}
+\def\xxposonglety{13}%10
+
+\def\xxonglet{Part. 5 -- Ch. 1}
+
+\def\xxactivite{Cours}
+\def\xxauteur{\textsl{Xavier Pessoles \\ Patrick Beynet}}
+
+\def\xxcompetences{%
+\textsl{%
+\textbf{Savoirs et compétences :}
+\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item Alg -- C15 : Récursivité : avantages et inconvénients.
+\end{itemize}
+}}
+
+\def\xxfigures{
+\includegraphics[width=\textwidth]{images/mandel}
+
+\textit{Courbe fractale de Mandelbrot [2]}
+
+\includegraphics[width=\textwidth]{images/matriochka}
+\textit{Poupées russes [3]}
+}%figues de la page de garde
+
+\def\xxpied{%
+Partie 5 -- Algorithmique et Programmation II\\
+Ch 1 : Programmation récursive -- \xxactivite%
+}
+
+%---------------------------------------------------------------------------
+\begin{document}
+\chapterimage{png/Fond_ALG}
+\input{style/new_pagegarde}
+%---------------------------------------------------------------------------
+
+\section{Présentation}
+\noindent\begin{minipage}[c]{.65\linewidth}
+En mathématiques, en informatique, en biologie, mais aussi dans notre quotidien, nous faisons souvent face à des situations où un problème doit être résolu en utilisant une méthode de résolution qui est répétée plusieurs fois. 
+
+Dans l'itération, cette méthode est appliquée par paliers de façon séquentielle. Dans la récursion, la méthode s’appelle elle-même. La récursion est si fondamentale qu’il n’est pas possible de l’éviter : l'auto-reproduction, qui constitue le fondement de toute vie, est un processus récursif.
+
+\end{minipage} \hfill
+\begin{minipage}[c]{.3\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/arbre}
+
+\textit{Arbre construit récursivement \cite{4}}
+\end{center}
+\end{minipage}
+
+\begin{defi}
+\textbf{Fonction récursive : } fonction faisant appel à elle-même.
+\end{defi}
+
+\begin{py}Exemple de boucle sans fin :
+\begin{python}
+def fonction_recursive():
+    return fonction_recursive()
+\end{python}
+\end{py}
+
+\section{Exemple d'un algorithme récursif}
+\subsection{Calcul explicite des puissances de 2}
+
+Dans certains cas une suite numérique peut être définie de manière explicite : $u_n = f(n)$. 
+La détermination du nième terme est alors aisée. Il suffit d’évaluer $f(n)$.
+
+\begin{exemple}
+$\;$
+
+\begin{minipage}[c]{.35\linewidth}
+Puissances de 2 : \textit{Comment évaluer le nombre 2 à la puissance $n$ de manière explicite, $n\in \mathbb{N}$ ?}
+
+On définit de manière explicite la suite :  $u_n=2^n$.
+\end{minipage}\hfill
+\begin{minipage}{.6\linewidth}
+\begin{pseudo}
+\begin{tabular}{p{.5cm}p{6cm}}
+\hline
+\multicolumn{2}{l}{ \textbf{Algorithme 1 : P2\_explicite}}\\
+\multicolumn{2}{l}{Calcul explicite de la nième puissance de 2} \\
+\hline
+\multicolumn{2}{p{6.5cm}}{
+\textbf{Entrée} : 
+\begin{itemize}
+\item n, int  : un nombre entier
+\end{itemize}
+\textbf{Sortie} : 
+\begin{itemize}
+\item un nombre entier.
+\end{itemize}}\\
+\multicolumn{2}{l}{\bfsf{P2\_explicite(n)} :}  \\
+& \bfsf{Retourner} 2 $\wedge$ n\\
+\hline
+\end{tabular}
+\end{pseudo}
+\end{minipage}
+
+\end{exemple}
+
+
+
+
+\begin{rem}
+\begin{itemize}
+\item Ici la complexité algorithmique dépend de l'implémentation de $\wedge$ dans le langage de programmation utilisé. 
+\item Malheureusement, toutes les suites numériques ne peuvent pas être définies de manière explicite.
+\end{itemize}
+\end{rem}
+
+\subsection{Calcul récursif des puissances de 2}
+Dans une suite définie de manière récurrente, il est possible de calculer le terme $u_n$ de la suite en connaissant les termes précédents.
+Les égalités de la forme $u_n = f (u_{n-1})$, $u_n = f (u_{n-1}, u_{n-2})$, \textit{etc.} s’appellent des relations de récurrence.
+Les égalités qui définissent les premiers termes d’une suite sont appelées des conditions de départ.
+Une suite recursive est donc définie par une relation de récurrence et une(des) condition(s) de départ.
+
+
+\begin{exemple}
+On reprend l’exemple des puissances de 2. On définit de manière récursive la suite : $u_0=1$, $u_n = 2\cdot u_{n-1}$. On propose un algorithme récursif proche de la définition et un algorithme itératif correspondant.
+\end{exemple}
+
+\begin{pseudo}
+\noindent
+
+\begin{minipage}[c]{.4\linewidth}
+\begin{tabular}{p{.5cm}p{.5cm}p{5cm}}
+\hline %\rowcolor{black!5} 
+\multicolumn{3}{p{6cm}}{ \textbf{Algorithme 2 : P2\_récursive} :
+
+Calcul récursif de la nième puissance de 2} \\
+\hline
+\multicolumn{3}{p{6cm}}{
+\textbf{Entrée} : 
+\begin{itemize}
+\item n, int  : un nombre entier
+\end{itemize}
+\textbf{Sortie} : 
+\begin{itemize}
+\item un nombre entier.
+\end{itemize}}\\
+\multicolumn{3}{p{6cm}}{\bfsf{P2\_recursive}$(n)$:}  \\
+& \multicolumn{2}{l}{\bfsf{Si} $n==0$  \bfsf{alors :}}\\
+& & \bfsf{Retourner} 1\\
+& \multicolumn{2}{l}{\bfsf{Sinon :}}\\
+& & \bfsf{Retourner} 2*\bfsf{P2\_recursive}$(n-1)$ \\
+\hline
+\end{tabular}
+\end{minipage}  \hfill%\hspace{.5cm}
+\begin{minipage}[c]{.4\linewidth}
+\begin{tabular}{p{.5cm}p{.5cm}p{5cm}}
+\hline
+\multicolumn{3}{p{6cm}}{ \textbf{Algorithme 3 : P2\_iterative} : 
+
+Calcul itératif de la nième puissance de 2} \\
+\hline
+\multicolumn{3}{p{6cm}}{
+\textbf{Entrée} : 
+\begin{itemize}
+\item n, int  : un nombre entier
+\end{itemize}
+\textbf{Sortie} : 
+\begin{itemize}
+\item un nombre entier.
+\end{itemize}}\\
+\multicolumn{3}{p{6cm}}{\bfsf{P2\_iterative}$(n)$} \\
+& \multicolumn{2}{l}{$x \leftarrow 1$}\\
+& \multicolumn{2}{l}{\bfsf{tant que} $n>0$ \bfsf{faire :}}\\
+& & $x \leftarrow 2 * x$ \\
+& & $n \leftarrow n-1$ \\
+& \multicolumn{2}{l}{\bfsf{fin tant que}}\\
+& \multicolumn{2}{l}{\bfsf{Retourner} $x$}\\
+\hline
+\end{tabular}
+\end{minipage}
+\vspace{.1cm}
+
+Dans le premier cas, $2^4$ se calcule sous la forme suivante: 
+$$2^4 = 2\cdot P2(3) =2\cdot \left( 2\cdot P2(2)\right) 
+=2\cdot \left( 2\cdot \left( 2\cdot P2(1)\right)\right)
+=2\cdot \left( 2\cdot \left( 2\cdot \left( 2\cdot P2(0)\right) \right)\right)
+=2\cdot \left( 2\cdot \left( 2\cdot \left( 2\cdot 1\right) \right)\right)
+$$
+ 
+Dans le second cas, on calcule itérativement les puissances de 2. 
+\end{pseudo}
+
+\section{Analyse des algorithmes récursifs}
+\subsection{Avantages et inconvénients}
+
+\begin{itemize}[font = \color{ocre}, label=\ding{52}]
+\item Simplicité de l'écriture récursive dans certains cas : comme l'exemple précédent le montre, dans le cas du calcul des puissances de 2, l'écriture récursive est plus naturelle que l'écriture itérative.
+\item L'algorithme peut sembler alors plus aisé lors de sa lecture.
+\end{itemize}
+
+
+\begin{itemize}[font = \color{ocre}, label=\ding{55}]
+\item Comme pour les algorithmes itératifs, il faut prêter attention à sa terminaison en utilisant un variant de boucle.
+\item Comme pour les algorithmes itératifs, il est aussi nécessaire de vérifier la correction de l'algorithme en utilisant un invariant de boucle.
+\item La complexité algorithmique temporelle et spatiale d'un algorithme récursif peut être plus coûteuse qu'un algorithme itératif. 
+\end{itemize}
+
+
+Enfin certains développeurs informatiques ont un avis tranché sur l'intérêt de la programmation récursive :
+\textit{<< (...) I don't believe in recursion as the basis of all programming. This is a fundamental belief of certain computer scientists, especially those who love Scheme and like to teach programming by starting with a "cons" cell and recursion. But to me, seeing recursion as the basis of everything else is just a nice theoretical approach to fundamental mathematics (turtles all the way down), not a day-to-day tool. (...)>>.}\cite{5}
+
+\subsection{Terminaison des algorithmes récursifs -- Variant de boucle}
+\begin{definition}
+\textbf{\bfsf{Rappel : Variant de boucle}}
+ 
+Soit une condition booléenne (appelée condition d'arrêt) permettant de sortir d’une boucle constituée d’une comparaison entre une variable et une constante de types entiers positifs.  La variable est un variant de boucle si :
+\begin{itemize}
+\item elle reste positive tout au long de l'algorithme ;
+\item elle décroît strictement à chaque itération de la boucle.
+\end{itemize}
+Ainsi, après un nombre fini d'itérations, on est sûr que la boucle se terminera.
+
+Dans un algorithme récursif, il est nécessaire d'implémenter un cas terminal qui ne contient pas de nouvel appel à la fonction et qui permet la sortie de l'algorithme.
+\end{definition}
+
+\begin{exemple}
+Dans le cas de l'algorithme \textsl{ P2\_récursive}, $n$ est un variant de boucle car :
+\begin{itemize}
+\item il est strictement positif en entrant dans la boucle;
+\item il décroît à chaque appel récursif. 
+\end{itemize}
+Le cas terminal a lieu lorsque $n=0$. Dans ce cas, on sort de l'algorithme. 
+
+La terminaison de l'algorithme est bien prouvée. 
+
+\end{exemple}
+
+\subsection{Correction des algorithmes récursifs -- Invariant de boucle}
+\begin{definition}
+\bfsf{Rappel -- Invariant de boucle}
+
+Un invariant de boucle est une propriété qui valider les points suivants :
+\begin{enumerate}
+\item la propriété doit être vraie en entrant dans la boucle;
+\item la propriété doit être vraie à chaque itération de la boucle;
+\item la propriété doit permettre de vérifier que que résultat donné est bien le résultat attendu.
+\end{enumerate}
+\end{definition}
+
+
+\begin{exemple}
+Dans le cas de l'algorithme \textsl{P2\_récursive}, la propriété d'invariance peut être la suivante : $u_n = 2^n$ avec $u_0 = 1$. 
+
+La propriété est vrai au rang 0 : si $n=0$, l'algorithme retourne 1. et on a bien $2^0=1$.
+
+On suppose la propriété vraie au rang $n$. Au rang $n+1$, $n>0$; donc d'après l'algorithme, $u_{n+1}=2\cdot u_n =2\cdot 2^n = 2^{n+1}$. La propriété est vraie au rang n+1.
+
+Naturellement, on a donc au rang $n$, $u_n = 2^n$. 
+
+La propriété énoncée est donc un invariant de boucle.
+\end{exemple}
+\subsection{Notions de pile d'exécution}
+En informatique, les fonctions appelées sont gérées par une structure de données appelée \textbf{pile d'exécution} (\textit{call stack}). Ainsi, lors de l'exécution d'un programme, les fonctions sont <<agglutinées>> sous forme de piles tant qu'elles ne fournissent pas de résultat.
+Dès qu'une fonction peut être exécutée, le résultat est stockée et elle sort de la pile. On parle de pile <<dernier arrivé, premier sorti>> (pile \textit{LIFO : Last In First Out}).
+
+\begin{exemple}
+~\\
+
+\begin{minipage}[c]{.57\linewidth}
+Pour le calcul de $2^4$, la pile d'exécution est donnée ci-contre. 
+\begin{rem}
+En python, la pile d'exécution limite à 1000 (988 ?) le nombre d'appels récursifs. En dépassant cette limite, l'exception \textsl{RuntimeError: maximum recursion depth exceeded in comparison
+} est levée.
+\end{rem}
+\end{minipage} \hfill
+\begin{minipage}[c]{.4\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{images/pile}
+\end{center} 
+\end{minipage}
+\end{exemple}
+
+
+\subsection{Calcul des puissances de 2 -- Exponentiation rapide}
+
+Les algorithmes récursifs peuvent aussi être utilisés dans les algorithmes de type <<Diviser pour régner>> (\textit{Divide and conquer}).
+
+\begin{exemple}
+$\;$ \\
+
+\begin{minipage}[c]{.45\linewidth}
+Le calcul des puissances de 2 peut s'effectuer par la méthode <<d'exponentiation rapide>> :
+\begin{itemize}
+\item si $n$ est pair, $2^n = \left(2^2\right)^{\dfrac{n}{2}}$;
+\item si $n$ est impair et $n>1$, $2^n =2\cdot  \left(2^2\right)^{\dfrac{n-1}{2}}$.
+\end{itemize}
+
+En conséquence plutôt que de réaliser le calcul $ 2^7 = 2\cdot 2\cdot 2\cdot 2\cdot 2\cdot 2\cdot 2$, on a $ 2^7 = 2\cdot 2^6 =  2\cdot \left(2^2\right)^3=  2\cdot 2^2 \cdot \left(2^2\right)^2$. 
+\end{minipage}\hfill
+\begin{minipage}[c]{.45\linewidth}
+\begin{tabular}{p{.5cm}p{.5cm}p{5cm}}
+\hline
+\multicolumn{3}{p{6cm}}{ \textbf{Algorithme 4 : P2\_rapide} : 
+
+Calcul rapide de la nième puissance de 2} \\
+\hline
+\multicolumn{3}{p{6cm}}{
+\textbf{Entrée} : 
+\begin{itemize}
+\item n, int  : un nombre entier
+\end{itemize}
+\textbf{Sortie} : 
+\begin{itemize}
+\item un nombre entier.
+\end{itemize}}\\
+\multicolumn{3}{p{6cm}}{\bfsf{P2\_rapide}\tsf{(n)}} \\
+& \multicolumn{2}{l}{\bfsf{Si} \tsf{n$==$0} \bfsf{faire :}}\\
+& & \bfsf{Retourner} 1\\
+& \multicolumn{2}{l}{\bfsf{Fin Si}}\\
+& \multicolumn{2}{l}{\bfsf{Si} \tsf{n\%2==0} \bfsf{faire :}}\\
+&& \tsf{tmp} = \bfsf{P2\_rapide}\tsf{(n/2)}\\
+&& \bfsf{Retourner} tmp*tmp\\
+& \multicolumn{2}{l}{\bfsf{Sinon} \bfsf{faire :}}\\
+&& \bfsf{Retourner} \tsf{2*}\bfsf{P2\_rapide}\tsf{(n-1)}\\
+& \multicolumn{2}{l}{\bfsf{Fin Si Sinon}}\\
+\hline
+\end{tabular}
+\end{minipage}
+\end{exemple}
+
+Suivant la puissance de 2 à calculer il est possible de représenter les étapes sous forme arborescente. On peut ainsi constater que, dans certain cas, des puissances <<élevées>> sont plus rapides à calculer que des puissances <<moins élevées>>.
+
+\section{Exemples d'utilisation de la récursivité}
+\subsection{Diviser pour régner}
+On rappelle l'algorithme itératif permettant de rechercher un nombre dans une liste triée. 
+
+\begin{exemple}
+~\\
+\begin{minipage}[c]{.48\linewidth}
+%\begin{pseudo}
+%~\\
+\begin{center}
+\begin{tabular}{p{.9\textwidth}}
+\hline
+\textbf{Algorithme :} Recherche par dichotomie d'un nombre dans une liste triée\\
+\hline
+\textbf{Données :}
+\begin{itemize}
+\item \tsf{nb}, int : un entier 
+\item \tsf{tab}, liste : une liste d'entiers triés
+\end{itemize}
+\textbf{Résultat :} 
+\begin{itemize}
+\item \tsf{m}, int : l'index du nombre recherché
+\item \tsf{None} : cas où \tsf{nb} n'est pas dans \tsf{tab}
+\end{itemize}
+\\
+\bfsf{is\_number\_in\_list\_dicho}(\tsf{nb},\tsf{tab}) :\\
+\hspace{.4cm}\tsf{g} $\leftarrow$ \tsf{0} \\
+\hspace{.4cm}\tsf{d} $\leftarrow$ \bfsf{longueur}(\bfsf{tab}) \\
+\hspace{.4cm}\bfsf{Tant que} \tsf{g $<$ d} \bfsf{alors} : \\
+\hspace{.8cm} \tsf{m} $\leftarrow$ \textsf{(g+d)} \bfsf{div} \textsf{2}\\
+\hspace{1.2cm}\bfsf{Si} \tsf{tab[m]=nb} \bfsf{alors} :\\
+\hspace{1.6cm}\bfsf{Retourne} \tsf{m}\\
+\hspace{1.2cm}\bfsf{Sinon si} \tsf{tab[m]<nb} \bfsf{alors} :\\
+\hspace{1.6cm}\tsf{g} $\leftarrow$ \tsf{m+1}\\
+\hspace{1.2cm}\bfsf{Sinon, alors} :\\
+\hspace{1.6cm}\tsf{d} $\leftarrow$ \tsf{m-1}\\
+\hspace{.8cm} \bfsf{Fin Si} \\
+\hspace{.4cm}\bfsf{Fin Tant que} \\
+\hspace{.4cm}\bfsf{Retourne} \tsf{None} \\
+\bfsf{Fin fonction} \\
+\hline
+\end{tabular}
+\end{center}
+%\end{pseudo}
+\end{minipage} \hfill
+\begin{minipage}[c]{.48\linewidth}
+%\begin{py}
+\begin{python}
+def is_number_in_list_dicho(nb,tab):
+    """ 
+    Recherche d'un nombre par dichotomie dans un 
+    tableau trié. 
+    Renvoie l'index si le nombre nb est dans la liste 
+    de nombres tab.
+    Renvoie None sinon.
+    Keyword arguments:
+    nb,int -- nombre entier
+    tab,list -- liste de nombres entiers triés
+    """
+    g, d = 0, len(tab)-1
+    while g <= d:
+        m = (g + d) // 2
+        if tab[m] == nb:
+            return m
+        if tab[m] < nb:
+            g = m+1
+        else:
+            d = m-1
+    return None
+\end{python}
+%\end{py}
+\end{minipage}
+\end{exemple}
+
+Ce type d'algorithme peut être traité récursivement. En effet, la recherche du nombre se fait en divisant une liste en deux en regardant si le nombre recherché et dans une des deux parties du tableau. Ainsi à chaque itération, le recherche se réitère dans un des demi tableau.
+
+L'algorithme récursif de la recherche d'un nombre dans une liste triée peut donc s'écrire ainsi :
+
+
+\begin{center}
+\begin{tabular}{p{.9\textwidth}}
+\hline
+\textbf{Algorithme :} Recherche par dichotomie d'un nombre dans une liste triée -- méthode récursive\\
+\hline
+\textbf{Données :}
+\begin{itemize}
+\item \tsf{nb}, int : le nombre entier recherché 
+\item \tsf{tab}, liste : une liste d'entiers triés, tab[0..max]
+\item \tsf{m,n}, int : deux entiers positifs tels que $0\leq n\leq m \leq max$.
+\end{itemize}
+\textbf{Résultat :} 
+\begin{itemize}
+\item \tsf{m}, int : l'index du nombre recherché
+\item \tsf{None} : cas où \tsf{nb} n'est pas dans \tsf{tab}
+\end{itemize}
+\\
+\bfsf{is\_number\_in\_list\_dicho\_recursive}(\tsf{nb},\tsf{tab},\tsf{m},\tsf{n}) :\\
+\hspace{.4cm} \bfsf{Si} \tsf{m==n} \bfsf{alors :}\\
+\hspace{.8cm} \bfsf{Si} \tsf{tab[m]==x} \bfsf{alors :}\\
+\hspace{1.2cm} \bfsf{Retourner} \tsf{m}\\
+\hspace{.8cm} \bfsf{Sinon :}\\
+\hspace{1.2cm} \bfsf{Retourner} \tsf{None}\\
+\hspace{.8cm} \bfsf{Fin Si}\\
+\hspace{.4cm} \bfsf{Sinon}\\
+\hspace{.8cm} \tsf{k} $\leftarrow$ \tsf{m+n} \bfsf{div} 2\\
+\hspace{.8cm} \bfsf{Si} \tsf{tab[k]<x} \bfsf{alors :}\\
+\hspace{1.2cm} \bfsf{is\_number\_in\_list\_dicho\_recursive}(\tsf{nb},\tsf{tab},\tsf{k+1},\tsf{n}) \\ 
+\hspace{.8cm} \bfsf{Sinon :}\\
+\hspace{1.2cm} \bfsf{is\_number\_in\_list\_dicho\_recursive}(\tsf{nb},\tsf{tab},\tsf{m},\tsf{k}) \\ 
+\hspace{.8cm} \bfsf{Fin Si}\\
+\hspace{.4cm} \bfsf{Fin Si}\\
+\hline
+\end{tabular}
+\end{center}
+
+%\subsection{Courbes fractales -- Courbe de Peano}
+
+
+\begin{thebibliography}{2}
+\bibitem{1}{Patrick Beynet, \textit{Supports de cours de TSI 2}, Lycée Rouvière, Toulon.}
+\bibitem{2}{<< Mandel zool 08 satellite antenna >>. Sous licence CC BY-SA via Wikimedia Commons - \url{https://fr.wikipedia.org/wiki/Ensemble_de_Mandelbrot#/media/File:Mandel_zoom_08_satellite_antenna.jpg}}
+\bibitem{4}{\url {http://lestorytelling.com/blog/wp-content/uploads/2013/08/707px-matriochka.jpg}}
+\bibitem{4}{\url{http://www.obside.fr/fractales/pages/Recursif/}}
+\bibitem{5}{Guido van Rossum, \url{http://neopythonic.blogspot.fr/2009/04/tail-recursion-elimination.html}.}
+\bibitem{6}{Jean-Pierre Becirspahic, Cours d'informatique du Lycée Louis le Grand, \url{http://info-llg.fr/}.}
+\end{thebibliography}
+\end{document}
+
+
