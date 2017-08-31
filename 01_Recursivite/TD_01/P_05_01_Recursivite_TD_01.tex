@@ -78,6 +78,8 @@ Ch 1 : Programmation récursive -- \xxactivite%
 \fi
 %---------------------------------------------------------------------------
 
+\newcommand{\llbr}{\ensuremath{\llbracket}}
+\newcommand{\rrbr}{\ensuremath{\rrbracket}}
 
 \section*{Exercice 1}
 \setcounter{subparagraph}{0}
@@ -172,14 +174,18 @@ def power(a, n):
 
 
 \subparagraph{}
-\textit{Déterminer le nombre de multiplications effectuées dans chacun des deux cas.}
+\textit{Déterminer le nombre de multiplications effectuées dans le cas où $n$ est une puissance de 2, et majorer 
+simplement ce nombre dans le cas général.}
 \ifprof
 \begin{corrige}
 On note $C(n)$ le nombre multiplications.
 
-Dans le premier cas, on conjecture que $\forall n>2, C(n)=n-1$ et on raisonne par récurrence
+Dans le premier cas, on note $n=2^k$ et on conjecture que $\forall n>2, C(n)=k-1=\ln_2 (n)-1$ et on raisonne par 
+récurrence.
 
-Dans le second cas, on conjecture que $\forall n>2, C(n)\leq 2n$ et on raisonne par récurrence.
+Dans le second cas, on conjecture que $\forall n>2, C(n)\leq 2\ln_2 n$ et on raisonne par récurrence. En effet, le 
+variant est $\ln_2 n$, qui diminue d'au moins 1 à chaque appel récursif. Il y a donc au plus $\ln_2 n$ appels 
+récursifs. Or, il y a au plus 2 multiplications par appel.
 \end{corrige}
 \else
 \fi
@@ -200,15 +206,24 @@ def f(n) :
 \subparagraph*{} \textit{Prouver sa terminaison lorsque $n\in\mathbb{N}$ et déterminer ce qu'elle calcule (sans utiliser l'interpréteur de commande).}
 \ifprof
 \begin{corrige}
-Montrons que $n$ est un variant de boucle.
 
-Si $n\geq 101$, l'algorithme se termine. 
+Distinguons plusieurs cas.
 
-Si $n\in\left[90, 100\right]$, l'algorithme appelle $f(n+11)$.  $n+11$ sera supérieur à 101. 
- et  $f(n+11)$ retournera donc un nombre $a$ compris entre $\left[91, 101\right]$. 
-
-
+\begin{itemize}
+\item Si $n\geq 101$, l'algorithme se termine et renvoie $n-10$. 
+\item Si $n\in\llbr90, 100\rrbr$, montrons par récurrence descendante que le calcul de $f(n)$ termine et renvoie 
+91.\\
+C'est immédiat pour $n=100$ : $f(100)=f(f(111))=f(101)=91$.\\
+Soit $n\in\llbr91,100\rrbr$ tel que $f(n)=91$. Alors $f(n-1)=f(f(n+10))=f(n)$ car $n+10>100$ donc $f(n+10)=n$. La 
+propriété est 
+donc héréditaire.\\
+On raisonne ensuite par récurrence descendante de 10 en 10 : si $n\in\llbr80,89\rrbr$, alors $n+11\in\llbr90,100\rrbr$, 
+donc $f(n)=f(f(n+11))=f(91)=91$ d'après le cas précédent. Et ainsi de suite pour les intervalles 
+$\llbr70,79\rrbr\cdots\llbr0,9\rrbr$.
+\end{itemize}
 \end{corrige}
+
+
 \else
 \fi
 %\section*{Exercice 2}
