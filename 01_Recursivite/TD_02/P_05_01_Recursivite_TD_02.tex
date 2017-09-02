@@ -1,4 +1,8 @@
+
 \subsection*{Exercice 1 -- Fonction mystère}
+
+\ifprof
+\else
 \textit{D'après ressources de C. Lambert.}
 On donne la fonction suivante : 
 \begin{py}
@@ -26,7 +30,7 @@ def mystere(L):
             return (L[-1])
 \end{python}
 \end{py}
-
+\fi
 \subparagraph{}
 \textit{Sans coder la fonction, déterminer le résultat de l'instruction \textbf{print(mystere([14, 20, 3, 16]))} ? Vous pourrez représenter de façon graphique l'empilement et le dépilement de la pile d'exécution.}
 
@@ -40,6 +44,8 @@ def mystere(L):
 \subparagraph{}
 \textit{Question subsidiaire. -- Montrer que la propriété suivante est une propriété d'invariance :\\
 $\mathcal{P}(k)$ : l'algorithme retourne le plus petit élément de toute liste de taille $k$.}
+\ifprof
+\else
 
 \begin{rem}
 \begin{itemize}
@@ -47,6 +53,8 @@ $\mathcal{P}(k)$ : l'algorithme retourne le plus petit élément de toute liste 
 \item Il faudra montrer $\mathcal{P}$ par récurrence. 
 \end{itemize}
 \end{rem}
+\fi
+
 \ifprof
 \begin{corrige}
 Soit $L$ une liste de taille $n$. Alors $n$ est un variant de boucle car : 
@@ -80,11 +88,14 @@ argument.
 \fi
 
 \subsection*{Exercice 2 -- Palindrome...}
-\textit{D'après ressources de C. Lambert.}
 \setcounter{subparagraph}{0}
+\ifprof
+\else
+\textit{D'après ressources de C. Lambert.}
+
 On souhaite réaliser une fonction \texttt{miroir} dont le but est de retourner le <<miroir>> d'une chaîne de caractères. 
 Par exemple le résultat de \texttt{miroir("miroir")} serait \textsl{''riorim''}.
-
+\fi
 \subparagraph{}
 \textit{Programmer la fonction \texttt{miroir\_it} permettant de répondre au problème de manière itérative.}
 
@@ -101,9 +112,11 @@ Par exemple le résultat de \texttt{miroir("miroir")} serait \textsl{''riorim''}
 
  
 \subsection*{Exercice 3 -- Suite de Fibonacci}
-\textit{D'après ressources de C. Lambert.}
-
 \setcounter{subparagraph}{0}
+
+\ifprof
+\else
+\textit{D'après ressources de C. Lambert.}
 On définit la suite de Fibonacci de la façon suivante : 
 $$
 \forall n\in \mathbb{N}, \left\{ \begin{array}{l}
@@ -111,7 +124,7 @@ u_0 = 0, u_1 = 1 \\
 u_{n+2} = u_{n} + u_{n+1}
 \end{array}\right.
 $$
-
+\fi
 \subparagraph{}
 \textit{Définir la fonction \texttt{fibonacci\_it} permettant de calculer $u_n$ par une méthode itérative. Évaluer la 
 complexité algorithmique de l'algorithme.}
@@ -127,8 +140,11 @@ récursive pour calculer le n\ieme terme de la suite de Fibonacci. Évaluer la c
 
 
 \section*{Exercice 4 -- Les tours de Hanoï}
+
 \setcounter{subparagraph}{0}
 
+\ifprof
+\else
 On considère le problème suivant, connu sous le nom des \emph{tours de Hanoï}.
 
 \begin{center}
@@ -150,7 +166,7 @@ en bas ;
 
 \textit{Ce problème est très compliqué à résoudre de manière directe.\\
 Il est par contre très simple à résoudre de manière récursive.}
-
+\fi
 \subparagraph{} 
 \textit{Résoudre le problème pour $n=1$.}
 
@@ -204,7 +220,7 @@ def deplace (x, y) :
 aucun cas le programme en lui-même ne fait apparaître les opérations effectuées.}
 
 \ifprof
-\begin{corrige}
+\begin{corrige} ~\\
 
 \begin{py}
 \begin{python}
@@ -223,9 +239,11 @@ def hanoi (A, B, C, n) :
 \fi
 
 \section*{Exercice 5 -- Faisons des Bulles}
-\textit{ D'après les ressources de Mmes SEMBELY et VERDIER}
 \setcounter{subparagraph}{0}
 
+\ifprof
+\else
+\textit{ D'après les ressources de Mmes SEMBELY et VERDIER}
 Les fractales sont des objets mathématiques fondés sur des figures géométriques se répétant à l'infini via un processus 
 itératif.
 \begin{center}
@@ -239,6 +257,9 @@ nuages, galaxies ...
 \\
 Etant donné leur structure, il est très intéressant d'utiliser la récursivité pour visualiser des ensembles fractals.
 \\
+
+\fi
+
 \subparagraph{}
 \textit{Ecrire une fonction \texttt{cercle} d'arguments \texttt{x}, \texttt{y} et \texttt{r} qui trace le cercle de 
 centre le point $A(x, y)$ et de rayon $r$ (supposé strictement positif).}

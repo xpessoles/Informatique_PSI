@@ -4,6 +4,9 @@
 
 \proftrue
 
+\fichetrue
+\tdfalse
+
 \def\xxnumpartie{Partie 5}
 \def\xxpartie{Algorithmique \& Programmation II}
 
@@ -35,7 +38,12 @@ Ch 1 : Programmation récursive -- \xxactivite%
 %---------------------------------------------------------------------------
 \begin{document}
 \input{../../style/new_pagegarde}
+\ifprof
+\vspace{1.5cm}
+\else
 \vspace{8cm}
+\fi
+
 \pagestyle{fancy}
 \thispagestyle{plain}
 
