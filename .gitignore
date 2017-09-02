@@ -5,6 +5,7 @@
 *.bcf
 *.idx
 *.synctex.gz
+*.ptc
 
 
 # Windows image file caches
