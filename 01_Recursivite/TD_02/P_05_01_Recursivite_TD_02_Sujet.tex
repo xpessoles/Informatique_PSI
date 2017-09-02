@@ -1,0 +1,65 @@
+\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
+
+\input{../../style/entete_TD}
+
+\proffalse
+
+\def\xxnumpartie{Partie 5}
+\def\xxpartie{Algorithmique \& Programmation II}
+
+\def\xxnumchapitre{Chapitre 1}
+\def\xxchapitre{\hspace{.12cm} Programmation récursive}
+
+\def\xxonglet{Part. 5 -- Ch. 1}
+
+\def\xxactivite{TD 2}
+
+\def\xxcompetences{%
+\textsl{%
+\textbf{Savoirs et compétences :}
+\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item Alg -- C15 : Récursivité : avantages et inconvénients.
+\end{itemize}
+}}
+
+\def\xxfigures{
+}%figures de la page de garde
+
+\def\xxpied{%
+Partie 5 -- Algorithmique et Programmation II\\
+Ch 1 : Programmation récursive -- \xxactivite%
+}
+
+%---------------------------------------------------------------------------
+\begin{document}
+\input{../../style/new_pagegarde}
+\vspace{8cm}
+\pagestyle{fancy}
+\thispagestyle{plain}
+
+
+\def\columnseprulecolor{\color{ocre}}
+\setlength{\columnseprule}{0.4pt} 
+\ifprof
+\else
+\begin{multicols}{2}
+\fi
+%---------------------------------------------------------------------------
+
+\input{P_05_01_Recursivite_TD_02.tex}
+
+\ifprof
+\else
+\end{multicols}
+\fi
+%\begin{thebibliography}{2}
+%\bibitem{1}{Patrick Beynet, \textit{Supports de cours de TSI 2}, Lycée Rouvière, Toulon.}
+%\bibitem{2}{<< Mandel zool 08 satellite antenna >>. Sous licence CC BY-SA via Wikimedia Commons - 
+%\url{https://fr.wikipedia.org/wiki/Ensemble_de_Mandelbrot#/media/File:Mandel_zoom_08_satellite_antenna.jpg}}
+%\bibitem{3}{\url{http://www.obside.fr/fractales/pages/Recursif/}}
+%\end{thebibliography}
+\end{document}
+
+
+
+

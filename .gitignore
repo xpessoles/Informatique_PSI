@@ -4,6 +4,7 @@
 *.xml
 *.bcf
 *.idx
+*.synctex.gz
 
 
 # Windows image file caches
