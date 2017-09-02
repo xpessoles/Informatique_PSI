@@ -125,7 +125,103 @@ intuitive>>. Évaluer la complexité algorithmique de l'algorithme.}
 \textit{Observer comment passer du couple $(u_n,u_{n+1})$ au couple $(u_{n+1},u_{n+2})$. En déduire une autre méthode 
 récursive pour calculer le n\ieme terme de la suite de Fibonacci. Évaluer la complexité algorithmique de l'algorithme.}
 
-\section*{Exercice 4 -- Faisons des Bulles}
+
+\section*{Exercice 4 -- Les tours de Hanoï}
+\setcounter{subparagraph}{0}
+
+\textit{On considère le problème suivant, connu sous le nom des \emph{tours de Hanoï}.}
+
+\begin{center}
+\includegraphics[scale=0.3]{images/hanoi.png}
+\end{center}
+
+\textit{On dispose de $n$ disques de diamètres tous différents, qui sont empilés sur un piquet $A$, par ordre croissant 
+de 
+diamètre, en les regardant de haut en bas. On dispose de deux autres piquets vides $B$ et $C$, et le but est de 
+déplacer tous les disques sur le piquet $C$, en respectant quelques règles :
+\begin{itemize}
+\item on a le droit d'utiliser tous les piquets ;
+\item à la fin, les disques doivent toujours être rangés par ordre croissant de diamètre, en les regardant de 
+haut 
+en bas ;
+\item on ne peut déplacer les disques que un par un ;
+\item on ne peut empiler un disque que sur un disque de diamètre inférieur.
+\end{itemize}}
+\textit{Ce problème est très compliqué à résoudre de manière directe.\\
+Il est par contre très simple à résoudre de manière récursive.}
+
+\subparagraph{} 
+\textit{Résoudre le problème pour $n=1$.}
+
+\ifprof
+\begin{corrige}
+Trivial : on déplace le disque du piquet $A$ et on le place sur le piquet $C$.
+\end{corrige}
+\else
+\fi
+
+\subparagraph{} 
+\textit{On suppose que l'on sait résoudre le problème pour $n-1$ disques. Donner alors une résolution du 
+problème pour $n$ disques.}
+
+\ifprof
+\begin{corrige}
+Si l'on sait transférer $n-1$ disques, il suffit de
+transférer $n-1$ disques vers le piquet B, puis le $n$-ème disque vers le piquet C et enfin de transférer les $n-1$ 
+disques du piquet B vers le piquet C.
+\end{corrige}
+\else
+\fi
+
+\subparagraph{} 
+\textit{
+Écrivez maintenant un programme \textbf{\underline{récursif}} résolvant ce problème. Il s'agit d'écrire 
+un programme \texttt{hanoi} ayant quatre arguments $A$, $B$, $C$ et $n$ : 
+\begin{itemize}
+\item le premier, $A$, est le piquet sur lequel se trouvent les disques au départ ;
+\item le second, $B$, est le piquet ``de transition'' ;
+\item le troisième, $C$, est le piquet sur lequel on veut récupérer les disques à la fin ;
+\item et enfin le quatrième et dernier argument, $n$, est le nombre de disques.
+\end{itemize}}
+
+\textit{On lui demande également d'afficher tous les déplacements effectués sous forme de chaînes  : la chaîne 
+\texttt{``a->b''} signifie par exemple que le disque du dessus du piquet $A$ est déplacé sur le piquet $B$. On 
+utilisera le programme 
+d'impression des déplacements suivant :\\}
+
+\begin{py}
+\begin{python}
+def deplace (x, y) :
+    print (x + ''->'' + y + ''\n'')
+\end{python}
+\end{py}
+
+\textit{Attention : $A$, $B$, $C$, $x$ et $y$ sont ici de type \texttt{string}.\\}
+
+\textit{Écrire le programme \texttt{hanoi}. Attention : il s'agit d'un programme récursif, qui va donc être très court 
+! En 
+aucun cas le programme en lui-même ne fait apparaître les opérations effectuées.}
+
+\ifprof
+\begin{corrige}
+
+\begin{py}
+\begin{python}
+def hanoi (A, B, C, n) :
+    if n == 1 :
+	deplace (A,C)
+    else :
+	hanoi (A,C,B,n-1)
+	hanoi (A,B,C,1)
+	hanoi (B,A,C,n-1)
+\end{python}
+\end{py}
+
+\end{corrige}
+\else
+\fi
+
+\section*{Exercice 5 -- Faisons des Bulles}
 \textit{ D'après les ressources de Mmes SEMBELY et VERDIER}
 \setcounter{subparagraph}{0}
 
@@ -150,7 +246,7 @@ centre le point $A(x, y)$ et de rayon $r$ (supposé strictement positif).}
 \textit{Ecrire une fonction récursive \texttt{bubble} d'arguments \texttt{x}, \texttt{y}, \texttt{r} et \texttt{n}. Elle 
 effectuera la construction pour un nombre \texttt{n} d'étapes en ayant pour figure de base le cercle de centre $A(x, y)$ 
 et de rayon \texttt{r} (supposé strictement positif).}
-\textit{A chaque étape, le rayon du cercle est divisé par 2.}
+\textit{À chaque étape, le rayon du cercle est divisé par 2.}
 \begin{center}
 \includegraphics[width=.65\linewidth]{images/fig_03}
 % Le résultat des fonctions bubble1(4) et de bubble2(4).
@@ -220,15 +316,6 @@ def cerclesRec_2(x,y,r,n,position):
 \fi
 
 
-\section*{Exercice 4 -- Les tours de Hanoï}
-\setcounter{subparagraph}{0}
-
-
-\ifprof
-\begin{corrige}
-\end{corrige}
-\else
-\fi
 
 
 
