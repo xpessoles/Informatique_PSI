@@ -1,3 +1,11 @@
+*.aux
+*.backup
+*.log
+*.xml
+*.bcf
+*.idx
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
