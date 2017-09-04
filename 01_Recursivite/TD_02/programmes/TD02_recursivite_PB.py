@@ -19,6 +19,8 @@ def mystere(L):
 ### exercice 2 : miroir
 
 def miroir_it(mot):
+    """ fonction itérative retournant 
+    le miroir d'une chaîne de caractères """
     tom=''
     for lettre in mot:
         tom=lettre+tom
@@ -30,6 +32,8 @@ def miroir_it(mot):
 # 'ehcav al av ac!he' 
 
 def miroir_rec(mot):
+    """ fonction récursive retournant 
+    le miroir d'une chaîne de caractères """
     n=len(mot)
     if len(mot)==0:
         None

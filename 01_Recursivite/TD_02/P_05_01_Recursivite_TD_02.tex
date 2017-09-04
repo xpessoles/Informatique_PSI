@@ -30,9 +30,9 @@ def mystere(L):
             return (L[-1])
 \end{python}
 \end{py}
-\fi
 \subparagraph{}
-\textit{Sans coder la fonction, déterminer le résultat de l'instruction \textbf{print(mystere([14, 20, 3, 16]))} ? Vous pourrez représenter de façon graphique l'empilement et le dépilement de la pile d'exécution.}
+\textit{Sans coder la fonction, déterminer le résultat de l'instruction \textbf{print(mystere([14, 20, 3, 16]))} ? Vous 
+pourrez représenter de façon graphique l'empilement et le dépilement de la pile d'exécution.}
 
 \subparagraph{}
 \textit{D'après vous quel est le but de cette fonction ?}
@@ -40,12 +40,9 @@ def mystere(L):
 \subparagraph{}
 \textit{Programmer la fonction et tester l'instruction précédente. Sur plusieurs exemples, vérifiez la conjecture faite à la question précédente.}
 
-
 \subparagraph{}
 \textit{Question subsidiaire. -- Montrer que la propriété suivante est une propriété d'invariance :\\
 $\mathcal{P}(k)$ : l'algorithme retourne le plus petit élément de toute liste de taille $k$.}
-\ifprof
-\else
 
 \begin{rem}
 \begin{itemize}
@@ -57,6 +54,19 @@ $\mathcal{P}(k)$ : l'algorithme retourne le plus petit élément de toute liste 
 
 \ifprof
 \begin{corrige}
+
+\question\ 
+Lorsque l'on appelle \texttt{mystere([14,20,3,16])}, les appels récursifs successifs sont : 
+\texttt{mystere([14,20,3])}, \texttt{mystere([14,20])}, et enfin \texttt{mystere([14])}. La condition d'arrêt assure 
+alors que \texttt{mystere([14])} vaut 14. Ceci permet alors de calculer \texttt{mystere([14,20])} : puisque $14<20$, 
+\texttt{mystere([14,20])} vaut 14. Puis, \texttt{mystere([14,20,3])} vaut 3, et enfin 
+\texttt{mystere([14,20,3,16])} vaut 3.
+
+\question\ 
+On peut alors conjecturer que \texttt{mystere} calcule le minimum d'une liste.
+\setcounter{subparagraph}{3}
+
+\question\ 
 Soit $L$ une liste de taille $n$. Alors $n$ est un variant de boucle car : 
 \begin{itemize}
 \item si $n=1$ ou $n=0$, l'algorithme se termine ;
@@ -71,11 +81,6 @@ Soit la propriété suivante : soit $L$ une liste de taille $k$. L'appel à la f
 
 Pour une liste de longueur 0 ou 1, le résultat est immédiat.
 
-%Soit une liste de 2 éléments. $x$ reçoit le premier élément de la liste. $x$ est comparé au second élément. Si $x$ est 
-%inférieur au second élément, c'est donc le plus petit élément. $x$ est bien retourné. Sinon c'est bien le second 
-%élément qui est retourné. 
-
-
 Soit une liste de taille $k+1$.  Alors $x$ reçoit le résultat de \texttt{mystere(L[0:k])}. D'après la propriété, $x$ 
 contient donc le plus petit élément de la liste \texttt{L[0:k]}. Ensuite $x$ est comparé à l'élément \texttt{L[k]}. Si 
 $x$ est inférieur à cet élément, c'est donc le plus petit élément, et $x$ est bien retourné. Sinon c'est que l'élément 
@@ -83,6 +88,9 @@ $x$ est inférieur à cet élément, c'est donc le plus petit élément, et $x$ 
 
 La propriété énoncée est donc bien héréditaire, et l'algorithme renvoie bien toujours le minimum de la liste entrée en 
 argument.
+
+\setcounter{question}{0}
+
 \end{corrige}
 \else
 \fi
@@ -95,21 +103,76 @@ argument.
 
 On souhaite réaliser une fonction \texttt{miroir} dont le but est de retourner le <<miroir>> d'une chaîne de caractères. 
 Par exemple le résultat de \texttt{miroir("miroir")} serait \textsl{''riorim''}.
-\fi
+
 \subparagraph{}
 \textit{Programmer la fonction \texttt{miroir\_it} permettant de répondre au problème de manière itérative.}
 
-
 \subparagraph{}
 \textit{Programmer la fonction \texttt{miroir\_rec} permettant de répondre au problème de manière récursive.}
-
 
 \subparagraph{}
 \textit{Que renvoie la fonction si la chaîne de caractère est "Eh ! ça va la vache" ?}
  
  \subparagraph{}
 \textit{Évaluer la complexité algorithmique de chacune des deux fonctions.}
+\fi
 
+
+\ifprof
+\begin{corrige}
+\question\ 
+\begin{python}
+def miroir_it(mot):
+    """ fonction itérative retournant 
+    le miroir d'une chaîne de caractères """
+    tom=''
+    for lettre in mot:
+        tom=lettre+tom
+    return (tom)
+\end{python}
+
+\question\ 
+\begin{python}
+def miroir_rec(mot):
+    """ fonction récursive retournant 
+    le miroir d'une chaîne de caractères """
+    n=len(mot)
+    if len(mot)==0:
+        None
+    elif len(mot)==1:
+        x=mot
+    else:
+        x=miroir_rec(mot[0:n-1])
+        x=mot[-1]+x
+    return (x)
+\end{python}
+
+\setcounter{question}{3}
+\question
+Soit \texttt{mot} une chaîne de caractères de longueur $n$.\\
+Dans la version itérative, il y a exactement $n$ tours de boucle. Il est facile de montrer par récurrence 
+l'invariant suivant : au début du $k$-ème tour de boucle, \texttt{tom} est de longueur $k-1$. Or l'opération 
+\texttt{tom = lettre + tom} consiste à créer une chaîne de $k$ caractères dans laquelle sont recopiées \texttt{lettre} 
+et \texttt{tom}. La complexité de cette opération est donc un $O(k)$. Par sommation, on voit donc que 
+\texttt{miroir\_it} a une complexité en $O(n^2)$.\\
+On remarque que si l'on avait pu parcourir \texttt{mot} de droite à gauche et non de gauche à droite, on aurait pu 
+rajouter à \texttt{tom} les lettres par la droite, et utiliser la syntaxe \texttt{tom += lettre}. Mais comme les 
+chaînes ne sont pas de type \textit{mutable}, cette opération a la même complexité que \texttt{tom = tom + lettre} (ce 
+qui n'aurait pas été le cas avec des listes).\\
+Dans la version récursive, on montre par récurrence que la complexité est également un $O(n^2)$. Posons l'hypothèse de 
+récurrence : $(\mathcal P _k)$ : si \texttt{mot} est de longueur $k$, \texttt{miroir\_rec (mot)} nécessite $O(k^2)$ 
+opérations.\\
+Pour $k=0$ ou $1$, ceci est immédiat grâce aux conditions d'arrêt.\\
+Si $(\mathcal P _k)$ est vraie. Il existe donc $K\in\mathbb R$ (que l'on peut supposer supérieur à 1) tel que si 
+\texttt{mot} est de longueur $k+1$, alors \texttt{miroir\_rec (mot[0,n-1])} nécessite moins de $K.k^2$ opérations. Or le 
+calcul de \texttt{miroir\_rec(mot[0,n-1])} nécessite $k+1$ opérations de plus, ce qui fait au total moins de 
+$K.(k+1)^2$ opérations. L'hypothèse de récurrence est donc héréditaire.
+
+\setcounter{question}{0}
+\end{corrige}
+
+\else
+\fi
  
 \subsection*{Exercice 3 -- Suite de Fibonacci}
 \setcounter{subparagraph}{0}
@@ -139,7 +202,7 @@ intuitive>>. Évaluer la complexité algorithmique de l'algorithme.}
 récursive pour calculer le n\ieme terme de la suite de Fibonacci. Évaluer la complexité algorithmique de l'algorithme.}
 
 
-\section*{Exercice 4 -- Les tours de Hanoï}
+\subsection*{Exercice 4 -- Les tours de Hanoï}
 
 \setcounter{subparagraph}{0}
 
@@ -170,25 +233,11 @@ Il est par contre très simple à résoudre de manière récursive.}
 \subparagraph{} 
 \textit{Résoudre le problème pour $n=1$.}
 
-\ifprof
-\begin{corrige}
-Trivial : on déplace le disque du piquet $A$ et on le place sur le piquet $C$.
-\end{corrige}
-\else
-\fi
 
 \subparagraph{} 
 \textit{On suppose que l'on sait résoudre le problème pour $n-1$ disques. Donner alors une résolution du 
 problème pour $n$ disques.}
 
-\ifprof
-\begin{corrige}
-Si l'on sait transférer $n-1$ disques, il suffit de
-transférer $n-1$ disques vers le piquet B, puis le $n$-ème disque vers le piquet C et enfin de transférer les $n-1$ 
-disques du piquet B vers le piquet C.
-\end{corrige}
-\else
-\fi
 
 \subparagraph{} 
 \textit{
@@ -206,12 +255,10 @@ un programme \texttt{hanoi} ayant quatre arguments $A$, $B$, $C$ et $n$ :
 utilisera le programme 
 d'impression des déplacements suivant :\\}
 
-\begin{py}
 \begin{python}
 def deplace (x, y) :
     print (x + ''->'' + y + ''\n'')
 \end{python}
-\end{py}
 
 \textit{Attention : $A$, $B$, $C$, $x$ et $y$ sont ici de type \texttt{string}.\\}
 
@@ -220,9 +267,17 @@ def deplace (x, y) :
 aucun cas le programme en lui-même ne fait apparaître les opérations effectuées.}
 
 \ifprof
-\begin{corrige} ~\\
+\begin{corrige}
 
-\begin{py}
+\question\
+Trivial : on déplace le disque du piquet $A$ et on le place sur le piquet $C$.
+
+\question\
+Si l'on sait transférer $n-1$ disques, il suffit de
+transférer $n-1$ disques vers le piquet B, puis le $n$-ème disque vers le piquet C et enfin de transférer les $n-1$ 
+disques du piquet B vers le piquet C.
+
+\question\
 \begin{python}
 def hanoi (A, B, C, n) :
     if n == 1 :
@@ -232,11 +287,12 @@ def hanoi (A, B, C, n) :
 	hanoi (A,B,C,1)
 	hanoi (B,A,C,n-1)
 \end{python}
-\end{py}
 
+\setcounter{question}{0}
 \end{corrige}
 \else
 \fi
+
 
 \section*{Exercice 5 -- Faisons des Bulles}
 \setcounter{subparagraph}{0}
