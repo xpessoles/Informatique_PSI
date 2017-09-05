@@ -1,5 +1,112 @@
 \section*{Exercice 1}
 \setcounter{subparagraph}{0}
+
+Soit l'algorithme suivant : 
+
+\begin{py}
+\begin{python}
+def mult(n, p):
+    if p == 0:
+        return 0
+    else :
+        return n+mult(n,p-1)
+\end{python}
+\end{py}
+
+\subparagraph{}
+\textit{Énoncer un variant de boucle et montrer la terminaison de l'algorithme.}
+
+\subparagraph{}
+\textit{Énoncer un invariant de boucle et montrer la correction de l'algorithme.}
+\ifprof
+\begin{corrige}
+\begin{itemize}
+\item Soit $\mathcal{P}$ la propriété d'invariance: à l'itération $p$, on a $mult(n,p)=n\cdot p$. 
+\item À l'instant 0, on a : d'une part : $\forall n$, $n\cdot 0 = 0$. D'autre part, \texttt{mult(n,0)} renvoie 0. La propriété de récurrence est vraie. 
+\item À l'instant $p$, on considère la propriété de récurrence est vraie à l'instant $p$ : $mult(n,p)=n\cdot p$.
+\item À l'instant $p+1$, on applique l'algorithme : $p$ étant différent de 0, l'algorithme retourne $mult(n,p+1)=n+mult(n,p)$. D'après la propriété de récurrence, on a donc $mult(n,p+1)=n+ n\cdot p =n(p+1) $. La propriété est donc vraie au rang $p+1$.
+\item L'algorithme calcule donc le produit $np$.
+\end{itemize}
+\end{corrige}
+\else
+\fi
+
+\subparagraph{}
+\textit{Donner et justifier la complexité temporelle de la fonction \texttt{mult}.}
+\ifprof
+\begin{corrige}
+On note $C(p)$ le nombre d'appels récursifs : $C(p) = 1+C(p-1) = 1+1+C(p-2)=p+T(0)$. On a donc $C(p)=\mathcal{O}(p)$. La complexité temporelle est linéaire.
+\end{corrige}
+\else
+\fi
+
+\subparagraph{}
+\textit{Donner et justifier la complexité spatiale de la fonction \texttt{mult}.}
+\ifprof
+\begin{corrige}
+On stocke une valeur à chaque appel récursif. Si ce stockage est à coût constant, étant donné qu'il y a $n$ appels récursifs, la complexité spatiale est en $\mathcal{O}(n)$.
+\end{corrige}
+\else
+\fi
+
+\section*{Exercice 2}
+\setcounter{subparagraph}{0}
+
+Soit l'algorithme suivant : 
+
+\begin{py}
+\begin{python}
+def puiss(x, n):
+    if n == 0:
+        return 1
+    else :
+        return x*puiss(x,n-1)
+\end{python}
+\end{py}
+
+\subparagraph{}
+\textit{Énoncer un variant de boucle et montrer la terminaison de l'algorithme.}
+
+\subparagraph{}
+\textit{Énoncer un invariant de boucle et montrer la correction de l'algorithme.}
+\ifprof
+\begin{corrige}
+\begin{itemize}
+\item Soit $\mathcal{P}$ la propriété d'invariance: à l'itération $p$, on a $puiss(x,n)=x^n$. 
+\item À l'instant 0, on a : d'une part : $\forall x>0$, $x^0 = 1$. D'autre part, \texttt{puiss(x,0)} renvoie 1. La 
+propriété de récurrence est vraie. 
+\item À l'instant $n$, on considère la propriété de récurrence est vraie et à l'instant $p$ : $puiss(x,n)=x^n$.
+\item À l'instant $n+1$, on applique l'algorithme : $n$ étant différent de 0, l'algorithme retourne 
+$puiss(x,n+1)=x*mult(x,n)$. D'après la propriété de récurrence, on a donc $puiss(x,n+1)=x*x^n=x^{n+1} $. La propriété 
+est donc vraie au rang $n+1$.
+\item L'algorithme calcule donc le produit $x^n$.
+\end{itemize}   
+\end{corrige}
+\else
+\fi
+\subparagraph{}
+\textit{Donner et justifier la complexité temporelle de la fonction \texttt{puiss}.}
+\ifprof
+\begin{corrige}
+On note $C(p)$ le nombre d'appels récursifs : $C(p) = 1+C(p-1) = 1+1+C(p-2)=p+T(0)$. On a donc $C(p)=\mathcal{O}(p)$. La 
+complexité temporelle est linéaire.
+\end{corrige}
+\else
+\fi
+
+\subparagraph{}
+\textit{Donner et justifier la complexité spatiale de la fonction \texttt{puiss}.}
+\ifprof
+\begin{corrige}
+On stocke une valeur à chaque appel récursif. Si ce stockage est à coût constant, étant donné qu'il y a $n$ appels 
+récursifs, la complexité spatiale est en $\mathcal{O}(n)$.
+\end{corrige}
+\else
+\fi
+
+
+\section*{Exercice 3}
+\setcounter{subparagraph}{0}
 On démontre que sur l'ensemble $\mathbb{N}\times \mathbb{N}$ est dénombrable en numérotant chaque couple $(x,y)\in\mathbb{N}^2$ suivant le procédé suggéré par la figure ci-dessous.
 \ifprof
 \begin{center}
@@ -44,105 +151,8 @@ def reciproque(n):
 
 
 
-\section*{Exercice 2}
-\setcounter{subparagraph}{0}
-\subparagraph{}
-\textit{Écrire une fonction récursive qui calcule $a^n$ en exploitant la relation : $a^n=a^{n/2}\times a^{n/2}$.}
-\ifprof
-\begin{corrige}
-\begin{python}
-def power(a, n):
-    if n == 0:
-        return 1
-    elif n == 1:
-        return a
-    return power(a, n//2) * power(a, n-n//2)
-\end{python}
-\end{corrige}
-\else
-\fi
-
-\subparagraph{}
-\textit{Écrire une fonction qui utilise de plus la remarque suivante :}
-$n/2 = \left\{ 
-\begin{array}{ll} 
-n/2 & \text{si }n \text{ est pair} \\
-n/2+1 & \text{sinon}\\
-\end{array}
-\right.
-$.
-\ifprof
-\begin{corrige}
-\begin{python}
-def power(a, n):
-    if n == 0:
-        return 1
-    elif n == 1:
-        return a
-    x = power(a, n//2)
-    if n % 2 == 0:
-        return x * x
-    else:
-        return x * x * a
-\end{python}
-\end{corrige}
-\else
-\fi
 
 
-\subparagraph{}
-\textit{Déterminer le nombre de multiplications effectuées dans le cas où $n$ est une puissance de 2, et majorer 
-simplement ce nombre dans le cas général.}
-\ifprof
-\begin{corrige}
-On note $C(n)$ le nombre multiplications.
-
-Dans le premier cas, on note $n=2^k$ et on conjecture que $\forall n>2, C(n)=k-1=\ln_2 (n)-1$ et on raisonne par 
-récurrence.
-
-Dans le second cas, on conjecture que $\forall n>2, C(n)\leq 2\ln_2 n$ et on raisonne par récurrence. En effet, le 
-variant est $\ln_2 n$, qui diminue d'au moins 1 à chaque appel récursif. Il y a donc au plus $\ln_2 n$ appels 
-récursifs. Or, il y a au plus 2 multiplications par appel.
-\end{corrige}
-\else
-\fi
-
-
-
-\section*{Exercice 3 -- Fonction 91 de McCarthy}
-On considère la fonction récursive suivante : 
-\begin{py}
-\begin{python}
-def f(n) :
-    if n>100 : 
-        return n-10
-    return f(f(n+11))
-\end{python}
-\end{py}
-
-\subparagraph*{} \textit{Prouver sa terminaison lorsque $n\in\mathbb{N}$ et déterminer ce qu'elle calcule (sans utiliser l'interpréteur de commande).}
-\ifprof
-\begin{corrige}
-
-Distinguons plusieurs cas.
-
-\begin{itemize}
-\item Si $n\geq 101$, l'algorithme se termine et renvoie $n-10$. 
-\item Si $n\in\llbr90, 100\rrbr$, montrons par récurrence descendante que le calcul de $f(n)$ termine et renvoie 
-91.\\
-C'est immédiat pour $n=100$ : $f(100)=f(f(111))=f(101)=91$.\\
-Soit $n\in\llbr91,100\rrbr$ tel que $f(n)=91$. Alors $f(n-1)=f(f(n+10))=f(n)$ car $n+10>100$ donc $f(n+10)=n$. La 
-propriété est 
-donc héréditaire.\\
-On raisonne ensuite par récurrence descendante de 10 en 10 : si $n\in\llbr80,89\rrbr$, alors $n+11\in\llbr90,100\rrbr$, 
-donc $f(n)=f(f(n+11))=f(91)=91$ d'après le cas précédent. Et ainsi de suite pour les intervalles 
-$\llbr70,79\rrbr\cdots\llbr0,9\rrbr$.
-\end{itemize}
-\end{corrige}
-
-
-\else
-\fi
 %\section*{Exercice 2}
 %\subparagraph*{}\textit{Prouver la terminaison de la fonction $G$ de Hofstadter, définie sur $\mathbb{N}$ de la façon suivante :}
 %\begin{py}
@@ -257,6 +267,108 @@ trace(4,(0,0),(1,0),(.5,np.sqrt(3)/2))
 \end{corrige}
 \else
 \fi
+
+
+\section*{Exercice 5}
+\setcounter{subparagraph}{0}
+\subparagraph{}
+\textit{Écrire une fonction récursive qui calcule $a^n$ en exploitant la relation : $a^n=a^{n/2}\times a^{n/2}$.}
+\ifprof
+\begin{corrige}
+\begin{python}
+def power(a, n):
+    if n == 0:
+        return 1
+    elif n == 1:
+        return a
+    return power(a, n//2) * power(a, n-n//2)
+\end{python}
+\end{corrige}
+\else
+\fi
+
+\subparagraph{}
+\textit{Écrire une fonction qui utilise de plus la remarque suivante :}
+$n/2 = \left\{ 
+\begin{array}{ll} 
+n/2 & \text{si }n \text{ est pair} \\
+n/2+1 & \text{sinon}\\
+\end{array}
+\right.
+$.
+\ifprof
+\begin{corrige}
+\begin{python}
+def power(a, n):
+    if n == 0:
+        return 1
+    elif n == 1:
+        return a
+    x = power(a, n//2)
+    if n % 2 == 0:
+        return x * x
+    else:
+        return x * x * a
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\subparagraph{}
+\textit{Déterminer le nombre de multiplications effectuées dans le cas où $n$ est une puissance de 2, et majorer 
+simplement ce nombre dans le cas général.}
+\ifprof
+\begin{corrige}
+On note $C(n)$ le nombre multiplications.
+
+Dans le premier cas, on note $n=2^k$ et on conjecture que $\forall n>2, C(n)=k-1=\ln_2 (n)-1$ et on raisonne par 
+récurrence.
+
+Dans le second cas, on conjecture que $\forall n>2, C(n)\leq 2\ln_2 n$ et on raisonne par récurrence. En effet, le 
+variant est $\ln_2 n$, qui diminue d'au moins 1 à chaque appel récursif. Il y a donc au plus $\ln_2 n$ appels 
+récursifs. Or, il y a au plus 2 multiplications par appel.
+\end{corrige}
+\else
+\fi
+
+
+
+\section*{Exercice 6 -- Fonction 91 de McCarthy}
+On considère la fonction récursive suivante : 
+\begin{py}
+\begin{python}
+def f(n) :
+    if n>100 : 
+        return n-10
+    return f(f(n+11))
+\end{python}
+\end{py}
+
+\subparagraph*{} \textit{Prouver sa terminaison lorsque $n\in\mathbb{N}$ et déterminer ce qu'elle calcule (sans utiliser l'interpréteur de commande).}
+\ifprof
+\begin{corrige}
+
+Distinguons plusieurs cas.
+
+\begin{itemize}
+\item Si $n\geq 101$, l'algorithme se termine et renvoie $n-10$. 
+\item Si $n\in\llbr90, 100\rrbr$, montrons par récurrence descendante que le calcul de $f(n)$ termine et renvoie 
+91.\\
+C'est immédiat pour $n=100$ : $f(100)=f(f(111))=f(101)=91$.\\
+Soit $n\in\llbr91,100\rrbr$ tel que $f(n)=91$. Alors $f(n-1)=f(f(n+10))=f(n)$ car $n+10>100$ donc $f(n+10)=n$. La 
+propriété est 
+donc héréditaire.\\
+On raisonne ensuite par récurrence descendante de 10 en 10 : si $n\in\llbr80,89\rrbr$, alors $n+11\in\llbr90,100\rrbr$, 
+donc $f(n)=f(f(n+11))=f(91)=91$ d'après le cas précédent. Et ainsi de suite pour les intervalles 
+$\llbr70,79\rrbr\cdots\llbr0,9\rrbr$.
+\end{itemize}
+\end{corrige}
+
+
+\else
+\fi
+
 %\section*{Exercice 1 -- Suite de Fibonacci}
 %\section*{Exercice 2 -- Recherche dichotomique}
 %\section*{Exercice 3 -- Courbe du Dragon}
