@@ -1,0 +1,39 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Recherches dans une liste}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Recherche d'un nombre dans une liste}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Recherche du maximum dans une liste de nombre}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Recherche par dichotomie dans un tableau tri\IeC {\'e}}{3}{subsection.1.3}
+\contentsline {section}{\numberline {2}Gestion d'une liste de nombres}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}Calcul de la moyenne}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Calcul de la variance}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Calcul de la m\IeC {\'e}diane}{5}{subsection.2.3}
+\contentsline {section}{\numberline {3}Cha\IeC {\^\i }nes de caract\IeC {\`e}res}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Recherche d'un mot dans une cha\IeC {\^\i }ne de caract\IeC {\`e}res}{5}{subsection.3.1}
+\contentsline {section}{\numberline {4}Calcul num\IeC {\'e}rique}{6}{section.4}
+\contentsline {subsection}{\numberline {4.1}Recherche du z\IeC {\'e}ro d'une fonction continue monotone par la m\IeC {\'e}thode de dichotomie}{6}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Recherche du z\IeC {\'e}ro d'une fonction continue monotone par la m\IeC {\'e}thode de Newton}{6}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}M\IeC {\'e}thode des rectangles pour le calcul approch\IeC {\'e} d'une int\IeC {\'e}grale sur un segment}{7}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}M\IeC {\'e}thode des rectangles \IeC {\`a} gauche}{7}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}M\IeC {\'e}thode des rectangles \IeC {\`a} droite}{8}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}M\IeC {\'e}thode des rectangles -- Point milieu}{9}{subsubsection.4.3.3}
+\contentsline {subsection}{\numberline {4.4}M\IeC {\'e}thode des trap\IeC {\`e}zes pour le calcul approch\IeC {\'e} d'une int\IeC {\'e}grale sur un segment}{9}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}M\IeC {\'e}thode d'Euler pour la r\IeC {\'e}solution d'une \IeC {\'e}quation diff\IeC {\'e}rentielle}{10}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}M\IeC {\'e}thode d'Euler explicite}{10}{subsubsection.4.5.1}
+\contentsline {subsection}{\numberline {4.6}Algorithme de Gauss -- Jordan \cite {wack}}{12}{subsection.4.6}
+\contentsline {section}{\numberline {5}Algorithmes de tris}{12}{section.5}
+\contentsline {subsection}{\numberline {5.1}Tri par s\IeC {\'e}lection}{12}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Tri par insertion}{13}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}M\IeC {\'e}thode 1}{13}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}M\IeC {\'e}thode 2}{14}{subsubsection.5.2.2}
+\contentsline {subsection}{\numberline {5.3}Tri shell}{14}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Tri rapide <<Quicksort>>}{14}{subsection.5.4}
+\contentsline {subsubsection}{\numberline {5.4.1}Tri rapide}{14}{subsubsection.5.4.1}
+\contentsline {subsubsection}{\numberline {5.4.2}Tri rapide optimis\IeC {\'e}}{16}{subsubsection.5.4.2}
+\contentsline {subsection}{\numberline {5.5}Tri fusion}{17}{subsection.5.5}
+\contentsline {section}{\numberline {6}Algorithmes classiques}{19}{section.6}
+\contentsline {subsection}{\numberline {6.1}Division euclidienne}{19}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Algorithme d'Euclide}{19}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Calcul de puissance}{20}{subsection.6.3}
+\contentsline {subsubsection}{\numberline {6.3.1}Algorithme na\IeC {\"\i }f}{20}{subsubsection.6.3.1}
+\contentsline {subsubsection}{\numberline {6.3.2}Exponentiation rapide it\IeC {\'e}rative}{20}{subsubsection.6.3.2}
+\contentsfinish 

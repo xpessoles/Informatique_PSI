@@ -1,0 +1,37 @@
+\BOOKMARK [1][-]{section.1}{Recherches dans une liste}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Recherche d'un nombre dans une liste}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Recherche du maximum dans une liste de nombre}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Recherche par dichotomie dans un tableau tri\351}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{Gestion d'une liste de nombres}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Calcul de la moyenne}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Calcul de la variance}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Calcul de la m\351diane}{section.2}% 8
+\BOOKMARK [1][-]{section.3}{Cha\356nes de caract\350res}{}% 9
+\BOOKMARK [2][-]{subsection.3.1}{Recherche d'un mot dans une cha\356ne de caract\350res}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Calcul num\351rique}{}% 11
+\BOOKMARK [2][-]{subsection.4.1}{Recherche du z\351ro d'une fonction continue monotone par la m\351thode de dichotomie}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.2}{Recherche du z\351ro d'une fonction continue monotone par la m\351thode de Newton}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.3}{M\351thode des rectangles pour le calcul approch\351 d'une int\351grale sur un segment}{section.4}% 14
+\BOOKMARK [3][-]{subsubsection.4.3.1}{M\351thode des rectangles \340 gauche}{subsection.4.3}% 15
+\BOOKMARK [3][-]{subsubsection.4.3.2}{M\351thode des rectangles \340 droite}{subsection.4.3}% 16
+\BOOKMARK [3][-]{subsubsection.4.3.3}{M\351thode des rectangles \205 Point milieu}{subsection.4.3}% 17
+\BOOKMARK [2][-]{subsection.4.4}{M\351thode des trap\350zes pour le calcul approch\351 d'une int\351grale sur un segment}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.5}{M\351thode d'Euler pour la r\351solution d'une \351quation diff\351rentielle}{section.4}% 19
+\BOOKMARK [3][-]{subsubsection.4.5.1}{M\351thode d'Euler explicite}{subsection.4.5}% 20
+\BOOKMARK [2][-]{subsection.4.6}{Algorithme de Gauss \205 Jordan wack}{section.4}% 21
+\BOOKMARK [1][-]{section.5}{Algorithmes de tris}{}% 22
+\BOOKMARK [2][-]{subsection.5.1}{Tri par s\351lection}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.2}{Tri par insertion}{section.5}% 24
+\BOOKMARK [3][-]{subsubsection.5.2.1}{M\351thode 1}{subsection.5.2}% 25
+\BOOKMARK [3][-]{subsubsection.5.2.2}{M\351thode 2}{subsection.5.2}% 26
+\BOOKMARK [2][-]{subsection.5.3}{Tri shell}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.4}{Tri rapide <<Quicksort>>}{section.5}% 28
+\BOOKMARK [3][-]{subsubsection.5.4.1}{Tri rapide}{subsection.5.4}% 29
+\BOOKMARK [3][-]{subsubsection.5.4.2}{Tri rapide optimis\351}{subsection.5.4}% 30
+\BOOKMARK [2][-]{subsection.5.5}{Tri fusion}{section.5}% 31
+\BOOKMARK [1][-]{section.6}{Algorithmes classiques}{}% 32
+\BOOKMARK [2][-]{subsection.6.1}{Division euclidienne}{section.6}% 33
+\BOOKMARK [2][-]{subsection.6.2}{Algorithme d'Euclide}{section.6}% 34
+\BOOKMARK [2][-]{subsection.6.3}{Calcul de puissance}{section.6}% 35
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Algorithme na\357f}{subsection.6.3}% 36
+\BOOKMARK [3][-]{subsubsection.6.3.2}{Exponentiation rapide it\351rative}{subsection.6.3}% 37
