@@ -153,14 +153,16 @@ Soit \texttt{mot} une chaîne de caractères de longueur $n$.\\
 Dans la version itérative, il y a exactement $n$ tours de boucle. Il est facile de montrer par récurrence 
 l'invariant suivant : au début du $k$-ème tour de boucle, \texttt{tom} est de longueur $k-1$. Or l'opération 
 \texttt{tom = lettre + tom} consiste à créer une chaîne de $k$ caractères dans laquelle sont recopiées \texttt{lettre} 
-et \texttt{tom}. La complexité de cette opération est donc un $O(k)$. Par sommation, on voit donc que 
-\texttt{miroir\_it} a une complexité en $O(n^2)$.\\
+et \texttt{tom}. La complexité de cette opération est donc un $\mathcal O(k)$. Par sommation, on voit donc que 
+\texttt{miroir\_it} a une complexité en $\mathcal O(n^2)$.\\
 On remarque que si l'on avait pu parcourir \texttt{mot} de droite à gauche et non de gauche à droite, on aurait pu 
 rajouter à \texttt{tom} les lettres par la droite, et utiliser la syntaxe \texttt{tom += lettre}. Mais comme les 
 chaînes ne sont pas de type \textit{mutable}, cette opération a la même complexité que \texttt{tom = tom + lettre} (ce 
 qui n'aurait pas été le cas avec des listes).\\
-Dans la version récursive, on montre par récurrence que la complexité est également un $O(n^2)$. Posons l'hypothèse de 
-récurrence : $(\mathcal P _k)$ : si \texttt{mot} est de longueur $k$, \texttt{miroir\_rec (mot)} nécessite $O(k^2)$ 
+Dans la version récursive, on montre par récurrence que la complexité est également un $\mathcal O(n^2)$. Posons 
+l'hypothèse de 
+récurrence : $(\mathcal P _k)$ : si \texttt{mot} est de longueur $k$, \texttt{miroir\_rec (mot)} nécessite $\mathcal 
+O(k^2)$ 
 opérations.\\
 Pour $k=0$ ou $1$, ceci est immédiat grâce aux conditions d'arrêt.\\
 Si $(\mathcal P _k)$ est vraie. Il existe donc $K\in\mathbb R$ (que l'on peut supposer supérieur à 1) tel que si 
@@ -187,7 +189,6 @@ u_0 = 0, u_1 = 1 \\
 u_{n+2} = u_{n} + u_{n+1}
 \end{array}\right.
 $$
-\fi
 \subparagraph{}
 \textit{Définir la fonction \texttt{fibonacci\_it} permettant de calculer $u_n$ par une méthode itérative. Évaluer la 
 complexité algorithmique de l'algorithme.}
@@ -200,7 +201,68 @@ intuitive>>. Évaluer la complexité algorithmique de l'algorithme.}
 \subparagraph{}
 \textit{Observer comment passer du couple $(u_n,u_{n+1})$ au couple $(u_{n+1},u_{n+2})$. En déduire une autre méthode 
 récursive pour calculer le n\ieme terme de la suite de Fibonacci. Évaluer la complexité algorithmique de l'algorithme.}
+\fi
 
+
+\ifprof
+\begin{corrige}
+\question\
+\begin{python}
+def fibonacci_it(n):
+    """fibonacci itérative"""
+    u0,u1=0,1
+    un=1
+    un1=u0+u1
+    for i in range(2,n):
+        un2=un+un1
+        un=un1
+        un1=un2
+    return (un2)
+\end{python}
+Il y a $n-2$ boucles dans la boucle de cet algorithme, et à chaque tour de boucle, une addition et trois affectations 
+sont effectuées. En dehors de la boucle, il n'y a qu'un nombre constant d'opérations, et ainsi cet algorithme a une 
+complexité linéaire.
+
+\question\
+\begin{python}
+def fibonacci_rec(n):
+    """fibonacci recursive avec renvoie de Un"""
+    if n==0:
+        un=0
+    elif n==1:
+        un=1
+    else:
+        un=fibonacci_rec(n-1)+fibonacci_rec(n-2)
+    return (un)
+\end{python}
+Notons $T(n)$ le nombre d'opérations nécessaires pour calculer \texttt{fibonacci\_rec(n)}. Nous avons alors très 
+facilement : $T(0)=T(1)=1$, et pour tout $n\in\mathbb N$ tel que $n>1$, $T(n)=T(n-1)+T(n-2)+k\geq T(n-1)+T(n-2)$, où 
+$k$ est une constante. C'est une relation arithmético-géométrique que l'on sait résoudre. On trouve qu'il existe deux 
+constantes $a$ et $b$ telles que $T(n)=a\left(\dfrac{1+\sqrt 5}2\right)^n+b\left(\dfrac{1-\sqrt 5}2\right)^n-k\sim 
+a\left(\dfrac{1+\sqrt 5}2\right)^n$. La complexité est donc exponentielle.\\
+On remarque d'ailleurs que $T(n)$ est équivalente à la suite de Fibonacci elle-même.
+
+\question\
+\begin{python}
+def fibonacci_rec2(n):
+    """fibonacci recursive avec renvoi de deux valeurs de Un"""
+    if n==0:
+        return (0,1)
+    elif n==1:
+        return (1,1)
+    else:
+        Un=fibonacci_rec2(n-1)[0]+fibonacci_rec2(n-1)[1]
+        Un1=fibonacci_rec2(n-1)[1]
+    return (Un1,Un)
+\end{python}
+
+Si nous notons maintenant $X(n)$ le nombre d'opérations nécessaires pour calculer \texttt{fibonacci\_rec2(n)}, nous 
+avons $X(0)=X(1)=1$ et si $n>1$, $X(n)=X(n-1)+k$, où $k$ est une constante. C'est une simple suite arithmétique, donc 
+la complexité de \texttt{fibonacci\_rec2} est linéaire.
+
+\end{corrige}
+\else
+\fi
 
 \subsection*{Exercice 4 -- Les tours de Hanoï}
 

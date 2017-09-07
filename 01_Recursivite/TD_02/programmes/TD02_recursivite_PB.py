@@ -103,7 +103,7 @@ def fibonacci_rec(n):
 
 #question 3
 def fibonacci_rec2(n):
-    """fibonacci recursive avec renvoie de deux valeurs de Un"""
+    """fibonacci recursive avec renvoi de deux valeurs de Un"""
     if n==0:
         return (0,1)
     elif n==1:
