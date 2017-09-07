@@ -1,0 +1,206 @@
+\documentclass[10pt]{article}
+\input{style/coursHeadings}
+\input{style/programHeadings}
+\input{style/macros_SII}
+\input{style/macros_Titres}
+\input{style/macros_Frames}
+
+%Si le boolen xp est vrai : compilation pour xabi
+%Sinon compilation Damien
+\newif\ifprof
+%\proftrue
+\proffalse
+
+\newif\ifxp
+\xptrue
+%\xpfalse
+
+\newif\iftd
+\tdtrue
+%\tdfalse
+
+\usepackage[%
+    pdftitle={Fiches introduction à la programmation},
+    pdfauthor={Xavier Pessoles},
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=magenta]{hyperref}
+
+\def\discipline{Informatique}
+\def\xxtitre{%
+\ifxp
+Partie 2 : Algorithmique \& Programmation
+\else
+\fi
+}
+
+\def\xxsoustitre{%
+\ifxp
+Chapitres 1 \& 2 -- Introduction à l'algorithmique et à la programmation
+\else
+\fi}
+
+\def\xxauteur{%
+\ifxp
+Xavier \textsc{Pessoles}
+\else
+\fi}
+
+\def\xxpied{%
+\ifxp
+Partie 2 : Algorithmique \& Programmation\\
+Ch. 1 \& 2 : Introduction à l'algorithmique et à la programmation -- Fiches
+\else
+\fi}
+
+
+
+
+
+%---------------------------------------------------------------------------
+
+
+\begin{document}
+
+% \renewcommand{\baselinestretch}{1.2}
+%\setlength{\parskip}{2ex plus 0.5ex minus 0.2ex}
+\setlength{\parskip}{1ex plus 0.2ex minus 0.2ex}
+
+\input{style/enteteXP}
+
+\section{Typage des variables}
+\begin{defi}
+\textbf{Variable :} une variable permet de stocker des informations. Elle est définie par un identifiant (un nom), un type, une valeur, une référence et des opérations.
+
+\textbf{Référence :} une référence est un alias pointant vers une adresse mémoire.
+
+\textbf{Type :} le typage correspond à la nature d'une variable (entier, chaîne de caractères, liste ...). En Python, le typage est \textbf{dynamique} ce qu'il signifie que Python reconnait le type de variable dès son affectation.
+
+\textbf{Valeur : } la valeur correspond à la donnée que l'utilisateur veut stocker en mémoire. 
+\end{defi}
+
+\begin{exemple}
+Les objets non mutables sont ceux que l'on ne peut modifier après leur création : les entier (int), les flottants (flt), les chaines de caractères (str), les booléens, les tuples etc... Si on modifie un de ces types, une nouvelle référence est crée.
+
+Les objets mutables peuvent être modifiés après leur création : les listes, les dictionnaires...
+
+\begin{py}
+\begin{minipage}[t]{.47\linewidth}
+On ne peut pas modifier la variable \textsf{ch} sans changer de référence. C'est un type non mutable.
+\begin{python}
+>>> ch = 'abcde'
+>>> ch[0] = 'a'
+            TypeError: 'str' object does not 
+            support item assignment
+\end{python}
+\end{minipage} \hfill
+\begin{minipage}[t]{.47\linewidth}
+On peut modifier des éléments variable \textsf{ch} sans changer de référence. C'est un type mutable.
+\begin{python}
+>>> ch = [a,b,c,d,e]
+>>> ch[0] = 'a'
+\end{python}
+\end{minipage}
+\end{py}
+\end{exemple}
+
+\begin{exemple}
+En python, les listes et les chaînes de caractères commencent à l'indice 0. 
+
+\begin{minipage}[t]{.23\linewidth}
+\noindent \textit{Modification des listes}
+\begin{python}
+>>> liste = [8,"a",[4,5]]
+>>> print(liste[0])
+            8
+>>> print(len(liste))
+            3
+>>> print(liste[-1])
+            [4,5]
+\end{python}
+\end{minipage} 
+\begin{minipage}[t]{.3\linewidth}
+\begin{python}
+>>> print(liste[2][1])
+            5
+>>> liste.append("bcde")
+>>> print(liste)
+            [8, 'a', [4, 5], 'bcde']
+\end{python}
+\end{minipage} \hfill
+\begin{minipage}[t]{.45\linewidth}
+\noindent \textit{Modification des chaînes de caractères}
+\begin{python}
+>>> ch = "PTSI"
+>>> print(ch[0:2])
+            PT
+>>> ch = ch.replace(SI,"")
+>>> print(ch)
+            PT
+\end{python}
+\end{minipage} 
+\end{exemple}
+\section{Instructions et expressions}
+
+\begin{defi}
+\textbf{Expression :} évaluation d’un calcul. Un résultat est retourné. \textit{(Exemple : 1+1)}
+
+\textbf{Instruction :} action utilisée dans un algorithme ou dans un programme. Une instruction peut inclure une expression. \textit{(Exemple : a = 1+1)}
+\end{defi}
+\newpage
+
+\section{Structures algorithmiques}
+\begin{defi}
+\begin{minipage}[t]{.32\linewidth}
+\noindent \textbf{Structure Tant Que :} une suite d'instructions continue à être réalisée tant qu'une condition prédéfinie ne change pas.
+\end{minipage} \hfill
+\begin{minipage}[t]{.32\linewidth}
+\noindent \textbf{Structure conditionnelle Si, Alors, Sinon :} permet d'exécuter une suite d'instructions suivant une condition booléenne.
+\end{minipage} \hfill
+\begin{minipage}[t]{.32\linewidth}
+\noindent \textbf{Boucle Pour :}  boucle itérative qui se répète un nombre fini de fois.
+\end{minipage} 
+\end{defi}
+
+\begin{exemple}
+\textit{Implémentation de $n!$.}
+
+\begin{py}
+\begin{minipage}[t]{.48\linewidth}
+\begin{python}
+n=4
+res=0
+if n==0:
+    | res = 1
+else :
+    | i=1    
+    | res=1
+    | while i<=n:
+    |     | res=res*i
+    |     | i+=1
+\end{python}
+\end{minipage} \hfill
+\begin{minipage}[t]{.48\linewidth}
+\begin{python}
+n=4
+res=0
+if n==0:
+    | res = 1
+else :
+    | res=1    
+    | for i in range(0,n):
+    |     | res=res*(i+1)
+\end{python}
+\end{minipage} 
+\end{py}
+\end{exemple}
+\section{Structure d'un programme}
+\begin{center}
+\includegraphics[width=\textwidth]{images/fonctions}
+\end{center}
+
+
+
+\end{document}
+
+
