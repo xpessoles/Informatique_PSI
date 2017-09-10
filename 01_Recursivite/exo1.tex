@@ -1,0 +1,143 @@
+\documentclass[10pt,fleqn]{book} % Default font size and left-justified equations
+\usepackage[%
+    pdftitle={Informatique : Programmation récursive},
+    pdfauthor={Xavier Pessoles}]{hyperref}
+
+\input{../style/new_style}
+\input{../style/macros_SII}
+
+\fichetrue
+%\fichefalse
+
+\proftrue
+%\proffalse
+
+\tdtrue
+%\tdfalse
+
+%\courstrue
+\coursfalse
+
+\newcommand{\bfsf}[1]{\textbf{\textsl{#1}}}%{\textbf{\textsf{#1}}}
+
+% -------------------------------------
+% Déclaration des titres
+% -------------------------------------
+
+\def\discipline{Informatique}
+\def\xxtete{Informatique}
+\def\classe{PT -- PT$\star$}
+\def\xxnumpartie{Partie 5}
+\def\xxpartie{Algorithmique \& Programmation II}
+
+\def\xxnumchapitre{Chapitre 1}
+\def\xxchapitre{\hspace{.12cm} Programmation récursive}
+
+\def\xxposongletx{2}
+\def\xxposonglettext{1.45}
+\def\xxposonglety{13}%10
+
+\def\xxonglet{Part. 5 -- Ch. 1}
+
+\def\xxactivite{TD 1}
+\def\xxauteur{\textsl{Jean-Pierre Becirspahic}}
+
+\def\xxcompetences{%
+\textsl{%
+\textbf{Savoirs et compétences :}
+\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item Alg -- C15 : Récursivité : avantages et inconvénients.
+\end{itemize}
+}}
+
+\def\xxfigures{
+}%figues de la page de garde
+
+\def\xxpied{%
+Partie 5 -- Algorithmique et Programmation II\\
+Ch 1 : Programmation récursive -- \xxactivite%
+}
+
+\def\xxtitreexo{Exercices d'application}
+\def\xxsourceexo{TD d'informatique du Lycée Louis Legrand -- Jean-Pierre Becirspahic\\
+\url{http://info-llg.fr/}}
+
+\def\espacebandeautitre{0cm}
+%---------------------------------------------------------------------------
+\begin{document}
+\input{../style/new_pagegarde}
+\vspace{7cm}
+\pagestyle{fancy}
+\thispagestyle{plain}
+
+\setcounter{secnumdepth}{5}
+\def\columnseprulecolor{\color{ocre}}
+\setlength{\columnseprule}{0.4pt} 
+
+\ifprof
+\else
+\begin{multicols}{2}
+\fi
+%---------------------------------------------------------------------------
+
+
+
+\section*{Exercice }
+On considère la fonction suivante :\\
+\begin{python}
+def f(x) :
+    if x <= 1 :
+	return 1
+    elif x % 2 == 0 :
+	return 2*f(x/2)
+    else :
+	return 1 + f(x+1)
+\end{python}
+
+\begin{enumerate}
+\item Montrer que cette fonction récursive se termine pour toute valeur entière 
+de l'argument \texttt{x}.
+\item Soient $x\in\mathbb N$ et $g(x)=f(x)+x$. À partir du programme précédent, donner 
+un programme python qui calcule $g(x)$.
+\item En déduire que pour tout $x\in\mathbb N$, $g(x)$ est une puissance de 2.
+\end{enumerate}
+
+
+
+
+\section*{Corrigé }
+
+\begin{enumerate}
+\item Si $x$ est pair et $> 1$, alors $f (x) = 2f (x/2)$ et $ x/2 < x$. Si $x$ est impair et
+ $ > 1$, alors $f (x) = 1 + 2f ((x + 1)/2)$ et $(x + 1)/2 < x$. Donc dans les deux cas
+     récursifs, on appelle $f$ en une ou deux étapes avec un argument strictement
+     inférieur à $x$. Ceci prouve la terminaison du calcul de $f (x)$ par récurrence
+     sur $x$.
+\item Soit $g(x) = f (x) + x$. En remplaçant $f (x)$ par $g(x)- x$ dans la définition de
+    $ $f et en simplifiant, on obtient un programe calculant $g$ :\\
+    
+   
+\begin{python}
+def g(x) :
+    if x <= 1 :
+	return 1 + x
+    elif x % 2 == 0 :
+	return 2*g(x/2)
+    else :
+	return g(x+1)
+\end{python} 
+
+\item Avec la question précédente, il est immédiat par récurrence que $g(x)$ est toujours une puissance de 2.
+
+ \end{enumerate}
+
+
+
+
+%\begin{thebibliography}{2}
+%\bibitem{1}{Patrick Beynet, \textit{Supports de cours de TSI 2}, Lycée Rouvière, Toulon.}
+%\bibitem{2}{<< Mandel zool 08 satellite antenna >>. Sous licence CC BY-SA via Wikimedia Commons - \url{https://fr.wikipedia.org/wiki/Ensemble_de_Mandelbrot#/media/File:Mandel_zoom_08_satellite_antenna.jpg}}
+%\bibitem{3}{\url{http://www.obside.fr/fractales/pages/Recursif/}}
+%\end{thebibliography}
+\end{document}
+
