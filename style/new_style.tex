@@ -3,7 +3,7 @@
 % Mathias Legrand (legrand.mathias@gmail.com) with modifications by:
 % Vel (vel@latextemplates.com)
 % License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% CC BY-NC-SA 3.0 (http://creativecommons.org\newtheorem{rappelT}{Rappel}[section]/licenses/by-nc-sa/3.0/)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------------------------------------------------------------
@@ -352,6 +352,7 @@
 \newtheorem{vocabulary}{Vocabulaire}[section]
 %\newtheorem{definitionT}{Definition}[section]
 \newtheorem{definitionT}{Définition}[section]
+\newtheorem{rappelT}{Rappel}[section]
 \newtheorem{demoT}{Démonstration}[section]
 \newtheorem{corollaryT}[dummy]{Corollaire}
 \newtheorem{hypoT}{Hypothèse(s)}
@@ -426,7 +427,7 @@ backgroundcolor=ocre!10,
 linecolor=ocre,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=0pt,
+innertopmargin=1pt,
 leftmargin=0cm,
 rightmargin=0cm,
 linewidth=4pt,
@@ -638,6 +639,7 @@ innerbottommargin=5pt]{sqlBox}
 \newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
 \newenvironment{defi}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
 \newenvironment{demo}{\begin{demoBox}\begin{demoT}}{\end{demoT}\end{demoBox}}	
+\newenvironment{rappel}{\begin{dBox}\begin{rappelT}}{\end{rappelT}\end{dBox}}	
 %\newenvironment{exemple}{\begin{exempleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exempleT}}		
 \newenvironment{corollary}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}
 \newenvironment{hypo}{\begin{hyBox}\begin{hypoT}}{\end{hypoT}\end{hyBox}}	\newenvironment{exemple}{\begin{exBox}\begin{exempleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exempleT}\end{exBox}}	
@@ -796,16 +798,28 @@ addtohook={%
 }}
 
 
+\newcounter{exo}
 
 
 \makeatletter             
-\renewcommand{\subparagraph}{\@startsection{subparagraph}{5}{\z@}%
+\renewcommand{\subparagraph}{\@startsection{exo}{5}{\z@}%
                                     {-2ex \@plus-.2ex \@minus .2ex}%
                                     {0ex}%               
 {\normalfont\bfseries Question \hspace{.7cm} }}
 \makeatother
 \renewcommand{\thesubparagraph}{\arabic{subparagraph}} 
 \makeatletter
+
+
+
+%\makeatletter             
+%\renewcommand{\subparagraph}{\@startsection{subparagraph}{5}{\z@}%
+%                                    {-2ex \@plus-.2ex \@minus .2ex}%
+%                                    {0ex}%               
+%{\normalfont\bfseries Question \hspace{.7cm} }}
+%\makeatother
+%\renewcommand{\thesubparagraph}{\arabic{subparagraph}} 
+%\makeatletter
 
 
 %%%% Environnement pour inclure du code
@@ -837,7 +851,7 @@ addtohook={%
 inputencoding=utf8,   % pour regler les pb d accent utf8 dans les codes
 extendedchars=true,   % pour regler les pb d accent utf8 dans les codes
 language=python,
-basicstyle=\sffamily\footnotesize, 	
+basicstyle=\ttfamily\footnotesize, 	
 stringstyle=\color{red}, 
 showstringspaces=false, 
 alsoletter={1234567890},
