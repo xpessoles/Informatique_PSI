@@ -1,81 +1,3 @@
-\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
-\usepackage[%
-    pdftitle={Informatique : Piles et files},
-    pdfauthor={Xavier Pessoles}]{hyperref}
-    
-\input{../../style/new_style}
-\input{../../style/macros_SII}
-
-\usepackage{multicol}
-\fichetrue
-%\fichefalse
-
-\proftrue
-\proffalse
-
-\tdtrue
-%\tdfalse
-
-%\courstrue
-\coursfalse
-
-% -------------------------------------
-% Déclaration des titres
-% -------------------------------------
-
-\def\discipline{Informatique}
-\def\xxtete{Informatique}
-\def\classe{PT -- PT$\star$}
-\def\xxnumpartie{Partie 5}
-\def\xxpartie{Algorithmique \& Programmation (Suite)}
-
-\def\xxnumchapitre{Chapitre 2}
-\def\xxchapitre{\hspace{.12cm} Piles et files}
-
-\def\xxtitreexo{Exercices d'applications}
-\def\xxsourceexo{\hspace{.2cm} Informatique pour tous en CPGE -- \textit{Wack \& al.}}
-
-\def\xxposongletx{2}
-\def\xxposonglettext{1.45}
-\def\xxposonglety{13}%10
-
-\def\xxonglet{Part. 5 -- Ch. 2}
-
-\def\xxactivite{TD - 01}
-\def\xxauteur{\textsl{Xavier Pessoles}}
-
-\def\xxcompetences{%
-\textsl{%
-\textbf{Savoirs et compétences :}
-\begin{itemize}[label=\ding{112},font=\color{ocre}] 
-\item Alg -- C16 : Piles - Algorithmes de manipulation : fonctions «push» et «pop».
-\end{itemize}
-}}
-
-\def\xxfigures{}%figues de la page de garde
-
-\def\xxpied{%
-Partie 5 -- Algorithmique et Programmation\\
-Ch 2 : Piles et files-- \xxactivite%
-}
-
-
-\def\espacebandeautitre{0cm}
-\setcounter{secnumdepth}{5}
-%---------------------------------------------------------------------------
-
-
-\begin{document}
-%\chapterimage{png/Fond_Cin}
-\input{../../style/new_pagegarde}
-\vspace{8cm}
-\pagestyle{fancy}
-\thispagestyle{plain}
-
-
-\def\columnseprulecolor{\color{ocre}}
-\setlength{\columnseprule}{0.4pt} 
-\begin{multicols}{2}
 Dans l'ensemble des exercices, on considère disposer des fonctions suivantes :
 \begin{itemize}
 \item \texttt{creer\_pile(t)} : crée une pile de taille \texttt{t};
@@ -280,16 +202,5 @@ Un mélange possible des piles \texttt{[1, 2, 3]} et \texttt{[5, 4]} est \texttt
 %de la fonction melange. On observe alors que le paquet final contient toujours n blocs des mêmes k cartes
 %(même si ces dernières peuvent apparaître dans un ordre différent au sein de chaque bloc). Sur l’exemple
 %des 16 paquets rouge/noir, on obtient toujours 16 paquets rouge/noir ou noir/rouge.
-\end{multicols}
-\end{document}
 
 
-\section*{Exercice}
-\setcounter{exo}{0}
-\subparagraph*{}
-\textit{}
-\ifprof
-\begin{corrige}
-\end{corrige}
-\else
-\fi
