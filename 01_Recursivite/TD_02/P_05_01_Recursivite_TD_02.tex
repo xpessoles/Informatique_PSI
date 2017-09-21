@@ -123,8 +123,7 @@ Par exemple le résultat de \texttt{miroir("miroir")} serait \textsl{''riorim''}
 \question\ 
 \begin{python}
 def miroir_it(mot):
-    """ fonction itérative retournant 
-    le miroir d'une chaîne de caractères """
+    """ fonction itérative retournant le miroir d'une chaîne de caractères """
     tom=''
     for lettre in mot:
         tom=lettre+tom
@@ -134,17 +133,12 @@ def miroir_it(mot):
 \question\ 
 \begin{python}
 def miroir_rec(mot):
-    """ fonction récursive retournant 
-    le miroir d'une chaîne de caractères """
+    """ fonction récursive retournant le miroir d'une chaîne de caractères """
     n=len(mot)
-    if len(mot)==0:
-        None
-    elif len(mot)==1:
-        x=mot
+    if len(mot) <= 1:
+        return mot
     else:
-        x=miroir_rec(mot[0:n-1])
-        x=mot[-1]+x
-    return (x)
+        return mot[-1] + miroir_rec(mot[0:n-1])
 \end{python}
 
 \setcounter{question}{3}
@@ -210,30 +204,29 @@ récursive pour calculer le n\ieme terme de la suite de Fibonacci. Évaluer la c
 \begin{python}
 def fibonacci_it(n):
     """fibonacci itérative"""
-    u0,u1=0,1
-    un=1
-    un1=u0+u1
-    for i in range(2,n):
-        un2=un+un1
-        un=un1
-        un1=un2
-    return (un2)
+    a=0
+    b=1
+    for i in range(n-1): # invariant en entrée : a=u_i, b=u_{i+1}
+        c=a+b
+        a=b
+        b=c
+        # invariant en sortie : a=u_{i+1}, b=u_{i+2}
+    return (b) # à la fin de la boucle, i=n-2
 \end{python}
-Il y a $n-2$ boucles dans la boucle de cet algorithme, et à chaque tour de boucle, une addition et trois affectations 
-sont effectuées. En dehors de la boucle, il n'y a qu'un nombre constant d'opérations, et ainsi cet algorithme a une 
-complexité linéaire.
+Il y a $n-2$ tours de boucle dans la boucle de cet algorithme, et à chaque tour de boucle, une addition et trois 
+affectations sont effectuées. En dehors de la boucle, il n'y a qu'un nombre constant d'opérations, et ainsi cet 
+algorithme a une complexité linéaire.
 
 \question\
 \begin{python}
 def fibonacci_rec(n):
-    """fibonacci recursive avec renvoie de Un"""
+    """fibonacci recursive avec renvoi de u_n"""
     if n==0:
-        un=0
+        return 0
     elif n==1:
-        un=1
+        return 1
     else:
-        un=fibonacci_rec(n-1)+fibonacci_rec(n-2)
-    return (un)
+        return (fibonacci_rec(n-1)+fibonacci_rec(n-2))
 \end{python}
 Notons $T(n)$ le nombre d'opérations nécessaires pour calculer \texttt{fibonacci\_rec(n)}. Nous avons alors très 
 facilement : $T(0)=T(1)=1$, et pour tout $n\in\mathbb N$ tel que $n>1$, $T(n)=T(n-1)+T(n-2)+k\geq T(n-1)+T(n-2)$, où 
@@ -245,15 +238,14 @@ On remarque d'ailleurs que $T(n)$ est équivalente à la suite de Fibonacci elle
 \question\
 \begin{python}
 def fibonacci_rec2(n):
-    """fibonacci recursive avec renvoi de deux valeurs de Un"""
+    """fibonacci recursive avec renvoi de deux valeurs de u_n"""
     if n==0:
         return (0,1)
     elif n==1:
         return (1,1)
     else:
-        Un=fibonacci_rec2(n-1)[0]+fibonacci_rec2(n-1)[1]
-        Un1=fibonacci_rec2(n-1)[1]
-    return (Un1,Un)
+	X = fibonacci_rec2(n-1)
+        return (X[1],X[0]+X[1])
 \end{python}
 
 Si nous notons maintenant $X(n)$ le nombre d'opérations nécessaires pour calculer \texttt{fibonacci\_rec2(n)}, nous 
