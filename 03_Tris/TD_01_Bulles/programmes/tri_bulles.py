@@ -29,10 +29,10 @@ print(l)
 tri_bulles_naif(l)
 print(l)
 
-def triInsertionR(t,n) {
-   if (n > 1) {
-      triInsertionR(t, n - 1);
-      insertionR(t, n - 1, t[n - 1]);
+def triInsertionR(t,n):
+    if (n > 1) :
+        triInsertionR(t,n-1);
+        insertionR(t[n-1, n - 1, t[n - 1]);
    }
 }
 
