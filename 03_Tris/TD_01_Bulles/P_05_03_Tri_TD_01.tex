@@ -137,6 +137,10 @@ On remarque dans le tri à bulles qu'un balayage permet de faire remonter direct
 
 
 
+\ifprof
+
+\else
+\fi
 \section*{Exercice 4 -- Tri par sélection}
 Le tri par sélection consiste en rechercher le plus petit élément d'une liste, puis en le positionner en première place. Dans la liste non triée restante, on cherche le plus petit élément, puis on le positionne en première place \textit{etc.}
 \setcounter{exo}{0}
@@ -146,10 +150,70 @@ Le tri par sélection consiste en rechercher le plus petit élément d'une liste
 \subparagraph{}
 \textit{Donner l'algorithme naïf permettant de trier une liste selon la méthode du tri par sélection.}
 
-\subparagraph{}
-\textit{Proposer un algorithme récursif.}
+%\subparagraph{}
+%\textit{Proposer un algorithme récursif.}
 
 \end{multicols}
+
+\newpage
+
+\noindent\textbf{Tri insertion}
+\begin{python}
+def tri_bulles_naif(l):
+    for i in range(0,len(l)-1):
+        for j in range(0,len(l)-1):
+            if l[j]>l[j+1]:
+                l[j],l[j+1]=l[j+1],l[j]
+
+
+def tri_bulles(l):
+    for i in range(0,len(l)-1):
+        for j in range(0,len(l)-i-1):
+            if l[j]>l[j+1]:
+                l[j],l[j+1]=l[j+1],l[j]
+\end{python}
+
+\noindent\textbf{Tri cocktail}
+\begin{python}
+fonction tri_cocktail (array liste)
+    échangé := vrai
+    Répéter tant que échangé = vrai
+        échangé := faux
+        
+         Répéter pour tout  i entre 0 et liste.taille - 2
+            si liste[i] > liste[i + 1]
+                [[Echanger (liste[i], liste[i+1])
+                échangé := vrai
+            fin si
+         fin Répéter
+
+         Répéter pour tout  i (décroissant) entre liste.taille-2 et 0
+            si liste[i] > liste[i + 1]
+                [[Echanger (liste[i], liste[i+1])
+                échangé := vrai
+            fin si
+         fin Répéter  
+       
+     fin tant que
+fin fonction
+\end{python}
+
+\noindent\textbf{Tri par sélection}
+\begin{python}
+def tri_selection(t) :
+    n = len(t)
+    for i in range(n) : 
+        k = i
+    for j in range(i+1,n) :
+        if t[k] > t[j] : 
+            k = j
+    t[k],t[i] = t[i],t[k]
+\end{python}
+
+\vspace{12cm}
+$$ \quad $$
+
+
 \end{document}
 
 
