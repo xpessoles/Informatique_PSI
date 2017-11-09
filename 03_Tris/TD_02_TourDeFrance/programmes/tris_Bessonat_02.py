@@ -4,7 +4,7 @@ os.chdir(r'E:\annee 2015 2016\PT\IPT\03_Tris')
 
 ### algorithme de tri
 
-from tris import *
+from eleves/tris import *
 import random as rd
 import time
 import matplotlib.pyplot as plt

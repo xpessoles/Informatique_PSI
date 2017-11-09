@@ -1,71 +1,43 @@
 \documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
-\usepackage[%
-    pdftitle={Informatique : Piles et files},
-    pdfauthor={Xavier Pessoles}]{hyperref}
-
-\input{../../style/new_style}
-\input{../../style/macros_SII}
-
-\fichetrue
-%\fichefalse
+\input{../../style/entete_TD}
 
 \proftrue
-%\proffalse
 
-\tdtrue
-%\tdfalse
+\fichetrue
+\tdfalse
 
-%\courstrue
-\coursfalse
-
-\newcommand{\bfsf}[1]{\textbf{\textsl{#1}}}
-
-% -------------------------------------
-% Déclaration des titres
-% -------------------------------------
-
-\def\discipline{Informatique}
-\def\xxtete{Informatique}
-\def\classe{PSI$\star$}
 \def\xxnumpartie{Partie 5}
 \def\xxpartie{Algorithmique \& Programmation II}
 
-\def\xxnumchapitre{Chapitre 2}
-\def\xxchapitre{\hspace{.12cm} Piles et files}
+\def\xxnumchapitre{Chapitre 3 }
+\def\xxchapitre{\hspace{.12cm} Tris \\ TD02 : Corrigé}
+\def\xxonglet{Part. 5 -- Ch. 3}
 
-\def\xxposongletx{2}
-\def\xxposonglettext{1.45}
-\def\xxposonglety{13}%10
+\def\xxactivite{TD 2}
 
-\def\xxonglet{Part. 5 -- Ch. 2}
-
-\def\xxactivite{TD 1}
-\def\xxauteur{\textsl{Jean-Pierre Becirspahic}}
+\def\xxauteur{\textsl{Xavier Pessoles} \\ \textsl{Skander Zannad}}
 
 \def\xxcompetences{%
 \textsl{%
 \textbf{Savoirs et compétences :}
 \begin{itemize}[label=\ding{112},font=\color{ocre}] 
-\item Alg -- C16 : Piles - Algorithmes de manipulation : fonctions «push» et «pop».
+\item Alg -- C17 : tris d’un tableau à une dimension de valeurs numériques (tri par insertion, tri rapide, tri fusion).
 \end{itemize}
 }}
+
 
 \def\xxfigures{}%figues de la page de garde
 
 \def\xxpied{%
 Partie 5 -- Algorithmique et Programmation\\
-Ch 2 : Piles et files-- \xxactivite%
+Ch 3 : Tris-- \xxactivite%
 }
 
-\def\xxtitreexo{Exercices d'applications}
-\def\xxsourceexo{\hspace{.2cm} Informatique pour tous en CPGE -- \textit{Wack \& al.}}
-
 \def\espacebandeautitre{0cm}
-\setcounter{secnumdepth}{5}
 %---------------------------------------------------------------------------
 \begin{document}
 \input{../../style/new_pagegarde}
-\vspace{5cm}
+\vspace{1.5cm}
 \pagestyle{fancy}
 \thispagestyle{plain}
 
@@ -80,7 +52,7 @@ Ch 2 : Piles et files-- \xxactivite%
 %---------------------------------------------------------------------------
 
 
-\input{P_05_02_Piles_TD_01.tex}
+\input{P_05_03_Tris_TD_02.tex}
 
 
 \ifprof
