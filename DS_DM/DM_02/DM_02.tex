@@ -1,0 +1,291 @@
+\ifprof
+\else
+
+
+
+Dans la mesure du possible, on justifiera le code demandé par des
+invariants.
+
+
+\section{Opérations utiles sur les listes}
+
+Une liste \texttt{t} étant donnée:
+
+\begin{enumerate}
+\item \texttt{len(t)} désigne la longueur de \texttt{t};
+\item pour tout \texttt{i} dans \texttt{range(len(t))}, \texttt{t[i]} désigne
+  l'élément d'indice \texttt{i}.
+\item On peut construire une liste de \texttt{n} éléments tous physiquement
+  égaux à \texttt{x} avec l'expression \texttt{[x] * n}.
+\item On peut ajouter un élément \texttt{x} à la fin de \texttt{t} par
+  l'instruction \texttt{t.append(x)} (la longueur de \texttt{t} augmente alors
+  de $1$).
+\item On peut ajouter tous les éléments d'une liste \texttt{u} à la fin de
+  la liste \texttt{t} par l'instruction t += u.
+\end{enumerate}
+
+On supposera que ces opérations sur les listes ont respectivement une
+complexité:
+\begin{enumerate}
+\item $\Theta(1)$
+\item $\Theta(1)$
+\item $\Theta(\text{\texttt{n}})$
+\item $\Theta(1)$ (ce n'est pas tout à fait vrai mais pour ce TP,
+  c'est raisonnable)
+\item $\Theta(\text{\texttt{len(u)}})$ (ce n'est pas tout à fait vrai mais
+  pour ce devoir, c'est raisonnable)
+\end{enumerate}
+
+\section{Programmation}
+\begin{enumerate}
+\item Écrire une fonction \texttt{random\_list(n, k)} construisant une
+  liste de \texttt{n} entiers tirés au hasard dans l'intervalle
+  \texttt{range(k)}. On pourra utiliser la fonction \texttt{randrange} du
+  module \texttt{random} à cet effet.
+\item Écrire une fonction \texttt{counting\_sort(k, t)} prenant en
+  argument une liste t d'entiers appartenant à \texttt{range(k)} et
+  retournant une copie triée de ce tableau. On utilisera
+  impérativement l'algorithme suivant:
+  \begin{itemize}
+  \item On construit un tableau \texttt{u} de taille \texttt{k}
+    initialisé avec des $0$.
+  \item On parcourt \texttt{t}. Pour chaque valeur \texttt{x} trouvée, on
+    incrémente \texttt{u[x]}. À la fin du parcours, pour tout entier
+    \texttt{i} de \texttt{range(k)}, \texttt{u[i]} contient donc le nombre d'occurrences
+    de \texttt{i} dans \texttt{t}.
+  \item Il est alors facile de construire un tableau \texttt{r} trié
+    répondant à la question posée.
+  \end{itemize}
+\item Écrire suivant le même principe une fonction \texttt{bucket\_sort(f,
+    k, t)} retournant une copie de t triée suivant le critère
+  \texttt{f}. Plus précisément, \texttt{f} doit être une fonction prenant ses
+  valeurs dans \texttt{range(k)} et les éléments de la liste résultat sont
+  triés par ordre croissant de leurs images par f.
+
+  De plus, on fera en sorte que le tri soit \emph{stable},
+  c'est-à-dire que pour tout couple de valeurs \texttt{x} et \texttt{y} ayant
+  même image par \texttt{f}, \texttt{x} et \texttt{y} apparaissent dans le même
+  ordre dans \texttt{t} et dans la liste triée.\\
+
+Par exemple, si $f$ est la fonction $n\mapsto n^2 \% 5$, et \texttt{t=[0,1,5,6,4,12,10,9,17,2,6,7]}. Nous pouvons 
+calculer $f(0)=0$, $f(1)=1$, $f(2)=4$, $f(4)=1$, $f(5)=0$, $f(6)=1$, $f(7)=4$, $f(9)=4$, $f(10)=0$, $f(12)=4$ et 
+$f(17)=4$. Donc \texttt{bucket\_sort(f, 4, t)} doit renvoyer \texttt{[0,5,10,1,6,4,6,12,9,17,2,7]}. Le tableau  
+\texttt{[5,0,10,1,6,4,6,12,9,17,2,7]} est aussi trié suivant le critère $f$, mais ne peut être renvoyé par 
+\texttt{bucket\_sort(f, 4, t)} car les deux premiers éléments ne sont pas dans le même ordre que dans \texttt{t}, or on 
+veut un tri stable.
+
+\item On se donne la fonction suivante :\\
+
+\begin{python}
+def radix_sort(k, t):
+    """Retourne une copie de t triée par ordre croissant.
+    t doit contenir des entiers appartenant à range(k**2)
+    """
+    def lp(x):
+        return x // k
+    def rp(x):
+        return x % k
+    u = bucket_sort(rp, k, t)
+    r = bucket_sort(lp, k, u)
+    return r
+\end{python}
+
+Soit \texttt{t=[0,5,10,1,6,4,6,12,9,17,2,7]} et $k=5$. Calculer \texttt{bucket\_sort(rp, k, t)}, et en déduire 
+\texttt{radix\_sort(k, t)}.\\
+Quelle hypothèse peut-on formuler concernant la fonction \texttt{radix\_sort} ?
+
+\newcounter{saveenum}  \setcounter{saveenum}{\value{enumi}}
+\end{enumerate}
+
+\section{Étude de complexité}
+
+\begin{enumerate}
+ \setcounter{enumi}{\value{saveenum}}
+\item  Expliquer (brièvement)  et  sous quelle  hypothèse pourquoi  la
+  complexité de \texttt{random\_list(n, k)}) est un $\Theta(n)$.
+\item Justifier que la complexité de \texttt{counting\_sort(n, k)} est un
+  $\Theta(\max(n, k))$.
+\item Justifier que la complexité de \texttt{bucket\_sort(n, k)} est un
+  $\Theta(\max(n, k))$.
+\item Quelle est la complexité de \texttt{radix\_sort}?
+\item 
+En admettant que la fonction \texttt{bucket\_sort} répond bien à l'énoncé,
+justifier que \texttt{radix\_sort} trie le tableau donné en argument. On
+pourra commencer par regarder le cas où \texttt{k} vaut 10 pour comprendre
+ce qu'il se passe et se poser la question: à quelle(s) condition(s)
+sur \texttt{lp(x)}, \texttt{lp(y)}, \texttt{rp(x)}, \texttt{rp(y)} a t-on \texttt{x<=y}?
+\end{enumerate}
+
+\fi
+
+\ifprof
+\section*{Corrigé }
+
+\question\
+
+\begin{python}
+def random_list (n, k) :
+    t = [] # crée un tableau vide
+    for i in range (n) : # rajoute n fois un élémént à t
+        t.append( randrange (k) )   # cet élément est pris au hasard
+                                    # entre 0 et k-1
+    return (t)
+\end{python}
+
+\question\
+
+\begin{python}
+
+def comptage (k, t) :
+    """ si t est un tableau à valeurs dans range(k), comptage renvoie
+    un tableau u de longueur k tel que pour tout i, u[i] vaut le nombre
+    d'occurences de i dans t """
+    u = [0]*k
+    for i in t : # on parcourt t
+        u[i] += 1 # on ajoute 1 à u[i], car on a trouvé une occurence
+                 # supplémentaire de i
+    return (u)
+
+def counting_sort (k, t) :
+    u = comptage (k,t)
+    b = [] # b contiendra le tableau trié
+    for i in range (k) : # k est la longueur de u
+        b += [i] * u[i] # l'élément i est ajouté u[i] fois
+    return b
+
+# autre méthode en utilisant comptage_cumulé, je vous laisse finir
+
+def comptage_cumule (k, t) :
+    """ si t est un tableau à valeurs dans range(k), comptage_cumule renvoie
+    un tableau u de longueur k tel que pour tout i, u[i] vaut le nombre
+    d'occurences d'éléments inférieurs ou égaux à i dans t """
+    u = comptage (k, t)
+    for i in range(1,k) : # invariant : pour j de 0 à i, u[j] vaut le nombre
+                # d'occurences d'éléments inférieurs ou égaux à j dans t
+        u[i] = u[i] + u[i-1] 
+    return (u)
+
+\end{python}
+
+\question\
+
+\begin{python}
+
+def bucket_sort (f,k,t) :
+    baquets = [None]*k # on crée un tableau à k éléments bidons
+    for i in range(k) :
+        baquets[i] = [] # on crée k baquets vides
+    for x in t :
+        baquets[f(x)] += [x] # on ajoute l'élément x dans le baquet f(x)
+                # on remarque que les éléments d'un même baquet sont dans
+                # le même ordre que dans t
+    b = [] # b sera le tableau trié
+    for baquet in baquets :
+        b += baquet # on rajoute les éléments des baquets les uns
+                    # après les autres
+    return b # b contient les éléments de t, triés suivantleur image
+        # et deux éléments de même image sont dans le même ordre que
+        # dans t
+
+# test
+
+k = 10
+n = 16
+# créons une fonction aléatoire f de range(k) dans range(k)
+T = random_list (k,k) # ce tableau T contient les images de notre
+    # future f dans l'ordre : T = [f(0),f(1),...,f(k-1)]
+def f (x) :
+    return T[x] # il suffit d'envoyer x sur T[x]
+
+t = random_list (n,k)
+print(T)
+print(t)
+print(bucket_sort (f,k,t))
+
+\end{python}
+
+
+\question\
+Nous avons rp$(0)=0$, rp$(1)=1$, rp$(2)=2$, rp$(4)=4$, rp$(5)=0$, rp$(6)=1$, rp$(7)=2$, rp$(9)=4$, rp$(10)=0$, 
+rp$(12)=2$ et rp$(17)=2$. Donc \texttt{bucket\_sort(rp, 5, t)} doit renvoyer \texttt{[0,5,10,1,6,6,12,2,7,17,4,9]}.\\
+Puis, lp$(0)=0$, lp$(1)=0$, lp$(2)=0$, lp$(4)=0$, lp$(5)=1$, lp$(6)=1$, lp$(7)=1$, lp$(9)=1$, lp$(10)=2$, lp$(12)=2$ et 
+lp$(17)=3$. Donc \texttt{radix\_sort(5, t)} renvoie \texttt{[0,1,2,4,5,6,6,7,9,10,12,17]}.\\
+On peut conjecturer que \texttt{radix\_sort} est un algorithme qui trie une liste d'entiers par ordre croissant.
+
+
+
+\question\ Le programme 
+\verb|random_list(n, k)| ne contient qu'une boucle, de $n$ 
+tours. Or à chaque tour une seule instruction est éxécutée : l'ajout d'un 
+élément à la fin d'un tableau.\\
+Sous l'hypothèse que l'ajout d'un élément à la fin d'un tableau se fait à 
+coût constant, alors la complexité de \verb|random_list(n, k)| est bien un 
+$\Theta(n)$.\\
+
+\question\ \verb|counting_sort| utilise ici le programme \verb|comptage|. Il faut 
+donc d'abord évaluer la complexité de ce dernier programme.\\
+La première instruction de \verb|comptage| est la création d'un tableau de 
+longueur $k$ : cette opération a une complexité en $\Theta(k)$. Ensuite, la 
+boucle du programme a $n$ tours, et dans chaque tour de boucle on suppose que 
+l'opération effectué a un coût constant. Ainsi, le temps d'éxécution de 
+\verb|comptage| est encadré par deux fonctions de la forme $an+bk+c$, où 
+$a,b,c$ sont des constante. C'est donc la plus grande des valeurs de $n$ et $k$ 
+qui est prépondérante : la complexité de \verb|comptage| est donc un 
+$\Theta(\max(n,k))$.\\
+La boucle de \verb|counting_sort| faisant elle aussi appel $n$ fois à une 
+opération de constant, la complexité de \verb|counting_sort| est aussi un 
+$\Theta(\max(n,k))$.\\
+
+\question\ Les instructions de \verb|bucket_sort| sont les suivantes :
+\begin{itemize}
+\item création d'un tableau de $k$ éléments, soit une complexité $\Theta(k)$ ;
+\item une boucle de $n$ tours contenant chacun une opération unitaire, soit 
+une complexité $\Theta(n)$ ;
+\item une troisième boucle de $k$ tours dans laquelle à chaque tour on accède à 
+un élément d'un tableau : ces accès ont une complexité $\Theta(k)$.\\
+De plus,  la totalité des autres
+opérations (en prenant en compte tous les tours de boucle en une fois) consiste 
+à recopier les éléments des éléments de \verb|baquets| dans un tableau : or il y 
+a $n$ éléments à recopier, donc une complexité $\Theta(n)$.
+\end{itemize}
+Globalement, la complexité est donc bien $\Theta(\max(n,k))$.\\
+
+\question\ \verb|radix_sort| effectue deux appels à \verb|bucket_sort|, à chaque 
+fois sur un tableau de $n$ éléments appartenant à \verb|range(k**2)|, donc sa 
+complexité est $\Theta(\max(n,k^2))$.\\
+Si $n$ est ``grand'' et $k$ constant (i.e. si la taille du tableau est plus 
+grande que les entiers qu'il contient), ce tri est de complexité linéaire, dans 
+tous les cas. Ceci est à comparer à la complexité des tris pour lesquels aucune 
+hypothèse n'est faite sur les éléments du tableau à trier, et qui est en 
+moyenne $\Theta(n\log n)$ pour les tris les plus performants.\\
+
+\question\ Une méthode naturelle pour trier des entiers et d'utiliser l'ordre 
+lexicographique, c'est-à-dire que l'on trie ces entiers en regardant d'abord 
+leurs chiffres de poids le plus fort, et en finissant par les unités.\\
+On pourrait ainsi mettre dans un même baquet tous les entiers commençant par 9 
+(ou $k-1$ si l'on compte en base $k$), puis dans un autre tous ceux commençant 
+par 8 ... etc ... jusqu'à ceux commençant par 0 (on suppose que tous les 
+entiers manipulés sont écrits avec le même nombre de chiffres).\\
+Puis on reprend chaque baquet, et dans chaque baquet on refait la même 
+opréation, cette fois en regardant le deuxième chiffre. Puis on réitère en 
+regardant le troisième chiffre et ainsi de suite. On se rend compte que le 
+nombre de baquets utilisés pour ce tri est considérable (combien précisément 
+?).\\
+Le tri \verb|radix_sort| trie lui les entiers en commençant par comparer les 
+chiffres des unités : on met dans un même baquet tous les éléments finissant 
+par 0, puis dans un autre finissant par 1 et ainsi de suite. Si l'on compte en 
+base $k$, $k$ baquets sont ainsi utilisés. Puis on remet tous les éléments 
+ensemble, en respectant l'ordre des baquets. Et on recommence en regardant le 
+deuxième chiffre, etc.\\
+
+Lorsque l'on compte en base $k$ et que les éléments du tableau sont dans 
+\verb|range(k**2)| comme dans ce TP, alors chaque élément s'écrit sur deux 
+bits. Après la première boucle for de \verb|radix_sort|, les éléments sont 
+triés suivant leur chiffre des unités. Après la seconde boucle for, ces entiers 
+sont triés suivant le bit de poids fort. Mais puisque le tri \verb|bucket_sort| 
+est stable, les entiers ayant le même bit de poids fort sont encore triés 
+suivant leur chiffre des unités : le tableau est donc bien trié après 
+l'éxécution de ces deux boucles.
+
+\else
+\fi
