@@ -1,0 +1,261 @@
+\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
+\usepackage[%
+    pdftitle={Informatique : Traitement signal},
+    pdfauthor={Xavier Pessoles}]{hyperref}
+
+\input{style/new_style}
+\input{style/macros_SII}
+
+%\fichetrue
+\fichefalse
+
+%\proftrue
+\proffalse
+
+%\tdtrue
+\tdfalse
+
+\courstrue
+%\coursfalse
+
+\newcommand{\bfsf}[1]{\small\textbf{\textsf{#1}}}%{\textbf{\textsf{#1}}}
+\newcommand{\tsf}[1]{\small{\textsf{#1}}}
+
+% -------------------------------------
+% Déclaration des titres
+% -------------------------------------
+
+\def\discipline{Informatique}
+\def\xxtete{Informatique}
+\def\classe{PT -- PT $\star$}
+\def\xxnumpartie{Partie 6}
+\def\xxpartie{Informatique}
+
+\def\xxnumchapitre{Chapitre 1}
+\def\xxchapitre{\hspace{.12cm} Traitement du signal}
+
+\def\xxposongletx{2}
+\def\xxposonglettext{1.45}
+\def\xxposonglety{13}%10
+
+\def\xxonglet{Part. 5 -- Ch. 1}
+
+\def\xxactivite{Cours}
+\def\xxauteur{\textsl{Xavier Pessoles \\ Patrick Beynet}}
+
+\def\xxcompetences{%
+\textsl{%
+\textbf{Savoirs et compétences :}
+\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item Alg -- C15 :% Récursivité : avantages et inconvénients.
+\end{itemize}
+}}
+
+\def\xxfigures{
+\includegraphics[width=\textwidth]{images/fourier}
+
+\textit{Décomposition d'un signal carré en série de Fourier [2]}
+}%figues de la page de garde
+
+\def\xxpied{%
+Partie 6 -- Informatique\\
+Ch. 1 : Traitement du signal -- \xxactivite%
+}
+
+%---------------------------------------------------------------------------
+\begin{document}
+\chapterimage{png/Fond_ALG}
+\input{style/new_pagegarde}
+%---------------------------------------------------------------------------
+
+\section{La conversion analogique numérique}
+\subsection{Chaîne de mesure}
+
+Malgré l'hypothèse de continuité faite dans le cours d'asservissement sur la continuité des systèmes, les systèmes rencontrés sont dans une grande majorité numériques. Cela signifie que les signaux mesurés ne sont pas analogiques, mais numériques.
+
+Ainsi, il est possible de décomposer les fonctions acquérir et coder de la chaîne d'information de la manière suivante : 
+\begin{center}
+\includegraphics[width=.8\textwidth]{images/ch_acq}
+\end{center}
+
+Par exemple si on prends le cas d'un capteur d'effort (jauge extensométrique) qui peut être présent dans un système, le chaîne générique peut être adaptée comme cela :
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/capteur_effort}
+\end{center}
+
+Le filtrage peut être réalisé analogiquement et/ou numériquement. Le codage de l'information fait apparaître trois  étapes : 
+\begin{itemize}
+\item \textbf{l'échantillonnage} noté $f_e$ : cela correspond au nombre de mesures prises pendant 1 seconde;
+\item \textbf{le blocage} : cela correspond au temps $\dfrac{1}{f_e}$ pendant lequel on laisse l'unité de traitement traiter l'information; 
+\item \textbf{le codage} : cela correspond au codage d'une information analogique en information numérique. La précision du codage entrainera nécessairement entre la valeur mesurée et la valeur traitée numériquement par le système.
+\end{itemize}
+
+\subsection{L'échantillonnage}
+
+\begin{minipage}[c]{.45\linewidth}
+L'échantillonnage est donné en Hertz. Cette valeur donne le nombre d'échantillons par seconde.
+
+Prenons le signal suivant ci - contre et réalisons 4 échantillonnages différents.
+\end{minipage} \hfill
+\begin{minipage}[c]{.5\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ech_0.pdf}
+\end{center}
+\end{minipage}
+
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ech_1}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ech_2}
+\end{center}
+\end{minipage} 
+
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ech_3}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ech_4}
+\end{center}
+\end{minipage} \hfill
+
+
+Suivant l'échantillonnage du signal différents cas peuvent apparaître : 
+\begin{itemize}
+\item si la fréquence d'échantillonnage est trop faible, de l'information est perdue;
+\item si la fréquence d'échantillonnage est grande, il est possible de récupérer la quasi intégralité du système, cependant l'unité de traitement devra traiter les informations avec une grande rapidité. 
+\end{itemize}
+
+\begin{theorem}[Théorème de Shannon (-- Nyquist)]
+On considère un signal périodique décomposable en signaux périodiques dont la fréquence maximale présente est largement supérieure à celle minimale présente.
+La représentation discrète d’un signal par des échantillons régulièrement espacés exige une fréquence d’échantillonnage supérieure au double de la fréquence maximale présente dans ce signal.
+\end{theorem}
+
+
+\subsection{Blocage}
+Une fois que le signal a été mesuré, on bloque alors la valeur de la fonction pendant une période d'échantillonnage. (On parle parfois de bloqueur d'ordre zéro.)
+
+
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/bloc_1}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/bloc_2}
+\end{center}
+\end{minipage} \hfill
+\subsection{Codage et erreur de quantification}
+La quantification du signal détermine le nombre de bits sur lequel est codé l'information. Ainsi, pour une plage de mesure donnée et un nombre de bits donnés, le codage de l'information sera plus ou moins précis.
+
+\begin{defi}[Erreur et pas de quantification]
+On note $q$ le pas de quantification (ou erreur de quantification), $V_{\text{min}}$ la tension minimale mesurée par le système de mesure, $V_{\text{max}}$ la tension maximale mesurée. On note $N$ le nombre de bits codant l'information. On a alors :
+$$
+q = \dfrac{V_{\text{max}}-V_{\text{min}}}{2^N -1}
+$$
+\end{defi}
+
+Ci-dessous, les deux premières figures montrent l'échantillonnage, le blocage et la quantification d'un signal lissé avec différentes valeurs de la quantification. La troisième figure montre la même opération sur un signal bruité.
+
+\begin{minipage}[c]{.32\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/quan_1}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.32\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/quan_2}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.32\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/quan_3}
+\end{center}
+\end{minipage}
+
+Plus le nombre de bits sur lequel est codé l'information est élevé, plus le signal numérique sera de bonne qualité. En revanche, les informations numériques seront plus longues à traitées par l'unité de traitement.
+
+\section{Filtrage numérique}
+\subsection{Filtre numérique passe bas du premier ordre}
+Soit un filtre linéaire du premier ordre. Son équation différentielle est de la forme :
+$$
+s(t)+\tau \dfrac{\text{d} s(t) }{\text{d}t} = K e(t)
+$$
+
+En utilisant un schéma d'Euler implicite, on a l'approximation suivante : $\dfrac{\text{d} s(t) }{\text{d}t} = \dfrac{s_{k}-s_{k-1}}{h}$. En conséquences, 
+
+$$
+s_k+\tau \dfrac{s_{k}-s_{k-1}}{h} = K e_k \Leftrightarrow 
+s_k = \dfrac{h K e_k+\tau s_{k-1}}{h+\tau}
+$$
+
+La fréquence d'échantillonnage est ici de 1 KHz. Le pas de dérivation est de 0,001 s. On réalise alors différents filtrages en faisant varier la pulsation de coupure du filtre. 
+
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ordre1_1}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ordre1_2}
+\end{center}
+\end{minipage} 
+
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ordre1_3}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/ordre1_4}
+\end{center}
+\end{minipage}
+
+On observe que lorsque la pulsation de coupure diminue, le signal est de plus en plus lissé, limitant ainsi le bruit. En revanche, le signal est atténue et déphasé. 
+%\subsection{Relation de récurrence}
+%\subsection{Filtrage numérique à réponse impulsionnelle finie}
+
+\subsection{Filtrage numérique par moyenne glissante}
+Une autre solution pour lisser une courbe est de réaliser une moyenne glissante. Si on réalise ce filtrage en temps réel, cela signifie qu'un point lissé à l'échantillon $n$ est la moyenne des $n-1$ échantillons précédents et de l'élément en cours. 
+
+Il faut donc attendre l'acquisition de $n-1$ échantillons avant de disposer de la courbe.
+
+
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/moyenne_1}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/moyenne_2}
+\end{center}
+\end{minipage} 
+
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/moyenne_3}
+\end{center}
+\end{minipage} \hfill
+\begin{minipage}[c]{.43\linewidth}
+\begin{center}
+\includegraphics[width=\textwidth]{images/moyenne_4}
+\end{center}
+\end{minipage}
+\begin{thebibliography}{2}
+\bibitem{1}{Patrick Beynet, \textit{Supports de cours de TSI 2}, Lycée Rouvière, Toulon.}
+\bibitem{1}{David Crochet (créer à partir de KmPlot), CC-BY-SA-3.0, via Wikimedia Commons \url{https://upload.wikimedia.org/wikipedia/commons/6/6f/Fourier_d\%27un_carr\%C3\%A9.svg}.}
+\end{thebibliography}
+\end{document}
+
+
