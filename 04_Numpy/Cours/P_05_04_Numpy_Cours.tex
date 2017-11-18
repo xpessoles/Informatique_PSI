@@ -791,6 +791,7 @@ dont les
 significations sont immédiates. Pour cette dernière, la matrice doit
 être inversible pour que le résultat soit cohérent.
 \end{itemize}
+\begin{multicols}{2}
 \begin{python}
 a = np.array([[1,2,3],
               [0,2,2],
@@ -799,7 +800,8 @@ b = np.array([4,9,1])
 print(np.linalg.solve(a,b))
 # [  3.   12.5  -8. ]  
 \end{python}
-
+\end{multicols}
+ 
 La fonction \texttt{np.linalg.eig} fournit un couple de deux matrices,
 la première étant le spectre de la matrice, donné sous forme d'un
 vecteur où les valeurs propres multiples apparaissent autant de fois
@@ -817,48 +819,48 @@ sp, p = np.linalg.eig(a)
 print(sp)
 # [ 1.  1.  2.]
 print(p)
-# [[  1.00000000e+00  -1.00000000e+00   9.52579344e-01]
-#  [  0.00000000e+00   1.11022302e-16   2.72165527e-01]
-#  [  0.00000000e+00   0.00000000e+00   1.36082763e-01]]  
+# [[ 1.00000000e+00 -1.00000000e+00   9.52579344e-01]
+#  [ 0.00000000e+00   1.11022302e-16   2.72165527e-01]
+#  [ 0.00000000e+00   0.00000000e+00   1.36082763e-01]]  
 \end{python}
 \end{multicols}
-
-Terminons par des opérations sur les tableaux~:
-\texttt{np.concatenate( (a, b), axis=0)} permet d'accoler les tableaux
-\texttt{a} et \texttt{b} dans la direction
-indiquée. \texttt{np.column\_stack((v1,v2,v3))} permet de construire
-la matrice dont les colonnes sont les vecteurs passés en arguments.
-
-\begin{multicols}{3}
-\begin{python}
-a = np.array([[1,2,3],
-              [4,5,6],
-              [7,8,9]])
-b = np.array([[0,1,0],
-              [1,0,0],
-              [0,0,1]])
-print(np.concatenate((a,b), axis=0))
-# [[1 2 3]
-#  [4 5 6]
-#  [7 8 9]
-#  [0 1 0]
-#  [1 0 0]
-#  [0 0 1]]
-print(np.concatenate((a,b), axis=1))
-# [[1 2 3 0 1 0]
-#  [4 5 6 1 0 0]
-#  [7 8 9 0 0 1]]
-
-v1 = np.array([1,2,3])
-v2 = np.array([4,5,6])
-v3 = np.array([1,0,0])
-p = np.column_stack((v1,v2,v3))
-print(p)
-# [[1 4 1]
-#  [2 5 0]
-#  [3 6 0]]  
-\end{python}
-\end{multicols}
+%
+%Terminons par des opérations sur les tableaux~:
+%\texttt{np.concatenate((a,b), axis=0)} permet d'accoler les tableaux
+%\texttt{a} et \texttt{b} dans la direction
+%indiquée. \texttt{np.column\_stack((v1,v2,v3))} permet de construire
+%la matrice dont les colonnes sont les vecteurs passés en arguments.
+%
+%\begin{multicols}{3}
+%\begin{python}
+%a = np.array([[1,2,3],
+%              [4,5,6],
+%              [7,8,9]])
+%b = np.array([[0,1,0],
+%              [1,0,0],
+%              [0,0,1]])
+%print(np.concatenate((a,b),axis=0))
+%# [[1 2 3]
+%#  [4 5 6]
+%#  [7 8 9]
+%#  [0 1 0]
+%#  [1 0 0]
+%#  [0 0 1]]
+%print(np.concatenate((a,b),axis=1))
+%# [[1 2 3 0 1 0]
+%#  [4 5 6 1 0 0]
+%#  [7 8 9 0 0 1]]
+%
+%v1 = np.array([1,2,3])
+%v2 = np.array([4,5,6])
+%v3 = np.array([1,0,0])
+%p = np.column_stack((v1,v2,v3))
+%print(p)
+%# [[1 4 1]
+%#  [2 5 0]
+%#  [3 6 0]]  
+%\end{python}
+%\end{multicols}
 
 \subsection{Manipulation de polynômes}
 
@@ -898,7 +900,7 @@ print(p(0+1j))
 \end{python}
 \end{multicols}
 \begin{thebibliography}{2}
-\bibitem{1}{Patrick Beynet, \textit{Supports de cours de TSI 2}, Lycée Rouvière, Toulon.}
+\bibitem{1}{Guillaume Haberer, \textit{Supports de cours de PSI $\star$}, Lycée La Martinière Monplaisir, Lyon.}
 
 \end{thebibliography}
 \end{document}
