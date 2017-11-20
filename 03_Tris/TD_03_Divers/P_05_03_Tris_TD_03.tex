@@ -62,6 +62,8 @@ print("resultat : \t",tri_lexicographique(t))
 
 
 \section*{Exercice 2 : Problème de maçon}
+\textit{D'après ressources d'Anthony Meurdefroid.}
+
 
 On cherche à construire un mur à partir de briques horizontales de taille $2\times 1$ et $3\times 1$. Un mur est
 correctement construit si la jointure verticale entre deux briques ne se trouve jamais immédiatement
@@ -208,6 +210,7 @@ Dans le détail, le \textit{i}\up{ième} élément (chiffre) de la chaîne de ca
 
 %\begin{figure}[h]
 %\centering
+\begin{center}
 \begin{tikzpicture}
 \node[brique2,draw] at (0,0) {};
 \node[brique3,draw] at ({2*\unite},0) {};
@@ -242,7 +245,7 @@ Dans le détail, le \textit{i}\up{ième} élément (chiffre) de la chaîne de ca
 \draw[>=stealth,->] (N10.north) -- ({10*\unite},0);
 
 \end{tikzpicture}
-
+\end{center}
 %\end{figure}
 
 
@@ -252,15 +255,21 @@ Dans le détail, le \textit{i}\up{ième} élément (chiffre) de la chaîne de ca
 
 %%\corrigebox{
 \ifprof
+\begin{corrige}~\\
+\begin{center}
 \begin{tikzpicture}
 \def\unite{0.6cm}
 \tikzset{brique/.style={anchor=south west,rectangle, rounded corners =1pt,minimum height = \unite,fill=red!10}};
 \node[brique,minimum width={2*\unite},draw] at (0,0) {};
 \node[brique,minimum width={3*\unite},draw] at ({2*\unite},0) {};
 \node[brique,minimum width={3*\unite},draw] at ({5*\unite},0) {};
-\end{tikzpicture}.
+\end{tikzpicture}
+\end{center}
+
 La rangée de briques est : 1 brique de taille 2, puis 2 de taille 3, soit une rangée de
 taille \fbox{8}.%}
+\end{corrige}
+
 \else
 \fi
 
@@ -270,7 +279,22 @@ taille \fbox{8}.%}
 \subparagraph{}\textit{\'Ecrire une fonction \texttt{imprimeRangee(rangee)} qui prend en argument une liste des deux chiffres 2 et 3 correspondant à une rangée de briques et qui renvoie la rangée de briques sous la forme codée (type \texttt{string}). Exemple : \texttt{imprimeRangee([2,3,2,2,2])} renvoie \texttt{'0100101010'}.}
 
 %\reponsebox{4cm}
-
+\ifprof
+\begin{corrige}
+\begin{python}
+def imprimeRangee(rangee):
+    '''rangee est une liste de 2 et de 3'''
+    c=''
+    for element in rangee:
+        if element==2:
+            c+='01'
+        else:
+            c+='001'
+    return c[:-1]
+\end{python}
+\end{corrige}
+\else
+\fi
 %\corrigebox{\pythonexternal{imprimeRangee.py}}
 
 
@@ -283,7 +307,19 @@ Deux rangées sont dites compatibles si elles peuvent être placées l'une sur l
 %\reponsebox{5cm}
 
 %\corrigebox{\pythonexternal{sontCompatibles.py}}
+\ifprof
+\begin{corrige}~\\
 
+\begin{python}
+def sontCompatibles(r1,r2):
+    for i in range(len(r1)):
+        if r1[i]=='1' and r2[i]=='1':
+            return(False)
+    return(True)
+\end{python}
+\end{corrige}
+\else
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% resolution %%%%%%%%%%%%%%%%%%
@@ -314,10 +350,32 @@ Dans un premier temps, on aimerait connaître le nombre de combinaisons possible
 %\reponsebox{9cm}
 
 %\corrigebox{\pythonexternal{combinaisons.py}}
+\ifprof
+\begin{corrige}~\\
+
+\begin{python}
+def combinaisons(n):
+    if n==1:
+        return(0)
+    elif n==2 or n==3:
+        return(1)
+    else:
+        return(combinaisons(n-2)+combinaisons(n-3))
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
 
 \subparagraph{}\textit{Préciser la complexité de votre fonction.}
 %\reponsebox{4 cm}
-%\corrigebox{On a : $C(n)=C(n-2)+C(n-3)$, alors on obtient une complexité en $C(n)=O\left(\lambda^n \times 2^{n}\right)$ soit \fbox{une complexité exponentielle}.}
+%\corrigebox{
+\ifprof
+\begin{corrige}
+On a : $C(n)=C(n-2)+C(n-3)$, alors on obtient une complexité en $C(n)=O\left(\lambda^n \times 2^{n}\right)$ soit \fbox{une complexité exponentielle}.
+
+\end{corrige}
 
 Pour la phase 1, on suppose écrite une fonction \texttt{remplissage(l)} qui renvoie la liste de toutes les rangées possibles de longueur $l$. Par exemple, \texttt{remplissage(5)} renvoie les deux rangées : \texttt{'0100'} et \texttt{'0010'}.
 
@@ -336,10 +394,29 @@ Pour la phase 1, on suppose écrite une fonction \texttt{remplissage(l)} qui ren
 
 %\corrigebox{
 \ifprof
-\else
+\begin{corrige}~\\
 Il est nécessaire de créer une fonction récursive qui ajoute dans la branche de gauche une brique de 2 (concaténation de la chaîne de caractère en cours avec \texttt{'10'}), puis dans la branche de droite une brique de trois (concaténation de la chaîne de caractère en cours avec \texttt{'100'}). Il faut gérer la longueur du mur en cours (\texttt{w} dans le code ci-dessous) - ceci constituera notre cas de base dès lors que le mur en cours fera la longueur souhaitée. Enfin, il faut remplir une liste de toutes les combinaisons. J'ai utilisé une variable globale (très utile ici), en s'appuyant sur la génération pour une brique initialement de 2 puis une de 3. Le code à titre informatif:
+
+\begin{python}
+def remplissage(w,r,tailleMax):
+    if w==tailleMax:
+        toutesLesCombis.append(r)
+    elif w<tailleMax:
+        remplissage(w+2,r+'10',tailleMax)
+        remplissage(w+3,r+'100',tailleMax)
+        
+global toutesLesCombis
+toutesLesCombis=[]
+
+tailleMax=9
+      
+remplissage(2,'0',tailleMax)
+remplissage(3,'00',tailleMax)
+\end{python}
 %\pythonexternal{remplissage.py}
  %}
+ \end{corrige}
+\else
 \fi
 
 \subsection*{\'Etude de la phase 2}
@@ -352,7 +429,14 @@ L'objet de cette sous-section est de comprendre cet algorithme et son implément
 \subparagraph{}\textit{Pourquoi la quantité \texttt{compteRangee(R, r, 1)} vaut-elle 1 pour tout $r$ ?}
 %\reponsebox{3cm}
 
-%\corrigebox{Parce qu'il n'y a qu'une seule façon de faire un mur de hauteur 1 avec une rangée donnée !}
+%\corrigebox{}
+
+\ifprof
+\begin{corrige}
+Parce qu'il n'y a qu'une seule façon de faire un mur de hauteur 1 avec une rangée donnée !
+\end{corrige}
+\else
+\fi
 
 
 \subparagraph{}\textit{On suppose $l = 5$. Développer sur votre copie les différentes étapes de calcul (avec les
@@ -360,8 +444,10 @@ appels récursifs) de l'appel \texttt{compteRangee(combinaisonsCinq,combinaisons
 }
 %\reponsebox{8cm}
 
-%\corrigebox{On va donc dérouler les appels récursifs (arbre) :
+%\corrigebox{
 \ifprof
+\begin{corrige}
+On va donc dérouler les appels récursifs (arbre) :
 \begin{itemize}
 \item appel à \texttt{compteRangee(combinaisonsCinq,'0100',2)}
 \item initialement, \texttt{somme} vaut 0 ; nbCombi vaut 2 ; i vaut 0
@@ -377,6 +463,7 @@ appels récursifs) de l'appel \texttt{compteRangee(combinaisonsCinq,combinaisons
 \item à la fin \texttt{somme} vaut 1, et on renvoie 1.
 \end{itemize}
 %}
+\end{corrige}
 \else
 \fi
 %\subparagraph{}\textit{Démonter en exhibant un invariant de boucle que la fonction proposée permet de renvoyer le résultat attendu. Préciser le variant. }
@@ -388,22 +475,39 @@ appels récursifs) de l'appel \texttt{compteRangee(combinaisonsCinq,combinaisons
 
 
 
-\subsection{\'Etude de la phase 3}
+\subsection*{\'Etude de la phase 3}
 Afin de réaliser l'objectif, la fonction \texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} sera écrite. 
 
 
 \subparagraph{}\textit{\'Ecrire la fonction \texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} prenant en argument une liste de chaînes de caractères et la hauteur du mur souhaitée, et renvoyant un entier nombre de combinaisons possibles afin de construire le mur d'une manière correcte.}
 %\reponsebox{8cm}
 %\corrigebox{\pythonexternal{compteTout.py}}
-
-
+\ifprof
+\begin{corrige}
+def compteTout(toutesLesCombinaisonsLigne,hauteur):
+    nbCombi=len(toutesLesCombinaisonsLigne)
+    somme=0
+    i=0
+    while i<nbCombi:
+        temp=compteRangee(toutesLesCombinaisonsLigne,toutesLesCombinaisonsLigne[i],hauteur)
+        somme+=temp
+        i+=1
+    return(somme)
+\end{corrige}
+\else
+\fi
 Dans cette sous-section, nous chercherons les limites de notre algorithme naïf proposé dans la sous-section précédente, et nous chercherons donc à l'améliorer.
 
 \subparagraph{}\textit{En s'appuyant sur le calcul des murs de longueur 9 et de hauteur 3, donner le principal défaut de l'algorithme naïf proposé précédemment.}
 
 %\reponsebox{4cm}
 
-%\corrigebox{Pour le calcul des murs de longueur 9 et de hauteur 3, une bête réflexion au début de chaque appel récursif nous montre que l'on appelle deux fois \texttt{compteRangee(toutesLesCombinaisons,'00100100',2)}. Ce phénomène se répétant très souvent, il rend très lent notre algorithme.}
+\ifprof
+\begin{corrige}
+Pour le calcul des murs de longueur 9 et de hauteur 3, une bête réflexion au début de chaque appel récursif nous montre que l'on appelle deux fois \texttt{compteRangee(toutesLesCombinaisons,'00100100',2)}. Ce phénomène se répétant très souvent, il rend très lent notre algorithme.
+\end{corrige}
+\else
+\fi
 
 
 \subparagraph{}\textit{Proposer alors une amélioration de l'algorithme.}
@@ -412,8 +516,10 @@ Dans cette sous-section, nous chercherons les limites de notre algorithme naïf 
 
 %\corrigebox{
 \ifprof
+\begin{corrige}
 Si on reprend l'exemple précédent, on peut donc effectuer
 ce calcul une fois, puis stocker ce nombre dans une table. Cela devient très fortement intéressant à partir du moment où l'on demande par exemple le calcul des murs de longueur 30 et de hauteur 10.
+\end{corrige}
 \else
 \fi
 %
