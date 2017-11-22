@@ -376,7 +376,8 @@ def combinaisons(n):
 On a : $C(n)=C(n-2)+C(n-3)$, alors on obtient une complexité en $C(n)=O\left(\lambda^n \times 2^{n}\right)$ soit \fbox{une complexité exponentielle}.
 
 \end{corrige}
-
+\else
+\fi
 Pour la phase 1, on suppose écrite une fonction \texttt{remplissage(l)} qui renvoie la liste de toutes les rangées possibles de longueur $l$. Par exemple, \texttt{remplissage(5)} renvoie les deux rangées : \texttt{'0100'} et \texttt{'0010'}.
 
 
@@ -440,7 +441,7 @@ Parce qu'il n'y a qu'une seule façon de faire un mur de hauteur 1 avec une rang
 
 
 \subparagraph{}\textit{On suppose $l = 5$. Développer sur votre copie les différentes étapes de calcul (avec les
-appels récursifs) de l'appel \texttt{compteRangee(combinaisonsCinq,combinaisonsCinq[0],2)}, \texttt{combinaisonsCinq} étant la liste comportant les deux chaînes de caractères, \texttt{'0100'} et \texttt{'0010'}, codant les rangées.
+appels récursifs) de l'appel \texttt{compteRangee(combinaisonsCinq,}   \texttt{combinaisonsCinq[0],2)}, \texttt{combinaisonsCinq} étant la liste comportant les deux chaînes de caractères, \texttt{'0100'} et \texttt{'0010'}, codant les rangées.
 }
 %\reponsebox{8cm}
 
@@ -476,10 +477,13 @@ On va donc dérouler les appels récursifs (arbre) :
 
 
 \subsection*{\'Etude de la phase 3}
-Afin de réaliser l'objectif, la fonction \texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} sera écrite. 
+Afin de réaliser l'objectif, la fonction
+
+\texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} sera écrite. 
 
 
-\subparagraph{}\textit{\'Ecrire la fonction \texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} prenant en argument une liste de chaînes de caractères et la hauteur du mur souhaitée, et renvoyant un entier nombre de combinaisons possibles afin de construire le mur d'une manière correcte.}
+\subparagraph{}\textit{\'Ecrire la fonction
+ \texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} prenant en argument une liste de chaînes de caractères et la hauteur du mur souhaitée, et renvoyant un entier nombre de combinaisons possibles afin de construire le mur d'une manière correcte.}
 %\reponsebox{8cm}
 %\corrigebox{\pythonexternal{compteTout.py}}
 \ifprof
@@ -496,7 +500,8 @@ def compteTout(toutesLesCombinaisonsLigne,hauteur):
 \end{corrige}
 \else
 \fi
-Dans cette sous-section, nous chercherons les limites de notre algorithme naïf proposé dans la sous-section précédente, et nous chercherons donc à l'améliorer.
+
+Dans cette sous-section, nous chercherons les limites de notre algorithme naïf proposé dans la sous-section précédente et nous chercherons donc à l'améliorer.
 
 \subparagraph{}\textit{En s'appuyant sur le calcul des murs de longueur 9 et de hauteur 3, donner le principal défaut de l'algorithme naïf proposé précédemment.}
 
