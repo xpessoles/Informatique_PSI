@@ -96,7 +96,7 @@ On note :
 \subsection*{Représentation des nombres entiers relatifs}
 
 \begin{methode} 
-Pour représenter l’opposé d’un nombre positif par son complément à deux, on commence par le coder le nombre en binaire. On inverse les bits 0 et 1 et on ajoute 1 au mot binaire obtenu.
+Pour représenter l’opposé d’un nombre positif par son complément à deux, on commence par coder le nombre en binaire. On inverse les bits 0 et 1 et on ajoute 1 au mot binaire obtenu.
 \end{methode}
 \begin{rem}
 Lorsqu'on travaille sur un système $n$ bits, on peut coder les nombres allant de $-2^{n-1}$ à $-2^{n-1}-1$.
@@ -173,7 +173,7 @@ Simple précision :  	$2^{- 23} = 1,192 … * 10^{- 7}$
 Double précision :  	$2^{- 52} = 2,220 … * 10^{- 16}$
 
 
-\subsection*{Procédure de conversion de réel en binaire (hexadécimale) }
+\subsection*{Procédure de conversion de réel en binaire (hexadécimal) }
 
 \begin{methode}
 \begin{enumerate}
@@ -298,11 +298,23 @@ Par exemple, l'ASCII est un encodage fréquemment utilisé où les caractères s
 %\subparagraph*{}
 %\textit{Effectuez les opérations arithmétiques suivantes dans les systèmes de numération binaire (codé sur 8 bits) : $71 + 35 =$, $15 - 25 =$, $121 - 75 =$, $-51 - 77 =$.}
 %
-
+\proffalse
 \subsection*{Exercice 1}
 \setcounter{subparagraph}{0}
-\subparagraph{}\textit{Réaliser la conversion des nombres suivants dans les autres systèmes de numération : $(10050)_{10}$, $(343,56)_{10}$, $(1001 0001)_{2}$, $(A3F)_{16}$ et $(1C2A)_{16}$}
-
+\subparagraph{}\textit{Réaliser la conversion des nombres suivants dans les autres systèmes de numération : $(10050)_{10}$, $(1001 0001)_{2}$, $(A3F)_{16}$, $(-243,25)_{10}$ et $(1C2A)_{16}$}
+\ifprof
+\begin{corrige}~\\
+\begin{enumerate}
+\item $(10050)_{10}=$
+%\item $(343,625)_{10}$
+\item $(1001 0001)_{2}=(145)_{10}=(91)_{16}$
+\item $(A3F)_{16}=(2623)_{10}=(0101\, 00011\, 1111)_{2}$
+\item $(1C2A)_{16}=(7210)_{10}=(0001\,1100\,0010\,1010)_{2}$
+\item $(-243,25)_{10}=(C3734000)_{16} = (1100\,0011\, 0111\,0011\, 0100\,0000\, 0000\,0000)_{2}$
+\end{enumerate}
+\end{corrige}
+\else
+\fi
 
 
 \subsection*{Exercice 2}
@@ -395,6 +407,20 @@ $–23,03125 = C1B84000$
 \setcounter{subparagraph}{0}
 Une mesure est réalisée grâce à un capteur tachymétrique pendant 10 secondes. L'échantillonnage est de 1 kHz. Les données sont écrites dans un fichier texte de deux colonnes (temps et mesure) séparées par des espaces. Les temps mesurés sont compris entre \texttt{0} et {99.9999} s. La vitesse mesurée peut être comprise entre \texttt{-999,9999} et \texttt{999,9999} $\text{rad s}^{-1}$.
 \subparagraph*{}\textit{}{Quelle sera la taille maximale du fichier texte obtenu ?}
+
+%\newpage 
+%\subsection*{Exercice 1}
+
+%$$
+%\begin{array}{lcl}
+%10050_{10} &=& 
+%1 \cdot 8192 + 0 \cdot 4096 + 0 \cdot 2048 + 1 \cdot 1024 + 1 \cdot  512 + 1 \cdot 256 \\
+%&& + 0 \cdot 128 + 1 \cdot 64 + 0 \cdot 32 + 0 \cdot 16 + 0 \cdot 8 + 0 \cdot 4 + 1 \cdot 2 + 0 \cdot 1 \\
+%&=& \left(0010\;0111\;0100\;0010\right)_2 = (2742)_{16}
+%\end{array}
+%$$
+
+
 
 \end{multicols}
 \end{document}
