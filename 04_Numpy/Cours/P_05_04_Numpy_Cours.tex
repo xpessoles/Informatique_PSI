@@ -31,7 +31,7 @@
 \def\xxpartie{Algorithmique \& Programmation (Suite)}
 
 \def\xxnumchapitre{Chapitre 4}
-\def\xxchapitre{\hspace{.12cm} Utilisation de bibliothèques scientifiques}
+\def\xxchapitre{\hspace{.12cm} Utilisation de numpy}
 
 \def\xxposongletx{2}
 \def\xxposonglettext{1.45}
@@ -51,7 +51,7 @@
 }}
 
 \def\xxfigures{
-\includegraphics[width=\textwidth]{images/cartes}
+\includegraphics[width=\textwidth]{images/logo}
 %\textit{Tour de Hanoi [2]}
 }%figues de la page de garde
 
@@ -692,7 +692,7 @@ print(y)
 #  -0.2985322  -0.1773996  -0.05885751  0.05885751  0.1773996   0.2985322
 #   0.42438971  0.55790704  0.70372051  0.87058477  1.080839    1.57079633]  
 \end{python}
-
+\begin{multicols}{2}
 On peut vectoriser ses propres fonctions~:
 \begin{python}
 def f(x):
@@ -711,6 +711,7 @@ vf = np.vectorize(f)
 print(vf(x))
 # [2 3 3 4 4]  
 \end{python}
+\end{multicols}
 
 \subsection{Quelques méthodes sur les tableaux}
 On peut utiliser les méthodes (ou les fonctions associées)
