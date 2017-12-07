@@ -140,11 +140,11 @@ s_ph= filtrage_passe_haut(f,0.001,signal)
 
 
 ## AFFICHAGE DU SIGNAL FILTRE MOYENNE GLISSANTE
-fenetre=100
+fenetre=1000
 filtrageg = filtrage_moyenne(signal,fenetre)
 titre = "Moyenne glissante "+str(fenetre)
 plt.plot(temps,signal,label="Signal brut")
-plt.plot(temps[fenetre-1:],filtrageg,label="Moyenne glissante",linewidth=3)
+plt.plot(temps[fenetre-1:],filtrageg,label="Moyenne glissante",linewidth=3 )
 
 #plt.plot(tps_ech,res,linewidth=2,label="Pulsation de coupure "+str(1/tau)+" rad/s")
 
