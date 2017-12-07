@@ -92,16 +92,14 @@ def filtrage_passe_haut(freq,pas_filtre,signal):
     return res
     
 #Moyenne glissante
-filtrageg =[]
+def filtrage_moyenne(signal,fenetre):
+    filtrageg =[]
 
-fenetre = 100
-for i in range(fenetre-1,len(quan)):
-        s = sum(quan[i-fenetre+1:i+1])/fenetre
+    for i in range(fenetre-1,len(signal)):
+        s = sum(signal[i-fenetre+1:i+1])/fenetre
         filtrageg.append(s)
-
-
-plt.grid()
-
+    return filtrageg
+    
 
 
 ## AFFICHAGE DU SIGNAL CLAIR
@@ -138,9 +136,15 @@ s_pb= filtrage_passe_bas(1,0.001,signal)
 f = .1
 s_ph= filtrage_passe_haut(f,0.001,signal)
 #plt.plot(temps,signal,label="Signal brut")
-plt.plot(temps,s_ph,label="Signal filtré PH")
+#plt.plot(temps,s_ph,label="Signal filtré PH")
 
 
+## AFFICHAGE DU SIGNAL FILTRE MOYENNE GLISSANTE
+fenetre=100
+filtrageg = filtrage_moyenne(signal,fenetre)
+titre = "Moyenne glissante "+str(fenetre)
+plt.plot(temps,signal,label="Signal brut")
+plt.plot(temps[fenetre-1:],filtrageg,label="Moyenne glissante",linewidth=3)
 
 #plt.plot(tps_ech,res,linewidth=2,label="Pulsation de coupure "+str(1/tau)+" rad/s")
 
@@ -148,13 +152,13 @@ plt.plot(temps,s_ph,label="Signal filtré PH")
 
 
 #plt.plot(temps,ech,linewidth=2,label = "Frequence 1000 Hz")
-
-import scipy.fftpack
-
-N = len(quan)
-T = 1/freq
-yf = scipy.fftpack.fft(quan)
-#plt.plot(tps_ech,np.abs(yf)*2/N)
+# 
+# import scipy.fftpack
+# 
+# N = len(quan)
+# T = 1/freq
+# yf = scipy.fftpack.fft(quan)
+# #plt.plot(tps_ech,np.abs(yf)*2/N)
 
 plt.legend()
 plt.show()
