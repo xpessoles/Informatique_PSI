@@ -108,11 +108,11 @@ def filtrage_moyenne(signal,fenetre):
 ## AFFICHAGE DU SIGNAL BRUITE
 #plt.plot(temps,signal)
 
-## AFFICHAGE DU SIGNAL BRUITE
+## AFFICHAGE DU SIGNAL BRUITE#
 #plt.plot(temps,signal)
 
 ## AFFICHAGE DU SIGNAL ECHANTILLONE
-freq = 100
+freq = 1
 tps_ech,ech,ech_blo = echant(temps,signal,freq)
 
 #plt.plot(temps,ech_blo,label="Signal bloqué")
@@ -121,13 +121,13 @@ tps_ech,ech,ech_blo = echant(temps,signal,freq)
 ## AFFICHAGE DU SIGNAL QUANTIFIE
 Umin = -4 
 Umax = 4
-Nq = 4 # 2^Nb niveaux de quantification.
+Nq = 8 # 2^Nb niveaux de quantification.
 quan = signal_quan(Umin,Umax,Nq,ech_blo)
 #plt.plot(temps,quan,label="Echantillonage "+str(freq)+ "Hz - Quantification "+str(Nq)+" bits")
 
 ## AFFICHAGE DU SIGNAL FILTRE PB
 f = 1
-s_pb= filtrage_passe_bas(1,0.001,signal)
+s_pb= filtrage_passe_bas(f,0.001,signal)
 #plt.plot(temps,signal,label="Signal brut")
 #plt.plot(temps,s_pb,label="Signal filtré")
 
