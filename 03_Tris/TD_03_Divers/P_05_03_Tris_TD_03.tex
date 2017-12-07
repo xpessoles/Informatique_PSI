@@ -479,11 +479,12 @@ On va donc dérouler les appels récursifs (arbre) :
 \subsection*{\'Etude de la phase 3}
 Afin de réaliser l'objectif, la fonction
 
-\texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} sera écrite. 
+\noindent \texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} sera écrite. 
 
 
-\subparagraph{}\textit{\'Ecrire la fonction
- \texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} prenant en argument une liste de chaînes de caractères et la hauteur du mur souhaitée, et renvoyant un entier nombre de combinaisons possibles afin de construire le mur d'une manière correcte.}
+\subparagraph{}\textit{\'Ecrire la fonction}
+
+\noindent \texttt{compteTout(toutesLesCombinaisonsLigne,hauteur)} \textit{prenant en argument une liste de chaînes de caractères et la hauteur du mur souhaitée, et renvoyant un entier nombre de combinaisons possibles afin de construire le mur d'une manière correcte.}
 %\reponsebox{8cm}
 %\corrigebox{\pythonexternal{compteTout.py}}
 \ifprof
@@ -535,18 +536,20 @@ ce calcul une fois, puis stocker ce nombre dans une table. Cela devient très fo
 %%\fbox{Annexe}
 %%\end{Huge}
 %%\end{center}
-%\subsection*{Annexe}
-%\begin{python}
-%def compteRangee(toutesLesCombinaisonsLigne,r,hauteur):
-%    if hauteur==1:
-%        return(1)
-%    else:
-%        nbCombi=len(toutesLesCombinaisonsLigne)
-%        somme=0
-%        i=0
-%        while i<nbCombi:
-%            if sontCompatibles(r,toutesLesCombinaisonsLigne[i]):
-%                somme+=compteRangee(toutesLesCombinaisonsLigne,toutesLesCombinaisonsLigne[i],hauteur-1)
-%            i+=1
-%        return(somme)
-%\end{python}
+\subsection*{Annexe}
+\footnotesize{
+\begin{python}
+def compteRangee(toutesLesCombinaisonsLigne,r,hauteur):
+  if hauteur==1:
+    return(1)
+  else:
+    nbCombi=len(toutesLesCombinaisonsLigne)
+    somme=0
+    i=0
+    while i<nbCombi:
+      if sontCompatibles(r,toutesLesCombinaisonsLigne[i]):
+          somme+=compteRangee(toutesLesCombinaisonsLigne,
+              toutesLesCombinaisonsLigne[i],hauteur-1)
+      i+=1
+  return(somme)
+\end{python}}
