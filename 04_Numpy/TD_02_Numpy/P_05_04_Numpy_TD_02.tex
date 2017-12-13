@@ -295,7 +295,7 @@ print(m)
 \else
 \fi
 
-\newpage
+%\newpage
 
 
 \section*{Exercice 4 -- Représentation informatique d'une couleur}
@@ -567,7 +567,7 @@ mpimg.imsave("theme_image_1_fake.png", images_superposees)
 
 
 
-\section*{Exercice -- Représentation informatique du son.}
+\section*{Exercice 5 -- Représentation informatique du son.}
 
 \ifprof
 \else
@@ -744,13 +744,16 @@ nombre de voies est donné par le \verb#shape# du tableau de données~:
 
 \ifprof
 \else
-\newpage
-
+%\newpage
+\footnotesize
+\vspace{1cm}
+\begin{multicols}{2}
 \begin{python}
 Help on function read in module scipy.io.wavfile:
 
 read(filename, mmap=False)
-    Return the sample rate (in samples/sec) and data from a WAV file    
+    Return the sample rate (in samples/sec) and data 
+    from a WAV file    
 
     Parameters
     ----------
@@ -773,6 +776,9 @@ read(filename, mmap=False)
       data-type determined from the file.  
 \end{python}
 
+\vfill\null
+\columnbreak
+
 \begin{python}
 Help on function write in module scipy.io.wavfile:
 
@@ -786,22 +792,21 @@ write(filename, rate, data)
     rate : int
         The sample rate (in samples/sec).
     data : ndarray
-        A 1-D or 2-D numpy array of either integer or float data-type.    
+        A 1-D or 2-D numpy array of either integer 
+        or float data-type.    
     Notes
     -----
     * The file can be an open file or a filename.
     * Writes a simple uncompressed WAV file.
-    * The bits-per-sample will be determined by the data-type.
-    * To write multiple-channels, use a 2-D array of shape
-      (Nsamples, Nchannels).  
+    * The bits-per-sample will be determined by 
+       the data-type.
+    * To write multiple-channels, use a 2-D array 
+      of shape (Nsamples, Nchannels).  
 \end{python}
+\end{multicols}
 \fi
-
 \ifprof
 
-\begin{python}
-
-\end{python}
 \else
 \fi
 
