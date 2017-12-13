@@ -1,0 +1,48 @@
+% gh
+
+Dans cet exercice, on souhaite juste s'approprier la manipulation des
+tableaux \texttt{numpy}.
+
+On définit les tableaux suivants~: 
+\begin{python}
+import numpy as np
+
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])  
+c = np.array([1, 2, 3, 4, 5, 6])
+d = np.array([[1, 2, 3],
+              [4, 5, 6]])
+e = np.array([[1, 4],
+              [2, 5],
+              [3, 6]])
+\end{python}
+
+\begin{enumerate}
+\item 
+  Quels sont les \texttt{ndim}, \texttt{shape}, \texttt{dtype}, \texttt{size} de ces
+  tableaux~? Utilise-t-on \texttt{len} sur un tableau~? 
+\item 
+  Construire, par concaténation de \verb#a# et \verb#b#, un tableau \verb#f#
+  égal à \verb#c#.
+\item 
+  Modifier l'attribut \texttt{shape} de \verb#f# pour qu'il soit égal
+  à \verb#d#. Vérifier cette égalité. 
+\item
+  Modifier \verb#f# pour que les éléments
+  soient des flottants. Le tableau \verb#f# est-il encore égal à \verb#d#~?
+\item 
+  Construire, par modification de l'attribut \texttt{shape} et par
+  concaténation, à partir de \verb#a# et \verb#b#, un tableau \verb#g#
+  égal à \verb#e#.
+\item 
+  Construire, à partir du tableau \verb#e# et de la fonction
+  \texttt{np.zeros}, un tableau \verb#h# représentant 
+  $
+  \begin{bmatrix}
+    1 & 4 & 0 & 0 \\
+    2 & 5 & 0 & 0 \\
+    3 & 6 & 0 & 0 
+  \end{bmatrix}$. 
+  Ce tableau aura le même \texttt{dtype} que \verb#e#. 
+  
+\end{enumerate}
