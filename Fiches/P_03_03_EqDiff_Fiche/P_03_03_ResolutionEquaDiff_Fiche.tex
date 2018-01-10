@@ -25,7 +25,7 @@
 \def\discipline{Informatique}
 \def\xxtete{Informatique}
 
-\def\classe{Fiche PT}
+\def\classe{Fiche PSI$\star$}
 \def\xxnumpartie{Partie 3}
 \def\xxpartie{Ingénierie Numérique \& Simulation}
 
@@ -185,8 +185,7 @@ y_2(t) = \dot{s}(t) \\
 $$
 
 \footnotesize{
-\begin{center}
-\begin{tabular}{p{.47\linewidth} | p{.47\linewidth}}
+\begin{multicols}{2}
 Schéma d'Euler explicite :   $\dfrac{\text{d} y(t)}{\text{d}t}\simeq \dfrac{y_{k+1}-y_k}{h}$. On a donc :
 $$
 \left\{
@@ -196,22 +195,7 @@ $$
 \end{array}
 \right.
 $$ 
-&
-Schéma d'Euler implicite: $\dfrac{\text{d} y(t)}{\text{d}t}\simeq \dfrac{y_{k}-y_{k-1}}{h}$. On a donc :
-$$
-\left\{
-\begin{array}{l}
-\dfrac{y_{1,k}-y_{1,k-1}}{h} = y_{2,k} \\
-\dfrac{y_{2,k}-y_{2,k-1}}{h} + \dfrac{2\xi}{\omega_0} y_{2,k}+ \omega_0^2 y_{1,k} = Ke_k \\
-\end{array}
-\right.
-\Leftrightarrow 
-\left\{
-\begin{array}{l}
-y_{1,k} = hy_{2,k}+y_{1,k-1} \\
-y_{2,k} =\dfrac{h Ke_k+y_{2,k-1} - h\omega_0^2 y_{1,k-1}}{1+  h \dfrac{2\xi}{\omega_0} +  \omega_0^2 h^2 } \\
-\end{array}
-\right.$$ \\
+
 $$\Leftrightarrow 
 \left\{
 \begin{array}{l}
@@ -219,9 +203,25 @@ y_{1,k+1} = h y_{2,k} +y_{1,k} \\
 y_{2,k+1}  = hKe_k - \dfrac{2\xi h}{\omega_0} y_{2,k}- h\omega_0^2 y_{1,k} + y_{2,k}\\
 \end{array}
 \right.
-$$ & \\
-\end{tabular}
-\end{center}}
+$$ 
+
+
+Schéma d'Euler implicite: $\dfrac{\text{d} y(t)}{\text{d}t}\simeq \dfrac{y_{k}-y_{k-1}}{h}$. On a donc :
+$$
+\left\{
+\begin{array}{l}
+\dfrac{y_{1,k}-y_{1,k-1}}{h} = y_{2,k} \\
+\dfrac{y_{2,k}-y_{2,k-1}}{h} + \dfrac{2\xi}{\omega_0} y_{2,k}+ \omega_0^2 y_{1,k} = Ke_k \\
+\end{array}
+\right.$$
+$$
+\Leftrightarrow 
+\left\{
+\begin{array}{l}
+y_{1,k} = hy_{2,k}+y_{1,k-1} \\
+y_{2,k} =\dfrac{h Ke_k+y_{2,k-1} - h\omega_0^2 y_{1,k-1}}{1+  h \dfrac{2\xi}{\omega_0} +  \omega_0^2 h^2 } \\
+\end{array}
+\right.$$\end{multicols}}
 \normalsize
 
 \item Équation différentielle du second ordre : $\ddot{\theta}(t) + k \sin \theta(t) = 0$.
