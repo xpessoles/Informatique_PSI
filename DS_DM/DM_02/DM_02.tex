@@ -68,9 +68,9 @@ complexité:
   ordre dans \texttt{t} et dans la liste triée.\\
 
 Par exemple, si $f$ est la fonction $n\mapsto n^2 \% 5$, et \texttt{t=[0,1,5,6,4,12,10,9,17,2,6,7]}. Nous pouvons 
-calculer $f(0)=0$, $f(1)=1$, $f(2)=4$, $f(4)=1$, $f(5)=0$, $f(6)=1$, $f(7)=4$, $f(9)=4$, $f(10)=0$, $f(12)=4$ et 
+calculer $f(0)=0$, $f(1)=1$, $f(2)=4$, $f(4)=1$, $f(5)=0$, $f(6)=1$, $f(7)=4$, $f(9)=1$, $f(10)=0$, $f(12)=4$ et 
 $f(17)=4$. Donc \texttt{bucket\_sort(f, 4, t)} doit renvoyer \texttt{[0,5,10,1,6,4,6,12,9,17,2,7]}. Le tableau  
-\texttt{[5,0,10,1,6,4,6,12,9,17,2,7]} est aussi trié suivant le critère $f$, mais ne peut être renvoyé par 
+\texttt{[5,0,10,1,6,4,9,6,12,17,2,7]} est aussi trié suivant le critère $f$, mais ne peut être renvoyé par 
 \texttt{bucket\_sort(f, 4, t)} car les deux premiers éléments ne sont pas dans le même ordre que dans \texttt{t}, or on 
 veut un tri stable.
 
@@ -103,10 +103,10 @@ Quelle hypothèse peut-on formuler concernant la fonction \texttt{radix\_sort} ?
  \setcounter{enumi}{\value{saveenum}}
 \item  Expliquer (brièvement)  et  sous quelle  hypothèse pourquoi  la
   complexité de \texttt{random\_list(n, k)}) est un $\Theta(n)$.
-\item Justifier que la complexité de \texttt{counting\_sort(n, k)} est un
-  $\Theta(\max(n, k))$.
-\item Justifier que la complexité de \texttt{bucket\_sort(n, k)} est un
-  $\Theta(\max(n, k))$.
+\item Justifier que la complexité de \texttt{counting\_sort(k, t)} est un
+  $\Theta(\max(n, k))$, où \texttt{n = len(t)}.
+\item Justifier que la complexité de \texttt{bucket\_sort(f, k, t)} est un
+  $\Theta(\max(n, k))$, où \texttt{n = len(t)}.
 \item Quelle est la complexité de \texttt{radix\_sort}?
 \item 
 En admettant que la fonction \texttt{bucket\_sort} répond bien à l'énoncé,
@@ -207,7 +207,7 @@ print(bucket_sort (f,k,t))
 
 \question\
 Nous avons rp$(0)=0$, rp$(1)=1$, rp$(2)=2$, rp$(4)=4$, rp$(5)=0$, rp$(6)=1$, rp$(7)=2$, rp$(9)=4$, rp$(10)=0$, 
-rp$(12)=2$ et rp$(17)=2$. Donc \texttt{bucket\_sort(rp, 5, t)} doit renvoyer \texttt{[0,5,10,1,6,6,12,2,7,17,4,9]}.\\
+rp$(12)=2$ et rp$(17)=2$. Donc \texttt{bucket\_sort(rp, 5, t)} doit renvoyer \texttt{[0,5,10,1,6,6,12,17,2,7,4,9]}.\\
 Puis, lp$(0)=0$, lp$(1)=0$, lp$(2)=0$, lp$(4)=0$, lp$(5)=1$, lp$(6)=1$, lp$(7)=1$, lp$(9)=1$, lp$(10)=2$, lp$(12)=2$ et 
 lp$(17)=3$. Donc \texttt{radix\_sort(5, t)} renvoie \texttt{[0,1,2,4,5,6,6,7,9,10,12,17]}.\\
 On peut conjecturer que \texttt{radix\_sort} est un algorithme qui trie une liste d'entiers par ordre croissant.
@@ -232,9 +232,15 @@ l'opération effectué a un coût constant. Ainsi, le temps d'éxécution de
 $a,b,c$ sont des constante. C'est donc la plus grande des valeurs de $n$ et $k$ 
 qui est prépondérante : la complexité de \verb|comptage| est donc un 
 $\Theta(\max(n,k))$.\\
-La boucle de \verb|counting_sort| faisant elle aussi appel $n$ fois à une 
-opération de constant, la complexité de \verb|counting_sort| est aussi un 
-$\Theta(\max(n,k))$.\\
+Les instructions de \verb|counting_sort| sont les suivantes :
+\begin{itemize}
+\item un appel à  \verb|comptage (k,t)| en $\Theta(\max(n,k))$ ;
+\item une boucle de $k$ tours dans laquelle la totalité des
+opérations (en prenant en compte tous les tours de boucle en une fois) consiste 
+à recopier les éléments des éléments de \verb|u| dans un tableau : or il y 
+a $n$ éléments à recopier, donc une complexité $\Theta(n)$.
+\end{itemize}
+Globalement, la complexité est donc bien $\Theta(\max(n,k))$.
 
 \question\ Les instructions de \verb|bucket_sort| sont les suivantes :
 \begin{itemize}
@@ -250,9 +256,16 @@ a $n$ éléments à recopier, donc une complexité $\Theta(n)$.
 \end{itemize}
 Globalement, la complexité est donc bien $\Theta(\max(n,k))$.\\
 
-\question\ \verb|radix_sort| effectue deux appels à \verb|bucket_sort|, à chaque 
-fois sur un tableau de $n$ éléments appartenant à \verb|range(k**2)|, donc sa 
-complexité est $\Theta(\max(n,k^2))$.\\
+\question\ Notons \texttt{n} la longueur de \texttt{t}.\\
+Remarquons d'abord que si \texttt{p} est un entier compris dans 
+\texttt{range(k**2)}, alors \texttt{rp(p)} 
+et\texttt{lp(p)} sont dans \texttt{range(k)}.\\
+\verb|radix_sort| effectue un premier appel à \verb|bucket_sort|, sur une liste de longueur \texttt{n}, et en utilisant 
+une fonction à valeurs dans \texttt{range(k)}. Ainsi, cet appel à une complexité en $\Theta(\max(n,k))$. Il renvoie 
+\texttt{u}, qui est encore de longueur \texttt{n}.\\
+Ensuite, un second appel à \verb|bucket_sort| est effectué, toujours sur une liste de longueur \texttt{n}, et en 
+utilisant une fonction à valeurs dans \texttt{range(k)}. La complexité est encore $\Theta(\max(n,k))$.\\
+Globalement, la complexité de \verb|radix_sort| est $\Theta(\max(n,k))$.\\
 Si $n$ est ``grand'' et $k$ constant (i.e. si la taille du tableau est plus 
 grande que les entiers qu'il contient), ce tri est de complexité linéaire, dans 
 tous les cas. Ceci est à comparer à la complexité des tris pour lesquels aucune 

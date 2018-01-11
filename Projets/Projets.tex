@@ -1,0 +1,144 @@
+\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
+\usepackage[%
+    pdftitle={Informatique : Principe de la représentation des variables en mémoire},
+    pdfauthor={Xavier Pessoles}]{hyperref}
+
+\input{style/new_style}
+\input{style/macros_SII}
+
+\fichetrue
+%\fichefalse
+
+%\proftrue
+\proffalse
+
+%\tdtrue
+\tdfalse
+
+%\courstrue
+\coursfalse
+
+% -------------------------------------
+% Déclaration des titres
+% -------------------------------------
+
+\def\discipline{Informatique}
+\def\xxtete{Informatique}
+
+\def\classe{PSI $\star$}
+\def\xxnumpartie{}%Partie 1}
+\def\xxpartie{Projets d'informatique}%Architecture matérielle \& logicielle}
+
+\def\xxnumchapitre{}%Chapitres 3 et 4}
+\def\xxchapitre{}%\hspace{.12cm} Représentation des variables dans la mémoire}
+
+\def\xxposongletx{2}
+\def\xxposonglettext{1.45}
+\def\xxposonglety{19}%16
+
+\def\xxonglet{Projets PSI}%P. 1 -- Ch. 3 \& 4}
+
+\def\xxactivite{Fiche}
+\def\xxauteur{\textsl{Xavier Pessoles \&  Skander Zannad}  }
+
+\def\xxcompetences{%
+\textsl{%
+%\textbf{Savoirs et compétences :}\\
+%\noindent \textbf{Résoudre :} à partir des modèles retenus :
+%\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+%\item choisir une méthode de résolution analytique, graphique, numérique;
+%\item mettre en \oe{}uvre une méthode de résolution.
+%\end{itemize}
+%\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+%\item \textit{Rés -- C1.1 :} Loi entrée sortie géométrique et cinématique -- Fermeture géométrique.
+%\end{itemize}
+%
+%\noindent \textit{Mod2 -- C4.1 :} Représentation par schéma bloc.
+}}
+
+\def\xxfigures{
+%incgraphics[width=.8\textwidth]{}%images/prot_01}
+}%figues de la page de garde
+
+\def\xxpied{%
+Projets d'informatique \\
+%Ch. 3 et 4 : Représentation des variables dans la mémoire -- \xxactivite%
+}
+
+\setcounter{secnumdepth}{5}
+%---------------------------------------------------------------------------
+
+
+\begin{document}
+%\chapterimage{png/Fond_Cin}
+\input{style/new_pagegarde}
+\vspace{2cm}
+\pagestyle{fancy}
+\thispagestyle{plain}
+
+
+\textbf{Qu'est-ce qu'un projet d'informatique ?}
+
+Un projet d'informatique est un programme de votre choix que vous allez réaliser pendant les 4 semaines qui suivent.
+
+\textbf{Sur quoi le projet doit-il porter ?}
+
+Le projet doit aborder au moins deux thèmes listés ci-dessous : 
+\begin{itemize}
+\item du calcul numérique (résolution d'équations différentielles, résolution d'équations stationnaires...);
+\item base de données;
+\item interface graphique (avec matplotlib ou toute autre bibliothèque d'affichage).
+\end{itemize}
+
+\textbf{Comment s'organiser ?}
+Le projet doit être réalisé par groupe de 2 élèves, vous disposez des séances de TD, de cours et de votre temps libre. Le temps estimé à passer sur le projet est compris entre 10 et 15 heures.
+
+\textbf{Que rendre ?}
+\begin{itemize}
+\item Vous devez rendre un script python (et éventuellement des fichiers dépendants).
+\item Le fichier devra être directement exécutable. 
+\item Quelques informations peuvent être éventuellement demandées à l'utilisateur via le shell ou via une boite de dialogue.
+\item Le résultat de votre travail doit être visuel.
+\end{itemize}
+
+
+\textbf{Quels sont les critères d'évaluation ?}
+
+\begin{itemize}
+\item Fournir un script fonctionnel est essentiel.
+\item Expérience de vos enseignants :).
+\end{itemize}
+
+\textbf{Vous n'avez pas d'idées de projets ? Nous en avons quelques unes pour vous :)}
+\begin{itemize}
+\item Coder un jeu ! (Jeu de dames, bataille navale, etc...). Pourquoi ne pas essayer d'utiliser la bibliothèque pygame ?
+\item Coder un algorithme de compression de données : 
+\begin{itemize}
+\item compression sans perte avec l'algorithme de huffman;
+\item compresson d'une image en JPG.
+\end{itemize}
+\item Coder le dépalcement d'une balle ... ou de plusieurs balles :
+\begin{itemize}
+\item représentation d'une balle qui rebondit sur le sol jusqu'à rouler.
+\item représentation d'une balle en chute libre dans l'air... et qui attérit dans l'eau.
+\item représentation de plusieurs balles qui s'entrechoquent dans le plan.
+\end{itemize}
+\item When zombies attack !
+\item Modélisation des lois de déplacement d'un style de table traçante en 2D.
+\item Modélisation d'évacuation d'une salle.
+\item Codage d'information en utilisant le codage de hamming (7,4).
+\item Modélisation de la déformation d'un treillis (grue, pont, tour Eiffel...).
+\item Traitement d'image : augmentation du contraste, floutage, changement de résolution,
+recherche de contours.
+\end{itemize}
+
+
+
+
+
+\newpage
+\def\columnseprulecolor{\color{ocre}}
+\setlength{\columnseprule}{0.4pt} 
+
+\end{document}
+
