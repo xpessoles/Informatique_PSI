@@ -1,14 +1,32 @@
+\ifprof
+\else
 
-\section*{Bases de données}
+\textbf{Vous trouverez à la fin de ce sujet une annexe contenant des informations concernant les programmes à écrire en 
+\texttt{python} pour le second problème.}
+
+\fi
+
+
+\section{Bases de données}
+
+\ifprof
+\else
 Météo France publie et stocke chaque jour des informations météorologiques issues de ses stations (réseau RADOME).
-%Ces données d'observations peuvent par exemple être destinées à des messages internationaux d’observation en surface (SYNOP) qui circulent sur le système mondial de télécommunication (SMT) de l’Organisation Météorologique Mondiale (OMM). Elles contiennent des paramètres atmosphériques mesurés (température, humidité, direction et force du vent, pression atmosphérique, hauteur de précipitations) ou observés (temps sensible, description des nuages, visibilité) depuis la surface terrestre. Selon l’instrumentation et des spécificités locales, d'autres paramètres peuvent être disponibles (hauteur de neige, état du sol, \textit{etc}.).
+%Ces données d'observations peuvent par exemple être destinées à des messages internationaux d’observation en surface 
+% (SYNOP) qui circulent sur le système mondial de télécommunication (SMT) de l’Organisation Météorologique Mondiale 
+% (OMM). 
+% Elles contiennent des paramètres atmosphériques mesurés (température, humidité, direction et force du vent, pression 
+% atmosphérique, hauteur de précipitations) ou observés (temps sensible, description des nuages, visibilité) depuis la 
+% surface terrestre. Selon l’instrumentation et des spécificités locales, d'autres paramètres peuvent être disponibles 
+% (hauteur de neige, état du sol, \textit{etc}.).
 Le schéma de la relation \texttt{RADOME} est le suivant : 
 \texttt{RADOME = \{num\_sta, nom\_usuel, département, commune, altitude, latitude, longitude\}}. On a donc par exemple :
 \begin{center}
 \begin{tabular}{ccccccc}
 \hline
 \multicolumn{7}{c}{RADOME} \\
-\hline\texttt{num\_sta} & \texttt{nom\_usuel} & \texttt{département} & \texttt{commune} & \texttt{altitude	} & \texttt{latitude} & \texttt{longitude} \\
+\hline\texttt{num\_sta} & \texttt{nom\_usuel} & \texttt{département} & \texttt{commune} & \texttt{altitude	} 
+& \texttt{latitude} & \texttt{longitude} \\
 \hline\hline
 7005&	ABBEVILLE&	80&	ABBEVILLE&	70&	50.135833&	1.834667 \\
 7015&	LILLE-LESQUIN&	59&	LESQUIN&	47&	50.570000&	3.097500\\
@@ -17,8 +35,11 @@ Le schéma de la relation \texttt{RADOME} est le suivant :
 \hline
 \end{tabular}
 \end{center}
-Ces données d'observations peuvent par exemple être destinées à des messages internationaux d’observation en surface (SYNOP) qui circulent sur le système mondial de télécommunication (SMT) de l’Organisation Météorologique Mondiale (OMM). 
-Le schéma de la relation \texttt{SYNOP} est le suivant : \texttt{SYNOP = {num\_sta, date, pmer, tend, etc.}}. Les caractéristiques des attributs sont les suivants :
+Ces données d'observations peuvent par exemple être destinées à des messages internationaux d’observation en surface 
+(SYNOP) qui circulent sur le système mondial de télécommunication (SMT) de l’Organisation Météorologique Mondiale 
+(OMM). 
+Le schéma de la relation \texttt{SYNOP} est le suivant : \texttt{SYNOP = {num\_sta, date, pmer, tend, etc.}}.
+Les caractéristiques des attributs sont les suivants :
 \begin{center}
 \begin{tabular}{llll}
 \hline
@@ -38,36 +59,36 @@ Vitesse du vent moyen 10 mn&	ff&	réel& 	m/s \\
 
 \subparagraph{}
 \textit{Quels sont les numéros de station et les villes correspondantes ? }
+
+\subparagraph{}
+\textit{Quels sont les numéros de station et les villes correspondantes situées dans le var ? }
+
+\subparagraph{}
+\textit{Quelles sont les villes où la vitesse du vent moyen a dépassé les 20 m/s ? }
+
+\subparagraph{}
+\textit{Quelle est la plus haute valeur de pression mesurée ?}
+\fi
+
 \ifprof
 \begin{corrige}
+\question\
 $$ \pi_{\text{num},\text{sta\_commune}}\left( \text{RADOME} \right) $$
 
 \begin{center}
 \texttt{SELECT num\_sta, commune FROM RADOME}
 \end{center}
-\end{corrige}
-\else
-\fi
 
-\subparagraph{}
-\textit{Quels sont les numéros de station et les villes correspondantes situées dans le var ? }
-\ifprof
-\begin{corrige}
+\question\
 $$ \pi_{\text{num},\text{sta\_commune}}\left(\sigma_{\text{departement = 83}} \left(\text{RADOME} \right)\right) $$
 
 \begin{center}
 \texttt{SELECT num\_sta, commune FROM RADOME WHERE département = 83}
 \end{center}
-\end{corrige}
-\else
-\fi
 
-
-\subparagraph{}
-\textit{Quelles sont les villes où la vitesse du vent moyen a dépassé les 20 m/s ? }
-\ifprof
-\begin{corrige}
-$$ \pi_{\text{commune}}\left(\sigma_{\text{RADOME.num\_sta=SYNOP.num\_sta}} \left(\text{RADOME} \times \sigma_{\text{ff}>20}\left(\text{SYNOP} \right) \right)\right) $$
+\question\
+$$ \pi_{\text{commune}}\left(\sigma_{\text{RADOME.num\_sta=SYNOP.num\_sta}} \left(\text{RADOME} \times 
+\sigma_{\text{ff}>20}\left(\text{SYNOP} \right) \right)\right) $$
 
 \hspace{1cm} \texttt{SELECT RADOME.commune}
 
@@ -75,13 +96,7 @@ $$ \pi_{\text{commune}}\left(\sigma_{\text{RADOME.num\_sta=SYNOP.num\_sta}} \lef
 
 \hspace{2cm} \texttt{WHERE SYNOP.ff>20}
 
-\end{corrige}
-\else
-\fi
-\subparagraph{}
-\textit{Quelle est la plus haute valeur de pression mesurée ?}
-\ifprof
-\begin{corrige}
+\question\
 $$ \pi_{\gamma \text{MAX(pmer)}}\left(\text{SYNOP}\right) $$
 
 \begin{center}
@@ -144,13 +159,6 @@ $$ \pi_{\gamma \text{MAX(pmer)}}\left(\text{SYNOP}\right) $$
 %\fi
 %
 
-
-\ifprof
-\else
-
-\textbf{Vous trouverez à la fin de ce sujet une annexe contenant des informations concernant les programmes à écrire en 
-\texttt{python}}
-\fi
 
 \section{Mise en situation}
 \ifprof
