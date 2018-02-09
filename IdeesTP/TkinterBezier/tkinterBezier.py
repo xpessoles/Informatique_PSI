@@ -4,6 +4,21 @@
 import tkinter as tk
 import math as m
 
+class main_fen(Frame):
+    """
+    Classe associée à la fenêtre principale de l'application.
+    
+    """
+    def __init__ (self,fenetre, **kwargs):
+        """
+        Cette méthode est appelée à la création de l'objet. 
+        self est un appel à la classe elle-même.
+        """
+        tk.Frame.__init__
+    # https://docs.python.org/3/library/tkinter.html
+    # https://openclassrooms.com/courses/apprenez-a-programmer-en-python/des-interfaces-graphiques-avec-tkinter
+    # http://tkinter.fdex.eu/doc/caw.html#les-identifiants-numeriques
+
 def nouvelle_fenetre(ti):
     global main_fen
     global ht_fen
