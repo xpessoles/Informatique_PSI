@@ -4,10 +4,11 @@
 import tkinter as tk
 import math as m
 
-def nouvelle_fenetre(ti,ht_fen,la_fen):
+def nouvelle_fenetre(ti):
     global main_fen
     global ht_fen
     global la_fen
+    global dessin
     """
     Creation d'une nouvelle fenetre.
     Entrées : 
@@ -30,14 +31,29 @@ def nouvelle_fenetre(ti,ht_fen,la_fen):
     dessin = tk.Canvas(width = str(la_fen)+"m", height = str(ht_fen)+"m", bg="#e8e8e8")
     dessin.pack()
     
-def convert_coord(x,y):
-    """
-    Retourne les coordonnées d'un point dans le système de coordonnées de tkinter.
-    """
-    # A MODIFIER
-    return (x,y)
+    
 
-nouvelle_fenetre("Titre",100,100*m.sqrt(2))
+ht_fen=100
+la_fen=m.sqrt(2)*ht_fen
+nouvelle_fenetre("Titre")
+
+def tracer_point(x,y):
+    """
+    Tracer un point de coordonnées (x,y) (en mm).
+    Entrée : 
+     * x,y(flt) 
+     
+    """
+    global dessin,ht_fen,la_fen
+    rayon = 2 #en mm
+    x1,x2 = str(x-rayon)+"m", str(x+rayon)+"m"
+    y=-y+ht_fen # Changement de repère (vers le reper tkinter)
+    y1,y2 = str(y-rayon)+"m", str(y+rayon)+"m"
+    dessin.create_oval(x1,y1,x2,y2, fill="red", width=0)
+
+tracer_point(10,10)
+
+
 
 # Démarrage de la boucle tkitnter
 main_fen.mainloop()
