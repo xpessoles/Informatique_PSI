@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import tkinter as tk
+from tkinter import *
 import math as m
 
 class main_fen(Frame):
@@ -9,66 +9,99 @@ class main_fen(Frame):
     Classe associée à la fenêtre principale de l'application.
     
     """
-    def __init__ (self,fenetre, **kwargs):
-        """
-        Cette méthode est appelée à la création de l'objet. 
-        self est un appel à la classe elle-même.
-        """
-        tk.Frame.__init__
-    # https://docs.python.org/3/library/tkinter.html
-    # https://openclassrooms.com/courses/apprenez-a-programmer-en-python/des-interfaces-graphiques-avec-tkinter
-    # http://tkinter.fdex.eu/doc/caw.html#les-identifiants-numeriques
-
-def nouvelle_fenetre(ti):
-    global main_fen
-    global ht_fen
-    global la_fen
-    global dessin
-    """
-    Creation d'une nouvelle fenetre.
-    Entrées : 
-     * ti(str) : titre de la fenêtre
-     * ht(int) : hauteur de la fenêtre (mm)
-     * la(int) : largeur de la fenêtre (mm)
-    """
+    def __init__ (self,parent):
+        super().__init__(parent)
+        self.pack(fill='both', expand=1)
+        self.width = 600
+        self.height = 450
+        self.ptA = ("A",100,100)
+        self.ptB = ("B",100,400)
+        self.ptC = ("C",500,400)
+        self.ptD = ("D",500,100)
+        
+        self.canvas = Canvas(self, width=self.width, height=self.height, background="#e8e8e8")
+        self.canvas.pack(padx=2, pady=2) 
+        
+        # Création des points
+        self.creation_points()
+        
+    def move(self, event):
+        def node_center(tag):
+            """ Renvoie le centre du noeud étant donné
+                son rectangle englobant
+            """
+            x1, y1, x2, y2 = self.canvas.coords(tag)
+            return (x1 + x2) // 2, (y1 + y2) // 2
+        # ---------------------------------------------------------------------
+        x, y = event.x, event.y # Coordonnées cliquées
+        tags = self.canvas.gettags(tk.CURRENT) # tags contient le tag "node-B" et "current"
+   
+        for tag in tags:
+            if not tag.startswith("node"):
+                continue
+            # Ceci est normalement effectué pour un seul tag (par ex "node-B").
+            # Comme deux objets ont ce tag, les deux sont déplacés simultanément
+            # par self.canvas.move...
+            x1, y1 = node_center(tag)
+            if "A" in tag:
+                self.ptA = ("A",x1,y1)
+            if "B" in tag:
+                self.ptB = ("B",x1,y1)
+            if "C" in tag:
+                self.ptC = ("C",x1,y1)
+            if "D" in tag:
+                self.ptD = ("D",x1,y1)
+            self.canvas.move(tag, x-x1, y-y1)
+        
+        x1, y1 = node_center(tag)
+        
+        tag = "poly-{}".format("poly")
+        self.canvas.delete(tag)
+        
+        ligne = self.canvas.create_line(
+                        self.ptA[1],self.ptA[2],
+                        self.ptB[1],self.ptB[2],
+                        self.ptC[1],self.ptC[2],
+                        self.ptD[1],self.ptD[2]) 
+        self.canvas.addtag_withtag(tag, ligne)
+        
+        
+        
+           
+        
+    def creation_points(self):
+        pts = [self.ptA,self.ptB,self.ptC,self.ptD]
+        
+        # Polygone de contrôle
+        tag = "poly-{}".format("poly")
+        ligne = self.canvas.create_line(
+                        self.ptA[1],self.ptA[2],
+                        self.ptB[1],self.ptB[2],
+                        self.ptC[1],self.ptC[2],
+                        self.ptD[1],self.ptD[2]) 
+        self.canvas.addtag_withtag(tag, ligne)
+        
+        rayon = 4
+        for pt,x,y in pts:
+            x1,x2 = x-rayon, x+rayon
+            y1,y2 = y-rayon, y+rayon
+            point = self.canvas.create_oval(x1,y1,x2,y2, fill="#fe9494", outline="#FF0101")
+            
+            tag = "node-{}".format(pt)
+            # Création des points avec un tag
+            self.canvas.addtag_withtag(tag, point)
+            
+            # Pour créer un événement
+            self.canvas.tag_bind(point, '<B1-Motion>', self.move)
+        
+            
     
-    # Création de la fenêtre principale
-    main_fen = tk.Tk()
-    
-    # Titre de la fenêtre
-    main_fen.title(ti)
-    
-    # Taille de fenêtre non modifiable
-    main_fen.resizable(width=False, height=False)
-    
-    # Ajout d'une zone de dessin en mm.
-    #dessin = tk.Canvas(width = str(la+"m"), height = str(ht+"m"), bg="e8e8e8")
-    dessin = tk.Canvas(width = str(la_fen)+"m", height = str(ht_fen)+"m", bg="#e8e8e8")
-    dessin.pack()
-    
-    
+ 
+fenetre = Tk()
+fenetre.resizable(width=False, height=False)
+interface = main_fen(fenetre)
 
-ht_fen=100
-la_fen=m.sqrt(2)*ht_fen
-nouvelle_fenetre("Titre")
+interface.mainloop()
 
-def tracer_point(x,y):
-    """
-    Tracer un point de coordonnées (x,y) (en mm).
-    Entrée : 
-     * x,y(flt) 
-     
-    """
-    global dessin,ht_fen,la_fen
-    rayon = 2 #en mm
-    x1,x2 = str(x-rayon)+"m", str(x+rayon)+"m"
-    y=-y+ht_fen # Changement de repère (vers le reper tkinter)
-    y1,y2 = str(y-rayon)+"m", str(y+rayon)+"m"
-    dessin.create_oval(x1,y1,x2,y2, fill="red", width=0)
+#interface.destroy()
 
-tracer_point(10,10)
-
-
-
-# Démarrage de la boucle tkitnter
-main_fen.mainloop()
