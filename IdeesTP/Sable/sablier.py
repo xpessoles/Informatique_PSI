@@ -9,17 +9,19 @@ import matplotlib.pyplot as plt
 import copy
 
 # Largeur du sablier
-larg = 11
+larg = 3#11
 
 # Hauteur du sablier
-haut = 8
+haut = 4#8
 
 # Colonne de chute 
-col = 5
+col = 1#5
 
 def creation_sablier(larg,haut):
-    pile = haut*[""]
-    sablier = larg*[pile]
+    sablier=[]
+    for i in range (larg):
+        sablier.append(haut*[""])
+        
     return sablier
 
 def empiler(sablier,col):
@@ -37,15 +39,19 @@ def taille(sablier,col):
     
 def chute_libre_grain(sablier,col,simu):
     ht = len(sablier[col])
-    if sablier[ht-1][col]=="*":
+    print(ht)
+    if sablier[col][ht-1]=="*":
+        print("Colonne pleine")
         return None
     
     i=ht-1
-    while sablier[i][col]!="*" and i>=0:
-        sablier[i][col]="*"
+    # Pour décrire la chute d'un grain ou ajoute puis on élève * à chaque étage. 
+    while sablier[col][i]!="*" and i>=0:
+        sablier[col][i]="*"
         simu.append(copy.deepcopy(sablier))
-        sablier[i][col]=""
+        sablier[col][i]=""
         i=i-1
+    sablier[col][i+1]="*"
         
         
         
@@ -54,41 +60,6 @@ def chute_libre_grain(sablier,col,simu):
     
 
 
-tas=[]
-
-pile1=["","","","","","","",""]
-pile2=pile1
-pile3=pile1
-pile4=pile1
-pile5=pile1
-pile7=pile1
-pile8=pile1
-pile9=pile1
-pile10=pile1
-pile11=pile1
-
-pile6=["","","","","","","",""]
-tas_tmp=[pile1,pile2,pile3,pile4,pile5,pile6,pile7,pile8,pile9,pile10,pile11]
-tas.append(tas_tmp)
-
-pile6=["*","","","","","","",""]
-tas_tmp=[pile1,pile2,pile3,pile4,pile5,pile6,pile7,pile8,pile9,pile10,pile11]
-tas.append(tas_tmp)
-
-pile6=["*","*","","","","","",""]
-tas_tmp=[pile1,pile2,pile3,pile4,pile5,pile6,pile7,pile8,pile9,pile10,pile11]
-tas.append(tas_tmp)
-
-pile6=["*","*","*","","","","",""]
-tas_tmp=[pile1,pile2,pile3,pile4,pile5,pile6,pile7,pile8,pile9,pile10,pile11]
-tas.append(tas_tmp)
-
-pile6=["*","*","*","*","","","",""]
-tas_tmp=[pile1,pile2,pile3,pile4,pile5,pile6,pile7,pile8,pile9,pile10,pile11]
-tas.append(tas_tmp)
-
-
-# Représentation d'une pile de piles
 
 
 def circle(r,x,y):
@@ -103,7 +74,9 @@ def trace_tas(tas):
             if tas[i][j]=="*":
                 x,y=circle(.4,i,j)
                 plt.fill(x,y,"blue")
-
+            if tas[i][j]=="":
+                x,y=circle(.41,i,j)
+                plt.fill(x,y,"white")
 #draw_tas(tas)
 
 
@@ -121,28 +94,23 @@ def trace_ecoulement(tas):
 sablier = creation_sablier(larg,haut)
 simu = []
 simu.append(copy.deepcopy(sablier))
+
+
+# Chute d'un grain
 chute_libre_grain(sablier,col,simu)
-trace_ecoulement(simu)
+chute_libre_grain(sablier,col,simu)
+chute_libre_grain(sablier,col,simu)
+chute_libre_grain(sablier,col,simu)
 
+#trace_ecoulement(simu)
 
-"""
-for t in tas:
-    print('ii')
-    trace_tas(tas)
-    plt.pause(0.01) # pause avec duree en secondes
-"""
-"""
-plt.plot([0,len(tas[0]),len(tas[0]),0,0],[-1,-1,len(tas[0][0]),len(tas[0][0]),-1],"white")
+plt.plot([-1,larg,larg,-1,-1],[-1,-1,haut+1,haut+1,-1])
 plt.axis("equal")
-trace_tas(tas[1])
-plt.pause(0.01)
-trace_tas(tas[2])
-plt.pause(0.01)
-trace_tas(tas[3])
-plt.pause(0.01)
-trace_tas(tas[4])
-plt.pause(0.01)
 
-#trace_ecoulement(tas)
-"""
+for t in simu:
+    print('ii')
+    trace_tas(t)
+    plt.pause(0.5)
+
+
 plt.show()
