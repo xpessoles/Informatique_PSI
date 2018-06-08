@@ -42,7 +42,7 @@ def trace_matrice(A):
 def trace_matrices(AA):
     for A in AA:
         trace_matrice(A)
-        plt.pause(0.01) # pause avec duree en secondes
+        plt.pause(0.005) # pause avec duree en secondes
  
 
 
@@ -143,7 +143,7 @@ def simulation(n,p1,p2):
     #return [resu[i]/n**2 for i in range(4)]
 
 
-a = simulation(10,0.5,0.3)
+a = simulation(30,0.5,0.3)
 
 
 
