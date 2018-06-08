@@ -12,18 +12,18 @@ def trace_carre(x,y,c,col):
     Tracer un carré depuis (x,y) jusqu'à (x+x,y+c)
     """
     # Sain = 0 : blanc, bord noir
-    # Infecte = 1 : noir
+    # Infecte = 1 : rouge
     # Retabli = 2 : vert
-    # Decede = 3 : rouge
+    # Decede = 3 : noir
     col_b = col
     if col == 0:
         col,col_b = "w","k"
     if col == 1:
-        col,col_b = "k","k"
+        col,col_b = "r","r"
     if col == 2:
         col,col_b = "g","g"
     if col == 3:
-        col,col_b = "r","r"
+        col,col_b = "k","k"
 
     les_x = [x,x+c,x+c,x]
     les_y = [y,y,y+c,y+c]
