@@ -7,6 +7,7 @@ __author__ = "Xavier Pessoles"
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
+import random
 
 # Largeur du sablier
 larg = 3#11
@@ -54,8 +55,30 @@ def chute_libre_grain(sablier,col,simu):
     sablier[col][i+1]="*"
         
         
-        
+def chute_grain(sablier,col):
     
+    #Recherche du sens
+    # Cas du premier grain
+    if taille(sablier,col)==1 and taille(sablier,col-1)==0 and taille(sablier,col+1)==0:
+        return Non
+    
+    col_ch = col   # Colonne de chute
+    col_g = col-1  # Colonne de gauche
+    col_d = col+1  # Colonne de droite
+    
+    sens=0
+    # Sens alaéatoire
+    if col_g == col_d and col_ch>col_g :
+        sens = random.choice([-1,1])
+        
+    if col+sens!=0 or col+sens!= len(sablier) : #-1 ?
+        
+        
+    while col!=0 and taille(sablier,col)!=0:
+        # On ajoute le grain en haut de la colonne, et on le si       
+        sablier[col][i]="*"
+        simu.append(copy.deepcopy(sablier))
+        sablier[col][i]=""
     
     
 
