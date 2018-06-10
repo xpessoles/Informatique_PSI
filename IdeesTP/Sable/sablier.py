@@ -10,13 +10,15 @@ import copy
 import random
 
 # Largeur du sablier
-larg = 3#11
+larg = 5#11
 
 # Hauteur du sablier
-haut = 4#8
+haut = 5#8
 
 # Colonne de chute 
 col = 1#5
+
+nb_grain=2
 
 def creation_sablier(larg,haut):
     sablier=[]
@@ -27,26 +29,32 @@ def creation_sablier(larg,haut):
 
 def empiler(sablier,col):
     # On empile une * sur la colonne col
-    for i in range(sablier[col]):
+    for i in range(len(sablier[col])):
         if sablier[col][i]!="*":
             sablier[col][i]="*"
             return None
 
+def depiler(sablier,col):
+    # On dépile une * sur la colonne col
+    for i in range(len(sablier[col])-1,-1,-1):
+        if sablier[col][i]=="*":
+            sablier[col][i]=""
+            return None
+
 def taille(sablier,col):
     i = 0
-    while sablier[i][col]=="*":
+    while sablier[col][i]=="*":
         i=i+1
     return i
     
 def chute_libre_grain(sablier,col,simu):
     ht = len(sablier[col])
-    print(ht)
     if sablier[col][ht-1]=="*":
         print("Colonne pleine")
         return None
     
     i=ht-1
-    # Pour décrire la chute d'un grain ou ajoute puis on élève * à chaque étage. 
+    # Pour décrire la chute d'un grain ou ajoute puis on enlève * à chaque étage. 
     while sablier[col][i]!="*" and i>=0:
         sablier[col][i]="*"
         simu.append(copy.deepcopy(sablier))
@@ -55,12 +63,12 @@ def chute_libre_grain(sablier,col,simu):
     sablier[col][i+1]="*"
         
         
-def chute_grain(sablier,col):
+def chute_grain(sablier,col,simu):
     
     #Recherche du sens
     # Cas du premier grain
     if taille(sablier,col)==1 and taille(sablier,col-1)==0 and taille(sablier,col+1)==0:
-        return Non
+        return None
     
     col_ch = col   # Colonne de chute
     col_g = col-1  # Colonne de gauche
@@ -68,21 +76,43 @@ def chute_grain(sablier,col):
     
     sens=0
     # Sens alaéatoire
-    if col_g == col_d and col_ch>col_g :
+    tcol_g = taille(sablier,col_g)
+    tcol_d = taille(sablier,col_d)
+    tcol = taille(sablier,col)
+    print(col,tcol_g,tcol_d,taille(sablier,col_ch))
+    if tcol_g == tcol_d and taille(sablier,col_ch)>tcol_g :
         sens = random.choice([-1,1])
+    
+    sens=-1
+    print(str("sens"),sens)    
+    #if col+sens!=0 or col+sens!= len(sablier) : #-1 ?
+    
         
-    if col+sens!=0 or col+sens!= len(sablier) : #-1 ?
-        
-        
-    while col!=0 and taille(sablier,col)!=0:
-        # On ajoute le grain en haut de la colonne, et on le si       
-        sablier[col][i]="*"
+    # On continue l'évolution tant que
+    # le grain n'a pas atteint le bord gauche
+    
+    while col!=0 and taille(sablier,col)!=0 :
+        # On supprime le grain en haut de la colonne, et on l'ajoute a coté
+        print(sablier)
+        depiler(sablier,col)
+        #simu.append(copy.deepcopy(sablier))
+        empiler(sablier,col+sens)
         simu.append(copy.deepcopy(sablier))
-        sablier[col][i]=""
-    
-    
+        print(sablier)
+        col=col-1
+        
 
-
+def simulation(nb_grain,larg,haut):
+    sablier = creation_sablier(larg,haut)
+    simu = []
+    simu.append(copy.deepcopy(sablier))
+    col = larg//2
+    while nb_grain>0:
+        # Chute libre du grain
+        chute_libre_grain(sablier,col,simu)
+        chute_grain(sablier,col,simu)
+        nb_grain = nb_grain-1
+    return simu
 
 
 def circle(r,x,y):
@@ -105,33 +135,29 @@ def trace_tas(tas):
 
 def trace_ecoulement(tas):
     for t in tas:
-        
-        print('ii')
         trace_tas(tas)
         plt.pause(0.01) # pause avec duree en secondes
         
         
 
-
-# On crée le sablier
-sablier = creation_sablier(larg,haut)
-simu = []
-simu.append(copy.deepcopy(sablier))
+simu = simulation(nb_grain,larg,haut)
 
 
+"""
 # Chute d'un grain
 chute_libre_grain(sablier,col,simu)
 chute_libre_grain(sablier,col,simu)
 chute_libre_grain(sablier,col,simu)
 chute_libre_grain(sablier,col,simu)
-
+"""
 #trace_ecoulement(simu)
+
 
 plt.plot([-1,larg,larg,-1,-1],[-1,-1,haut+1,haut+1,-1])
 plt.axis("equal")
 
+
 for t in simu:
-    print('ii')
     trace_tas(t)
     plt.pause(0.5)
 
