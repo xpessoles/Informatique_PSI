@@ -18,7 +18,7 @@ haut = 5#8
 # Colonne de chute 
 col = 1#5
 
-nb_grain=2
+nb_grain=8
 
 def creation_sablier(larg,haut):
     sablier=[]
