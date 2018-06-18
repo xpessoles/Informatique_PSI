@@ -79,11 +79,15 @@ def chute_grain(sablier,col,simu):
     tcol_g = taille(sablier,col_g)
     tcol_d = taille(sablier,col_d)
     tcol = taille(sablier,col)
-    print(col,tcol_g,tcol_d,taille(sablier,col_ch))
-    if tcol_g == tcol_d and taille(sablier,col_ch)>tcol_g :
-        sens = random.choice([-1,1])
     
-    sens=1
+    # SENS A REVOIR ???
+    
+    print(col,tcol_g,tcol_d,taille(sablier,col_ch))
+    if tcol_g == tcol_d and (taille(sablier,col_ch)>tcol_g or  taille(sablier,col_ch)>tcol_d):
+        sens = random.choice([-1,1])
+    if sens == 0 :  
+        sens = random.choice([-1,1])
+    #sens=1
     print(str("sens"),sens)    
     print(str("col"),col)    
     #if col+sens!=0 or col+sens!= len(sablier) : #-1 ?
@@ -100,7 +104,7 @@ def chute_grain(sablier,col,simu):
         empiler(sablier,col+sens)
         simu.append(copy.deepcopy(sablier))
         col=col+sens
-        print(len(sablier))
+        print(len(sablier),col,sens)
 
 def simulation(nb_grain,larg,haut):
     sablier = creation_sablier(larg,haut)
