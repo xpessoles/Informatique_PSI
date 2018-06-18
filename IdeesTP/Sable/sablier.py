@@ -83,25 +83,24 @@ def chute_grain(sablier,col,simu):
     if tcol_g == tcol_d and taille(sablier,col_ch)>tcol_g :
         sens = random.choice([-1,1])
     
-    sens=-1
+    sens=1
     print(str("sens"),sens)    
+    print(str("col"),col)    
     #if col+sens!=0 or col+sens!= len(sablier) : #-1 ?
     
-        
     # On continue l'évolution tant que
     # le grain n'a pas atteint le bord gauche
     
-    ## >> WHILE A COMPLETER
-    while col!=0 and taille(sablier,col)!=0 and not(taille(sablier,col+sens)==taille(sablier,col)-1): #and taille(sablier,col+sens+sens)!=taille(sablier,col)-1 :
+    # Conditions d'arrêt : bord gauche, bord droit, taille colonne nulle, 
+    #                      fin d'évolution natureuue
+    while col!=0 and (col != len(sablier)-1) and taille(sablier,col)!=0 and not(taille(sablier,col+sens)==taille(sablier,col)-1): #and taille(sablier,col+sens+sens)!=taille(sablier,col)-1 :
         # On supprime le grain en haut de la colonne, et on l'ajoute a coté
-        print(sablier)
         depiler(sablier,col)
         #simu.append(copy.deepcopy(sablier))
         empiler(sablier,col+sens)
         simu.append(copy.deepcopy(sablier))
-        print(sablier)
-        col=col-1
-        
+        col=col+sens
+        print(len(sablier))
 
 def simulation(nb_grain,larg,haut):
     sablier = creation_sablier(larg,haut)
