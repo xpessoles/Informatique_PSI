@@ -91,7 +91,8 @@ def chute_grain(sablier,col,simu):
     # On continue l'évolution tant que
     # le grain n'a pas atteint le bord gauche
     
-    while col!=0 and taille(sablier,col)!=0 :
+    ## >> WHILE A COMPLETER
+    while col!=0 and taille(sablier,col)!=0 and not(taille(sablier,col+sens)==taille(sablier,col)-1): #and taille(sablier,col+sens+sens)!=taille(sablier,col)-1 :
         # On supprime le grain en haut de la colonne, et on l'ajoute a coté
         print(sablier)
         depiler(sablier,col)
