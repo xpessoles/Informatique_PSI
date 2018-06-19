@@ -18,7 +18,7 @@ haut = 5#8
 # Colonne de chute 
 col = 1#5
 
-nb_grain=8
+nb_grain=4
 
 def creation_sablier(larg,haut):
     sablier=[]
@@ -87,9 +87,9 @@ def chute_grain(sablier,col,simu):
         sens = random.choice([-1,1])
     if sens == 0 :  
         sens = random.choice([-1,1])
+        print(">>>>><<<<<<")
     #sens=1
-    print(str("sens"),sens)    
-    print(str("col"),col)    
+     
     #if col+sens!=0 or col+sens!= len(sablier) : #-1 ?
     
     # On continue l'évolution tant que
