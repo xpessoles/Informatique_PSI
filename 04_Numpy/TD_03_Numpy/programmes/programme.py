@@ -22,7 +22,7 @@ img = mpimg.imread("PhotoBD.png")
 
 # Inversion des couleurs
 # img[:,:,:]=1-img[:,:,:]
-img=1-img
+# img=1-img
 
 """for i in range(h):
     for j in range(l):
@@ -50,6 +50,28 @@ ax4.imshow(imgb)
 plt.show()
 """
 
+# Transformation en noir et blanc
+def convert_nb(img,a,b,c):
+    imgnb = np.zeros(img.shape)
+    imgnb[:,:,0]=(a*img[:,:,0]+b*img[:,:,1]+c*img[:,:,2])#*(1/(a+b+c))
+    imgnb[:,:,1]=imgnb[:,:,0]
+    imgnb[:,:,2]=imgnb[:,:,0]
+    return imgnb
 
-plt.imshow(img)
+imgnb1 = convert_nb(img,1/3,1/3,1/3)
+imgnb2 = convert_nb(img,.21,.71,.07)
+imgnb3 = convert_nb(img,100,50,1)
+imgnb4 = convert_nb(img,1000,100,1)
+
+f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex='col', sharey='row')
+ax1.imshow(imgnb1)
+ax2.imshow(imgnb2)
+ax3.imshow(imgnb3)
+ax4.imshow(imgnb4)
 plt.show()
+
+
+"""
+plt.imshow(imgnb)
+plt.show()
+"""
