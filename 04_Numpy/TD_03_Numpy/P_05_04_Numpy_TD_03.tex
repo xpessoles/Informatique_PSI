@@ -1,0 +1,372 @@
+\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
+\usepackage[%
+    pdftitle={Informatique : Numpy},
+    pdfauthor={Xavier Pessoles}]{hyperref}
+    
+\input{style/new_style}
+\input{style/macros_SII}
+
+\usepackage{multicol}
+\fichetrue
+%\fichefalse
+
+\proftrue
+\proffalse
+
+\tdtrue
+%\tdfalse
+
+%\courstrue
+\coursfalse
+
+% -------------------------------------
+% Déclaration des titres
+% -------------------------------------
+
+\def\discipline{Informatique}
+\def\xxtete{Informatique}
+\def\classe{PSI$\star$}
+\def\xxnumpartie{Partie 5}
+\def\xxpartie{Algorithmique \& Programmation (Suite)}
+
+\def\xxnumchapitre{Chapitre 4}
+\def\xxchapitre{\hspace{.12cm} Utilisation de Numpy}
+
+\def\xxtitreexo{Traitement d'images avec numpy}
+\def\xxsourceexo{}%\hspace{.2cm} Informatique pour tous en CPGE -- \textit{Wack \& al.}}
+
+\def\xxposongletx{2}
+\def\xxposonglettext{1.45}
+\def\xxposonglety{13}%10
+
+\def\xxonglet{Part. 5 -- Ch. 4}
+
+\def\xxactivite{TD -- 02}
+\def\xxauteur{\textsl{Guillaume Haberer}}
+
+\def\xxcompetences{%
+\textsl{%
+\textbf{Savoirs et compétences :}
+%\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+%\item Alg -- C17 : tris d’un tableau à une dimension de valeurs numériques (tri par insertion, tri %rapide, tri fusion).
+%\end{itemize}
+}}
+
+\def\xxfigures{}%figues de la page de garde
+
+\def\xxpied{%
+Partie 5 -- Algorithmique et Programmation\\
+Ch 4 : Utilisation de numpy -- \xxactivite%
+}
+
+
+
+\setcounter{secnumdepth}{5}
+%---------------------------------------------------------------------------
+
+
+\begin{document}
+%\chapterimage{png/Fond_Cin}
+\input{style/new_pagegarde}
+\vspace{5cm}
+\pagestyle{fancy}
+\thispagestyle{plain}
+
+
+\def\columnseprulecolor{\color{ocre}}
+\setlength{\columnseprule}{0.4pt} 
+\ifprof
+\else
+\begin{multicols}{2}
+\fi
+
+\subsection*{Représentation informatique d'une couleur}
+\ifprof
+\else
+La représentation d'une couleur est déterminée par un choix de codage de l'information
+«~couleur~».
+
+On peut choisir d'utiliser 1~bit pour stocker cette
+information. On distinguera alors uniquement deux couleurs. Par
+exemple du noir (0) et du blanc (1) ou alors du blanc (0) et du noir
+(1) ou pourquoi pas du rouge et du noir. 
+
+On peut choisir d'utiliser 1~octet pour stocker cette information. On
+distinguera alors $2^8=256$ couleurs différentes. Ces $256$ valeurs
+différentes peuvent représenter des niveaux de gris différents (du
+blanc au noir ou alors du noir au blanc) ou pourquoi pas du blanc au
+rouge en passant par 254 nuances de rose.
+
+Le plus souvent, on utilise 3~octets pour stocker une couleur. On distingue
+alors $256^3 = 16\,777\,216$ couleurs différentes. La norme RGB consiste à
+séparer ces trois octets et les penser comme
+ un vecteur à 3~coordonnées dans l'espace
+$R\times G \times B$, où chaque coordonnée peut prendre $2^8=256$
+valeurs. 
+
+%\renewcommand{\figurename}{}
+%\renewcommand{\thefigure}{}
+%\begin{figure}[h]
+\begin{center}
+  %\centering
+  \includegraphics[width=.2\textwidth]{images/theme_image_1_fig_1}
+  \includegraphics[width=.2\textwidth]{images/theme_image_1_fig_2}
+%  \caption{\ccbysa\ }
+  % \caption{By SharkD (Own work), \ccbysa\ }
+  % https://commons.wikimedia.org/wiki/File:RGB_color_solid_cube.png
+\end{center}
+
+%\begin{center}
+  %\centering
+%  \includegraphics[width=.4\textwidth]{images/theme_image_1_fig_1}
+%  \includegraphics[width=.45\textwidth]{images/theme_image_1_fig_2}
+%  \caption{\ccbysa\ }
+  % \caption{By SharkD (Own work), \ccbysa\ }
+  % https://commons.wikimedia.org/wiki/File:RGB_color_solid_cube.png
+%\end{center}
+
+
+On peut aussi utiliser 4~octets (trois octets pour la couleur et un
+pour la transparence).
+
+On peut aussi utiliser des résolutions plus importantes, des
+compressions sans pertes. 
+
+Bref, il importe de se référer aux spécifications des fichiers que l'on
+utilise~!
+
+\subsection*{Représentation informatique d'une image}
+
+% Nous ne nous intéressons pas ici à la représentation vectorielle des
+% images, qui consiste à décrire la construction mathématique d'une
+% image. Nous ne nous intéressons pas non plus aux formats compressés
+% des images. 
+Il existe de nombreuses façons de représenter informatiquement une
+image. Certaines sont vectorielles (SVG, PS), compressées (JPG) d'autres
+matricielles (PNG). Nous ne nous intéressons ici qu'aux images au
+format PNG. Il s'agit d'un ensemble
+discret de points ayant chacun une couleur donnée. Ces points
+s'appellent des pixels. La résolution de
+l'image dépend du nombre de points (nombre de lignes et de colonnes),
+et aussi du nombre de bits servant à coder les couleurs.
+
+Une image est stockée dans un tableau numpy, dont le
+\texttt{shape} est \texttt{(n,p,3)}, avec $n$ le nombre de lignes, $p$
+le nombre de colonnes et $3$ le nombre d'octets pour coder les
+couleurs. 
+
+% Le \texttt{dtype} des images que nous utilisons ici est
+% \texttt{float32}. 
+
+En plus des bibliothèques habituelles
+\begin{python}
+import numpy as np
+import matplotlib.pyplot as plt
+\end{python}
+on charge la bibliothèque~:
+\begin{python}
+import matplotlib.image as mpimg
+\end{python}
+qui nous permet d'utiliser les instructions~: 
+\begin{itemize}
+\item 
+  \verb#img = mpimg.imread(filename)#~: le fichier PNG \verb#filename#
+  est converti en tableau numpy et nommé \verb#img#.
+\item 
+  \verb#plt.imshow(img)#~: comme \verb#plt.plot(...)#, l'affichage de
+  \verb#img# est préparé, et sera utilisé par \verb#plt.show()# ou
+  \verb#plt.savefig(filename2)#.
+\item
+  \verb#mpimg.imsave(filename2, img)# permet d'enregistrer l'image
+  (qui n'est pas un schéma python, n'a pas d'axes, de titre etc.)
+\end{itemize}
+
+\begin{remark}
+  Avec \texttt{matplotlib.image}, les tableaux numpy sont de
+  \texttt{dtype} \texttt{float32}, mais ils sont constitués uniquement
+  de 256 valeurs flottantes uniformément réparties entre $0$ et $1$.
+\end{remark}
+
+
+\subsection*{Quelques fonctions élémentaires}
+Télécharger l'image ***.
+\subparagraph{}\textit{Ouvrir l'image avec \texttt{matplotlib.image.imread} et l'afficher.}
+
+
+\subparagraph{}\textit{Déterminer pour l'image \texttt{playmobil.png}~: la taille, le
+  \texttt{dtype}, la couleur du  pixel en position (300,300) et les
+  valeurs max. et min. des éléments.}
+
+
+
+
+\subsection*{Jouons avec les couleurs}
+\subparagraph{}\textit{En utilisant le codage donné précédemment, << où >> est codée la couleur bleue ?}
+
+Pour saturer l'image en bleue, le niveau de bleu doit être à 1 dans chacun des pixels de l'image. 
+
+\subparagraph{}\textit{Réaliser la saturation en bleu.}
+
+\begin{python}
+img[:,:,2]=1
+\end{python}
+
+\subparagraph{}\textit{Réaliser une inversion des couleurs en remplaçant le niveau $n$ de chaque couleur par $1-n$.}
+\begin{python}
+img[:,:,:]=1-img[:,:,:]
+img=1-img # Autre solution
+\end{python}
+
+Plusieurs méthodes permettent de transformer une image en couleur en image en noir et blanc. Il est possible d'attribuer à chaque niveau de couleur d'un pixel la moyenne des niveaux de couleur du pixel considéré. 
+
+
+\subparagraph{}\textit{Transformer l'image en noir et blanc en utilsant la définition précédente.}
+
+
+
+
+
+
+
+
+
+
+
+
+\ifprof
+\begin{corrige}
+\begin{python}
+#! /usr/local/bin/python3.4
+# -*- coding:utf-8 -*-
+    
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+# question (a)
+img = mpimg.imread('./theme_image_1_playmobil.png')  
+
+# plt.figure(1)
+# plt.imshow(img)
+# plt.show()
+
+# question (b)
+
+print(img.shape)
+# (564, 1000, 3)
+# il y a 564 pixels en hauteur et 1000 en largeur,
+# et 3 composantes couleur pour chaque pixel.
+ 
+print(img.dtype)
+# float32
+
+print(img[300,300,:])
+# [ 0.11764706  0.24705882  0.41568628]
+
+print(img.max())
+print(img.min())
+# 1.0
+# 0.0
+
+# question (c)
+# En observant l'image, quitte à zoomer, on voit que le fond n'est pas uniforme.
+# Pour répondre précisément à la question, dénombrons les valeurs différentes
+# dans la zone en haut à gauche (strictement) du pixel (300,300)
+zone = img[0:300,0:300,:]
+# couleurs = []
+# for i in range(300):
+#     for j in range(300):
+#         if list(zone[i,j,:]) not in couleurs:
+#             couleurs.append(list(zone[i,j,:]))
+# print(len(couleurs))
+# 3734
+# Il y a 3734 couleurs différentes sur les 90 000 pixels considérés.
+# Le fond n'est donc clairement pas uniforme,
+# même si, à l'oeil, il peut sembler uniforme.
+
+# question (d)
+
+playmobil = mpimg.imread('./theme_image_1_playmobil.png')  
+montagne = mpimg.imread('./theme_image_1_montagne.png')
+
+# on choisit un pixel bleu de référence
+reference_bleue = playmobil[300,300,:]
+
+# pour décider de la valeur du seuil, correspondant à une distance "faible",
+# on fait des essais. 
+seuil = .30
+
+# Une première version sans utiliser toutes les fonctionnalités de numpy
+
+# les pixels qui ont une couleur proche du pixel de référence sont remplacés
+# par les pixels de montagne correspondants
+# les autres pixels (qui correspondent donc aux playmobils) ne sont pas modifiés
+n,p,q = img2.shape
+for i in range(n):
+    for j in range(p):
+        if np.sqrt((playmobil[i,j,0]-pixel_ref[0])**2 + (playmobil[i,j,1]-pixel_ref[1])**2
+                   + (playmobil[i,j,2]-pixel_ref[2])**2)< seuil :
+            playmobil[i,j,:] = img1[i,j,:]
+
+# plt.figure()
+# plt.imshow(playmobil)
+# plt.show()
+
+# Une deuxième version en utilisant les opérations terme à terme de numpy
+
+# on sélectionne les pixels à une distance inférieure au seuil
+# en utilisant un masque
+mask = np.sqrt( (playmobil[:,:,0] - reference_bleue[0])**2
+               +(playmobil[:,:,1] - reference_bleue[1])**2
+               +(playmobil[:,:,2] - reference_bleue[2])**2) < seuil
+print(mask.shape)
+# (564, 1000)
+mask.shape = (564, 1000, 1)
+masque_complet = np.concatenate((mask, mask, mask), axis=2)
+
+playmobil_sans_bleu = playmobil * (1 - masque_complet)
+# plt.figure(2)
+# plt.imshow(playmobil_sans_bleu)
+# plt.show()
+
+montagne_decoupee = montagne * masque_complet
+# plt.figure(3)
+# plt.imshow(montagne_decoupee)
+# plt.show()
+
+images_superposees = playmobil_sans_bleu + montagne_decoupee
+# plt.figure(4)
+# plt.imshow(images_superposees)
+# plt.show()
+
+# question (e)
+mpimg.imsave("theme_image_1_fake.png", images_superposees)
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\ifprof
+\else
+\end{multicols}
+\fi
+
+\end{document}
+\section*{Exercice  -- }
+
+
+\ifprof 
+\else
+\fi
+
+
+\section*{Exercice}
+\setcounter{exo}{0}
+\subparagraph{}
+\textit{}
+\ifprof
+\begin{corrige}
+\end{corrige}
+\else
+\fi
