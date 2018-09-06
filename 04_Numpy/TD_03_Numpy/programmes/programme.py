@@ -7,8 +7,29 @@ __author__ = "Xavier Pessoles"
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import math
 
 img = mpimg.imread("PhotoBD.png")
+
+def affichage2(img1,img2):
+    f, ((ax1, ax2)) = plt.subplots(1, 2, sharex='col', sharey='row')
+    ax1.imshow(img1)
+    ax2.imshow(img2)
+    ax1.axis("equal")
+    ax2.axis("equal")
+    plt.show()
+
+def affichage3(img1,img2,img3):
+    f, ((ax1, ax2,ax3)) = plt.subplots(1, 3, sharex='col', sharey='row')
+    ax1.imshow(img1)
+    ax2.imshow(img2)    
+    ax3.imshow(img3)
+
+    ax1.axis("equal")
+    ax2.axis("equal")
+    plt.show()
+
+    
 
 # Affichage de l'image
 # plt.imshow(img)
@@ -60,18 +81,40 @@ def convert_nb(img,a,b,c):
 
 imgnb1 = convert_nb(img,1/3,1/3,1/3)
 imgnb2 = convert_nb(img,.21,.71,.07)
-imgnb3 = convert_nb(img,100,50,1)
-imgnb4 = convert_nb(img,1000,100,1)
+imgnb3 = convert_nb(img,1,2,1)
+imgnb4 = convert_nb(img,10,5,1)
 
-f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex='col', sharey='row')
-ax1.imshow(imgnb1)
-ax2.imshow(imgnb2)
-ax3.imshow(imgnb3)
-ax4.imshow(imgnb4)
-plt.show()
+def convert_nb_2(img):
+    imgnb = np.zeros(img.shape)
+    (h,l,p) = img.shape
+    for i in range(h):
+        for j in range(l):
+            for k in range(p):
+                imgnb[i,j,k]=0.5*(max(img[i,j,:])+max(img[i,j,:]))
+    return imgnb
+        
+def contraste(img,f):
+    imgc = np.zeros(img.shape)
+    (h,l,p) = img.shape
+    for i in range(h):
+        for j in range(l):
+            for k in range(p):
+                imgc[i,j,k]=f(img[i,j,k])
+                
+    return imgc
+
+def f2(x):
+    return 0.5+0.5*math.sin(math.pi*(x-0.5))
+imgnb = convert_nb(img,1/3,1/3,1/3)
+img1 = contraste(img,math.sqrt)
+img2 = contraste(img,f2)
+
+
+
+affichage3(img,img1,img2)
 
 
 """
-plt.imshow(imgnb)
+plt.imshow(convert_nb_2(img))
 plt.show()
 """
