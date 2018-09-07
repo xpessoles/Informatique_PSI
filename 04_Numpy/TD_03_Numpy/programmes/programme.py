@@ -105,13 +105,25 @@ def contraste(img,f):
 
 def f2(x):
     return 0.5+0.5*math.sin(math.pi*(x-0.5))
+"""
 imgnb = convert_nb(img,1/3,1/3,1/3)
 img1 = contraste(img,math.sqrt)
 img2 = contraste(img,f2)
+"""
 
+def convolution(img,M):
+    imgc = np.zeros(img.shape)
+    (h,l,p) = img.shape
+    for i in range(1,h-1):
+        for j in range(1,l-1):
+                imgc[i,j]=np.sum(M*img [i-1:i+2,j-1:j+2])
+    return imgc
+        
 
-
-affichage3(img,img1,img2)
+M=[[1/8,1/8,1/8],[1/8,1/8,1/8],[1/8,1/8,1/8]]
+M=[[1,1,1],[1,8,1],[1,1,1]]
+M=np.array(M)
+affichage2(img,convolution(img,M))
 
 
 """

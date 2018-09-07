@@ -228,13 +228,36 @@ Plusieurs méthodes permettent de transformer une image en couleur en image en n
 \subsection*{Amélioration du contraste}
 On va ici modifier le contraste d'une image en niveau de gris. 
 Pour cela, on va accentuer les différences entre les niveaux en utilisant une fonction mathématique. 
-\subparagraph{}\textit{Modifier le contraste d'une image en noir et blanc en remplaçant les niveaux de gris $x$ par $\sqrt{x}$}.
 
+\subparagraph{}\textit{Donner la représentation des fonctions $f:x \mapsto \sqrt{x}$ et $g:x\mapsto \dfrac{1}{2}\left(1+\sin\left(\pi\left(x-\dfrac{1}{2}\right)\right)\right)$ sur l'intervalle $[0,1]$.}
 
+\subparagraph{}\textit{Modifier le contraste d'une image en noir et blanc en remplaçant les niveaux de gris $x$ par $f(x)$ et $g(x)$. Conclure.}
 
+\subsection*{Convolution}
+La méthode de convolution permet, suivant les cas, de flouter ou de détecter des concours. 
+Selon cette méthode, le niveau de couleur de chaque pixel est recalculé en fonction de ses voisins. 
 
+\begin{center}
+\begin{tikzpicture}[scale=.5]
+\draw (0,0) grid (8,6);
+\draw (1.5,1.5) node {$g $} ;
+\draw (1.5,2.5) node {$d $} ;
+\draw (1.5,3.5) node {$a $} ;
+\draw (2.5,1.5) node {$h $} ;
+\draw (2.5,2.5) node {$e$} ;
+\draw (2.5,3.5) node {$b $} ;
+\draw (3.5,1.5) node {$i $} ;
+\draw (3.5,2.5) node {$f $} ;
+\draw (3.5,3.5) node {$c $} ;
 
+\draw (-.5,2.5) node {$y$} ;
+\draw (2.5,6.5) node {$x$} ;
+\end{tikzpicture}
+\end{center}
 
+On note $M=\begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}$. Chaque pixel $(i,j)$ est alors remplacé ainsi : $\text{img}[x, y] = a \times \text{img}[x-1, y+1] + b \times \text{img}[x, y+1]+ c \times \text{img}[x+1, y+1] + \ldots + i \times \text{img}[x+1, y-1]$.
+
+\subparagraph{}\textit{Écrire la fonction \texttt{convolution(image,matrice)} permettant d'appliquer la convolution à une image.}
 
 
 \ifprof
