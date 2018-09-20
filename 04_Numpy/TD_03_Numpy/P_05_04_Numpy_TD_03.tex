@@ -41,8 +41,8 @@
 
 \def\xxonglet{Part. 5 -- Ch. 4}
 
-\def\xxactivite{TD -- 02}
-\def\xxauteur{\textsl{Guillaume Haberer}}
+\def\xxactivite{TD -- 03}
+\def\xxauteur{\textsl{Xavier Pessoles}}
 
 \def\xxcompetences{%
 \textsl{%
@@ -68,7 +68,7 @@ Ch 4 : Utilisation de numpy -- \xxactivite%
 \begin{document}
 %\chapterimage{png/Fond_Cin}
 \input{style/new_pagegarde}
-\vspace{5cm}
+\vspace{4cm}
 \pagestyle{fancy}
 \thispagestyle{plain}
 
@@ -237,142 +237,21 @@ Pour cela, on va accentuer les différences entre les niveaux en utilisant une f
 La méthode de convolution permet, suivant les cas, de flouter ou de détecter des concours. 
 Selon cette méthode, le niveau de couleur de chaque pixel est recalculé en fonction de ses voisins. 
 
-\begin{center}
-\begin{tikzpicture}[scale=.5]
-\draw (0,0) grid (8,6);
-\draw (1.5,1.5) node {$g $} ;
-\draw (1.5,2.5) node {$d $} ;
-\draw (1.5,3.5) node {$a $} ;
-\draw (2.5,1.5) node {$h $} ;
-\draw (2.5,2.5) node {$e$} ;
-\draw (2.5,3.5) node {$b $} ;
-\draw (3.5,1.5) node {$i $} ;
-\draw (3.5,2.5) node {$f $} ;
-\draw (3.5,3.5) node {$c $} ;
-
-\draw (-.5,2.5) node {$y$} ;
-\draw (2.5,6.5) node {$x$} ;
-\end{tikzpicture}
-\end{center}
 
 On note $M=\begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}$. Chaque pixel $(i,j)$ est alors remplacé ainsi : $\text{img}[x, y] = a \times \text{img}[x-1, y+1] + b \times \text{img}[x, y+1]+ c \times \text{img}[x+1, y+1] + \ldots + i \times \text{img}[x+1, y-1]$.
 
 \subparagraph{}\textit{Écrire la fonction \texttt{convolution(image,matrice)} permettant d'appliquer la convolution à une image.}
 
 
-\ifprof
-\begin{corrige}
-\begin{python}
-#! /usr/local/bin/python3.4
-# -*- coding:utf-8 -*-
-    
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+\subsection*{Histogramme des couleurs}
+On histogramme de couleurs représente le nombre de pixels pour chaque couche de couleur. En retouche d'image, la modification de l'histogramme peut par exemple modifier le contraste d'une photo. 
+Lorsqu'on importe une image avec le module image, la valeur des couleurs est << normée >> alors que nativement les couleurs sont codées sur 8 bits (de 0 à 255).  
 
-# question (a)
-img = mpimg.imread('./theme_image_1_playmobil.png')  
+\subparagraph{}\textit{Tracer l'histogramme des couleurs de l'image en noir et blanc.}
 
-# plt.figure(1)
-# plt.imshow(img)
-# plt.show()
-
-# question (b)
-
-print(img.shape)
-# (564, 1000, 3)
-# il y a 564 pixels en hauteur et 1000 en largeur,
-# et 3 composantes couleur pour chaque pixel.
- 
-print(img.dtype)
-# float32
-
-print(img[300,300,:])
-# [ 0.11764706  0.24705882  0.41568628]
-
-print(img.max())
-print(img.min())
-# 1.0
-# 0.0
-
-# question (c)
-# En observant l'image, quitte à zoomer, on voit que le fond n'est pas uniforme.
-# Pour répondre précisément à la question, dénombrons les valeurs différentes
-# dans la zone en haut à gauche (strictement) du pixel (300,300)
-zone = img[0:300,0:300,:]
-# couleurs = []
-# for i in range(300):
-#     for j in range(300):
-#         if list(zone[i,j,:]) not in couleurs:
-#             couleurs.append(list(zone[i,j,:]))
-# print(len(couleurs))
-# 3734
-# Il y a 3734 couleurs différentes sur les 90 000 pixels considérés.
-# Le fond n'est donc clairement pas uniforme,
-# même si, à l'oeil, il peut sembler uniforme.
-
-# question (d)
-
-playmobil = mpimg.imread('./theme_image_1_playmobil.png')  
-montagne = mpimg.imread('./theme_image_1_montagne.png')
-
-# on choisit un pixel bleu de référence
-reference_bleue = playmobil[300,300,:]
-
-# pour décider de la valeur du seuil, correspondant à une distance "faible",
-# on fait des essais. 
-seuil = .30
-
-# Une première version sans utiliser toutes les fonctionnalités de numpy
-
-# les pixels qui ont une couleur proche du pixel de référence sont remplacés
-# par les pixels de montagne correspondants
-# les autres pixels (qui correspondent donc aux playmobils) ne sont pas modifiés
-n,p,q = img2.shape
-for i in range(n):
-    for j in range(p):
-        if np.sqrt((playmobil[i,j,0]-pixel_ref[0])**2 + (playmobil[i,j,1]-pixel_ref[1])**2
-                   + (playmobil[i,j,2]-pixel_ref[2])**2)< seuil :
-            playmobil[i,j,:] = img1[i,j,:]
-
-# plt.figure()
-# plt.imshow(playmobil)
-# plt.show()
-
-# Une deuxième version en utilisant les opérations terme à terme de numpy
-
-# on sélectionne les pixels à une distance inférieure au seuil
-# en utilisant un masque
-mask = np.sqrt( (playmobil[:,:,0] - reference_bleue[0])**2
-               +(playmobil[:,:,1] - reference_bleue[1])**2
-               +(playmobil[:,:,2] - reference_bleue[2])**2) < seuil
-print(mask.shape)
-# (564, 1000)
-mask.shape = (564, 1000, 1)
-masque_complet = np.concatenate((mask, mask, mask), axis=2)
-
-playmobil_sans_bleu = playmobil * (1 - masque_complet)
-# plt.figure(2)
-# plt.imshow(playmobil_sans_bleu)
-# plt.show()
-
-montagne_decoupee = montagne * masque_complet
-# plt.figure(3)
-# plt.imshow(montagne_decoupee)
-# plt.show()
-
-images_superposees = playmobil_sans_bleu + montagne_decoupee
-# plt.figure(4)
-# plt.imshow(images_superposees)
-# plt.show()
-
-# question (e)
-mpimg.imsave("theme_image_1_fake.png", images_superposees)
-\end{python}
-\end{corrige}
-\else
-\fi
-
+\begin{rem}
+Avec Python, il est plus rapide de créer la liste du nombre d'occurrences de chaque couleur de pixel puis de tracer cette liste, plutôt que d'utiliser la méthode \texttt{plt.hist}.
+\end{rem}
 
 \ifprof
 \else

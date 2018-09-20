@@ -11,6 +11,11 @@ import math
 
 img = mpimg.imread("PhotoBD.png")
 
+def affichage1(img1):
+    imshow(img1)
+    plt.show()
+
+
 def affichage2(img1,img2):
     f, ((ax1, ax2)) = plt.subplots(1, 2, sharex='col', sharey='row')
     ax1.imshow(img1)
@@ -122,9 +127,29 @@ def convolution(img,M):
 
 M=[[1/8,1/8,1/8],[1/8,1/8,1/8],[1/8,1/8,1/8]]
 M=[[1,1,1],[1,8,1],[1,1,1]]
-M=np.array(M)
-affichage2(img,convolution(img,M))
+#M=np.array(M)
+#affichage2(img,convolution(img,M))
 
+### Histogramme
+
+imgnb1 = convert_nb(img,1/3,1/3,1/3)
+img_histo = np.floor(255*imgnb1[:,:,1])
+#histo=256*[0]
+#(l,h)=img_histo.shape
+#for i in range(l):
+#    for j in range (h):
+#        a = int(img_histo[i,j])
+#        histo[a]+=1
+
+histo=[]
+(l,h)=img_histo.shape
+for i in range(l):
+    for j in range (h):
+        histo.append(img_histo[i,j])
+
+
+plt.hist(img_histo)
+plt.show()
 
 """
 plt.imshow(convert_nb_2(img))
