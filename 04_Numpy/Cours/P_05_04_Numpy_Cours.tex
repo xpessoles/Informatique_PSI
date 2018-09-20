@@ -166,7 +166,6 @@ du tableau -- ici des entiers codés sur 64~bits.
 \subsection{Création avec des fonctions spéciales}
 
 \subsubsection{Vecteurs spéciaux (tableaux uni-dimensionnels)}
-
 On connaît les fonctions \texttt{np.arange} et \texttt{np.linspace}~: 
 
 \begin{multicols}{2}
@@ -181,9 +180,19 @@ print(b)
 # [0. 2. 4. 6. 8. 10.]  
 \end{python}
 \end{multicols}
-Ces fonctions sont en particulier utilisées pour le tracé des
-fonctions. %Voir l'aide-mémoire annexé.
 
+
+Ces fonctions sont en particulier utilisées pour le tracé des
+fonctions.  %Voir l'aide-mémoire annexé.
+
+\begin{exemple}
+Le module numpy redéfini un certain nombre de fonctions mathématiques (voir section \ref{operations}). Ainsi, pour tracer la courbe représentative de la fontion $x\mapsto \sin x$ sur l'intervalle $[0,10]$, on peut procéder ainsi : 
+\begin{python}
+les_x = np.linspace(0,10,1000)
+les_y = np.sin(les_x)
+plt.plot(les_x,les_y)
+\end{python}
+\end{exemple}
 
 
 \subsubsection{Matrices spéciales (tableaux bi-dimensionnels)}
@@ -228,14 +237,14 @@ a = np.random.randint(0, 10, size=(2, 5)) # tirage uniforme d'entiers dans [0, 1
 print(a)
 # [[8 2 6 2 7]
 #  [4 3 5 5 5]]
-b = np.random.binomial(10, .3, (2, 5)) # simule (2, 5) valeurs d'une vad suivant une binomiale(10,.3)
+b = np.random.binomial(10, .3, (2, 5)) #  (2, 5) échantillons suivant une distribution binomiale(10,.3)
 print(b)
 # [[1 1 2 3 3]
 #  [1 2 4 2 1]]
-c = np.random.geometric(.3, 5) # simule 5 valeurs d'une vad suivant une géométrique(.3)
+c = np.random.geometric(.3, 5) # 5 échantillons suivant une distribution géométrique(.3)
 print(c)
 # [1 1 1 3 3]
-d = np.random.poisson(4.3, 5) # simule 5 valeurs d'une vad suivant une poisson(4.3)
+d = np.random.poisson(4.3, 5) # 5 échantillons suivant une distribution de poisson(4.3)
 print(d)
 # [2 6 6 3 3]
 \end{python}
