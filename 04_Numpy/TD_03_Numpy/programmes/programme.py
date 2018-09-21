@@ -132,25 +132,62 @@ M=[[1,1,1],[1,8,1],[1,1,1]]
 
 ### Histogramme
 
-imgnb1 = convert_nb(img,1/3,1/3,1/3)
-img_histo = np.floor(255*imgnb1[:,:,1])
-#histo=256*[0]
-#(l,h)=img_histo.shape
-#for i in range(l):
-#    for j in range (h):
-#        a = int(img_histo[i,j])
-#        histo[a]+=1
+def hist_nb(img):
+    """ Fonction convertissant une image en noir et blanc, puis traçant son histogramme de couleurs"""
+    imgnb1 = convert_nb(img,1/3,1/3,1/3)
+    img_histo = np.floor(255*imgnb1[:,:,1])
 
-histo=[]
-(l,h)=img_histo.shape
-for i in range(l):
+    #histo=256*[0]
+    #(l,h)=img_histo.shape
+    #for i in range(l):
+    #    for j in range (h):
+    #        a = int(img_histo[i,j])
+    #        histo[a]+=1
+    
+    histo=[]
+    (l,h)=img_histo.shape
+    for i in range(l):
+        for j in range (h):
+            histo.append(img_histo[i,j])
+    
+    
+    plt.hist(img_histo)
+    plt.show()
+
+### Image en noir et blanc
+
+#def gristonb(img):
+img_gris1 = convert_nb(img,1/3,1/3,1/3)
+img_gris1[0:100,0:100,:]=0
+img_gris = convert_nb(img,1/3,1/3,1/3)
+#img_noir = img_gris<0.5
+#img_bl = img_gris>0.5
+img_nb=img_noir+img_bl
+(l,h,p)=img_gris.shape
+img_nb=np.zeros(img_gris.shape)
+img_nb_2=np.zeros(img_gris.shape)
+
+"""for i in range(l):
     for j in range (h):
-        histo.append(img_histo[i,j])
+        if img_gris[i,j,0]<0.5:
+            img_nb[i,j,:]=0
+        else :
+            img_nb[i,j,:]=1
+"""
+for i in range(l-1):
+    for j in range (h-1):
+        img_nb_2[i,j,:]=1
+        delta = img_gris[i,j,0]-0.5
+        img_gris[i,j+1,:]=img_gris[i,j,:]+delta/2
+        img_gris[i+1,j,:]=img_gris[i,j,:]+delta/4
+        img_gris[i+1,j+1,:]=img_gris[i,j,:]+delta/4
+        
+        
+ 
+plt.imshow(img_gris)
+plt.show()       
 
-
-plt.hist(img_histo)
-plt.show()
-
+#affichage3(img_gris1,img_nb,img_nb_2)
 """
 plt.imshow(convert_nb_2(img))
 plt.show()
