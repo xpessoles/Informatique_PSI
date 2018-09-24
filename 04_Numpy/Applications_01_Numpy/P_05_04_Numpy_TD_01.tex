@@ -1,0 +1,571 @@
+\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
+\usepackage[%
+    pdftitle={Informatique : Numpy},
+    pdfauthor={Xavier Pessoles}]{hyperref}
+    
+\input{style/new_style}
+\input{style/macros_SII}
+
+\usepackage{multicol}
+\fichetrue
+%\fichefalse
+
+\proftrue
+%\proffalse
+
+\tdtrue
+%\tdfalse
+
+%\courstrue
+\coursfalse
+
+% -------------------------------------
+% Déclaration des titres
+% -------------------------------------
+
+\def\discipline{Informatique}
+\def\xxtete{Informatique}
+\def\classe{PSI$\star$}
+\def\xxnumpartie{Partie 5}
+\def\xxpartie{Algorithmique \& Programmation (Suite)}
+
+\def\xxnumchapitre{Chapitre 4}
+\def\xxchapitre{\hspace{.12cm} Utilisation de Numpy}
+
+\def\xxtitreexo{Exercices d'applications}
+\def\xxsourceexo{}%\hspace{.2cm} Informatique pour tous en CPGE -- \textit{Wack \& al.}}
+
+\def\xxposongletx{2}
+\def\xxposonglettext{1.45}
+\def\xxposonglety{13}%10
+
+\def\xxonglet{Part. 5 -- Ch. 4}
+
+\def\xxactivite{TD -- 01}
+\def\xxauteur{\textsl{Guillaume Haberer}}
+
+\def\xxcompetences{%
+\textsl{%
+\textbf{Savoirs et compétences :}
+\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item Alg -- C17 : tris d’un tableau à une dimension de valeurs numériques (tri par insertion, tri rapide, tri fusion).
+\end{itemize}
+}}
+
+\def\xxfigures{}%figues de la page de garde
+
+\def\xxpied{%
+Partie 5 -- Algorithmique et Programmation\\
+Ch 4 : Utilisation de numpy -- \xxactivite%
+}
+
+
+
+\setcounter{secnumdepth}{5}
+%---------------------------------------------------------------------------
+
+
+\begin{document}
+%\chapterimage{png/Fond_Cin}
+\input{style/new_pagegarde}
+\vspace{5cm}
+\pagestyle{fancy}
+\thispagestyle{plain}
+
+
+\def\columnseprulecolor{\color{ocre}}
+\setlength{\columnseprule}{0.4pt} 
+\ifprof
+\else
+\begin{multicols}{2}
+\fi
+\section*{Exercice 1 -- Calcul de somme}
+Pour cet exercice, on prend $n=1000000$. On pourra augmenter ou
+diminuer cette valeur en fonction de la machine utilisée.
+\begin{enumerate}
+\item  Calculer $\sum\limits_{i=0}^{n} i$ sans utiliser \texttt{numpy}.
+\item  Chronométrer le temps nécessaire pour le calcul précédent, par exemple en utilisant \texttt{time.clock()}.
+\item Utiliser un tableau \texttt{numpy} et la méthode \texttt{sum} pour calculer à nouveau la somme proposée.
+\item  Comparer le temps de calcul avec la méthode précédente.
+\end{enumerate}
+
+\ifprof 
+\begin{corrige}
+\begin{python}
+#! /usr/local/bin/python3.4
+# -*- coding:utf-8 -*-
+import numpy as np
+from time import clock
+# 1ère méthode : avec une boucle
+t0 = clock()
+a = range(1000001)
+t1 = clock()
+S = 0
+for i in a:
+    S += i
+t2 = clock()
+print('1ère méthode : {:6.6f} + {:6.6f} secondes'.format(t1-t0,t2-t1))
+
+# 2ème méthode : avec une liste en compréhension
+t0 = clock()
+a = range(1000001)
+t1 = clock()
+S = sum(i for i in a)
+t2 = clock()
+print('2ème méthode : {:6.6f} + {:6.6f} secondes'.format(t1-t0,t2-t1))
+\end{python}
+\end{corrige}
+
+\begin{corrige}
+\begin{python}
+# 3ème méthode : avec numpy
+t0 = clock()
+v = np.array(range(1000001))
+t1 = clock()
+S = v.sum() # ou np.sum(v)
+t2 = clock()
+print('3ème méthode : {:6.6f} + {:6.6f} secondes'.format(t1-t0,t2-t1))
+\end{python}
+%\end{corrige}
+
+%\begin{corrige}
+Le calcul de la somme lui-même est extrêmement rapide avec numpy.
+La définition de l'itérateur range est extrêmement rapide (il n'est pas évalué lors de sa définition)
+La définition d'un tableau numpy est un peu lent, car il faut compter avec les problèmes d'allocation mémoire. Mais une fois qu'il est défini, on peut faire des calculs très rapides.
+
+\end{corrige}
+\else
+\fi
+
+\section*{Exercice 2 -- Produit de Wallis}
+On peut justifier que~: $
+\pi = 2  \prod_{n=1}^{+\infty} \frac{4n^2}{4n^2-1}
+$
+appelé le \emph{produit de Wallis}.
+\begin{enumerate}
+\item Écrire une fonction itérative, d'argument~$n$, calculant~: $
+  2 \displaystyle\prod\limits_{i=1}^{n} \frac{4i^2}{4i^2-1}
+  $.
+\item   Écrire une fonction utilisant un tableau \texttt{numpy}, effectuant
+  le même calcul.
+\item   Comparer le temps de calcul de ces deux fonctions.
+\end{enumerate}
+\ifprof 
+\begin{corrige}
+\begin{python}
+#! /usr/local/bin/python3.4
+# -*- coding:utf-8 -*-
+    
+import numpy as np
+from time import clock
+
+# 1ère méthode : fonction itérative
+def wallis (n):
+    p = 2
+    for i in range(1, n+1):
+        j = 4 * i * i
+        p *= j / (j - 1)
+    return p
+
+t0 = clock()
+print(wallis(1000000))
+t1 = clock()
+print('1ère méthode : {:6.6f} secondes'.format(t1-t0))
+# 3.1415918681913633
+# 1ère méthode : 0.313095 secondes
+
+# 2ème méthode : avec un tableau numpy
+def wallis_np (n):
+    x = np.arange(1, n+1, dtype=np.float)
+    x **= 2
+    x *= 4
+    y = x - 1
+    x /= y
+    return 2*np.prod(x)
+
+t0 = clock()
+print(wallis_np(1000000))
+t1 = clock()
+print('2ème méthode : {:6.6f} secondes'.format(t1-t0))
+# 3.14159186819
+# 2ème méthode : 0.020723 secondes
+
+# On peut encore mieux faire :
+def wallis_np (n):
+    x = np.arange(1, n+1, dtype=np.float)
+    return 2 * (1 / (1-1/(4*x**2)))
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\section*{Exercice 3}
+\begin{enumerate}
+\item Définir une matrice aléatoire \texttt{a} de taille $50\times 50$.
+
+\item Déterminer la valeur $\max\limits_{i,j} |a_{i,j+1} - a_{i, j}|$.
+
+%\item Que peut représenter cette valeur~?
+\end{enumerate}
+
+\ifprof 
+\begin{corrige}
+\begin{python}
+#! /usr/local/bin/python3.4
+# -*- coding:utf-8 -*-
+    
+import numpy as np
+
+a = np.random.rand(5,5)
+# matrice aléatoire d'éléments de [0,1]
+
+b = a[:,1:] - a[:,:-1]
+# matrice de tous les a_{i,j+1} - a_{i,j}
+
+print(np.max(np.abs(b)))
+
+# a_{i,j+1}-a_{i,j} est la discrétisation de $\frac{\partial a}{\partial j}$
+# Donc c'est la plus grande valeur absolue de la dérivée partielle par rapport à j
+
+\end{python}
+\end{corrige}
+\else
+\fi
+
+\section*{Exercice 4}% -- Calcul de somme}
+\begin{enumerate}
+\item Définir une matrice aléatoire de flottants \texttt{a} de taille $50\times 50$.
+
+\item Compter le nombre de valeurs inférieures à $0.5$.
+
+\item Remplacer toutes les valeurs inférieures à $0.5$ par~$0$, et celles
+  strictement supérieures à $0.5$ par~$1$.
+\end{enumerate}
+\ifprof 
+\begin{corrige}
+\begin{python}
+#! /usr/local/bin/python3.4
+# -*- coding:utf-8 -*-
+    
+import numpy as np
+
+a = np.random.rand(5,5)
+print(a)
+# matrice aléatoire d'éléments de [0,1]
+
+# On utilise le fait que l'on peut sommer les booléens : 
+print(True+True)
+# 2
+print(False+False)
+# 0
+
+# On construit la matrice des booléens en comparant terme à terme a et .5
+b = a <= .5
+print(b)
+
+# On somme tous les termes, ce qui donne le nombre de True
+print(np.sum(b))
+
+# On utilise un masque pour modifier les valeurs de a
+a[a <= .5] = 0
+a[a > .5] = 1
+print(a)
+
+\end{python}
+\end{corrige}
+\else
+\fi
+
+\section*{Exercice 5}
+% gh d
+\textit{D'après exemple 3.15 p 28 << Algèbre linéaire >>, Robert C. Dalang, Amel Chaabouni.}
+
+On s'intéresse au système linéaire suivant~: 
+\[
+\left\{
+  \begin{array}{rcrcrcrcl}
+    x_1 & + & 2x_2 & + & x_3 & + & x_4 & = & 0 \\
+    & & x_2 & + & 2x_3 & + & x_4 & = & 0 \\
+    x_1 & & & + & x_3 & + & 2x_4 & = & 1 \\
+    2x_1 & + & x_2 & & & + & x_4 & = & 0 
+  \end{array}
+\right.
+\]
+\begin{enumerate}
+\item 
+  Vérifier qu'il n'y a qu'une solution à ce système.
+
+\item 
+  En utilisant \texttt{np.linalg.solve}, déterminer cette solution.
+
+\item 
+  Vérifier le résultat obtenu en utilisant un produit matriciel.
+
+\item 
+  Construire la matrice \texttt{m} de format $4\times 5$, dont les
+  colonnes sont successivement les colonnes de \texttt{a} et
+  \texttt{b}.
+
+\item 
+  Appliquer à \texttt{m} la méthode du pivot de Gauss pour résoudre
+  «~à la main~» le
+  système proposé.
+  
+\end{enumerate}
+\ifprof 
+\begin{corrige}
+\begin{python}
+#! /usr/local/bin/python3.4
+# -*- coding:utf-8 -*-
+    
+import numpy as np
+
+a = np.array([[1, 2, 1, 1],
+              [0, 1, 2, 1],
+              [1, 0, 1, 2],
+              [2, 1, 0, 1]])
+b = np.array([0, 0, 1., 0])
+
+print('Le déterminant du système vaut {} <> 0 donc unique \
+solution'.format(np.linalg.det(a)))
+# Le déterminant du système vaut -4.0 <> 0 donc unique solution
+
+x = np.linalg.solve(a,b)
+print(x)
+#[-0.5  0.  -0.5  1. ]
+
+print('Vérification : on doit trouver le vecteur nul : \
+{}'.format(a.dot(x) - b))
+# Vérification : on doit trouver le vecteur nul : [ 0.  0.  0.  0.]
+
+b.shape = (4,1)
+m = np.concatenate((a,b), axis=1)
+print(m)
+# [[ 1.  2.  1.  1.  0.]
+#  [ 0.  1.  2.  1.  0.]
+#  [ 1.  0.  1.  2.  1.]
+#  [ 2.  1.  0.  1.  0.]]
+
+m[2,:] = m[2,:] - m[0,:]
+m[3,:] = m[3,:] - 2 * m[0,:]
+print(m)
+# [[ 1.  2.  1.  1.  0.]
+#  [ 0.  1.  2.  1.  0.]
+#  [ 0. -2.  0.  1.  1.]
+#  [ 0. -3. -2. -1.  0.]]
+
+m[2,:] = m[2,:] + 2 * m[1,:]
+m[3,:] = m[3,:] + 3 * m[1,:]
+print(m)
+# [[ 1.  2.  1.  1.  0.]
+#  [ 0.  1.  2.  1.  0.]
+#  [ 0.  0.  4.  3.  1.]
+#  [ 0.  0.  4.  2.  0.]]
+
+m[3,:] = m[3,:] - m[2,:]
+print(m)
+# [[ 1.  2.  1.  1.  0.]
+#  [ 0.  1.  2.  1.  0.]
+#  [ 0.  0.  4.  3.  1.]
+#  [ 0.  0.  0. -1. -1.]]
+
+m[2,:] = m[2,:] + 3 * m[3,:]
+m[1,:] = m[1,:] + 1 * m[3,:]
+m[0,:] = m[0,:] + 1 * m[3,:]
+print(m)
+# [[ 1.  2.  1.  0. -1.]
+#  [ 0.  1.  2.  0. -1.]
+#  [ 0.  0.  4.  0. -2.]
+#  [ 0.  0.  0. -1. -1.]]
+
+m[1,:] = m[1,:] - .5 * m[2,:]
+# ici, il est impératif de travailler en flottants
+
+m[0,:] = m[0,:] - .25 * m[2,:]
+print(m)
+# [[ 1.   2.   0.   0.  -0.5]
+#  [ 0.   1.   0.   0.   0. ]
+#  [ 0.   0.   4.   0.  -2. ]
+#  [ 0.   0.   0.  -1.  -1. ]]
+
+m[0,:] = m[0,:] - 2 * m[1,:]
+
+m[2,:] /= 4
+m[3,:] /= -1
+print(m)
+# [[ 1.   0.   0.   0.  -0.5]
+#  [ 0.   1.   0.   0.   0. ]
+#  [ 0.   0.   1.   0.  -0.5]
+#  [-0.  -0.  -0.   1.   1. ]]
+
+print('La solution est {}'.format(m[:,4]))
+# La solution est [-0.5  0.  -0.5  1. ]
+
+
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\section*{Exercice  6}
+% http://www.loria.fr/~rougier/teaching/numpy.100/
+Créer une matrice $8\times 8$, remplie de $0$ et de $1$ comme un
+échiquier.
+
+\ifprof 
+\begin{corrige}
+\begin{python}
+#! /usr/local/bin/python3.4
+# -*- coding:utf-8 -*-
+    
+import numpy as np
+# Solution 1
+m = np.zeros((8, 8), dtype = np.bool)
+m[1::2, ::2] = True
+m[::2, 1::2] = True
+print(m)
+# [[False  True False  True False  True False  True]
+#  [ True False  True False  True False  True False]
+#  [False  True False  True False  True False  True]
+#  [ True False  True False  True False  True False]
+#  [False  True False  True False  True False  True]
+#  [ True False  True False  True False  True False]
+#  [False  True False  True False  True False  True]
+#  [ True False  True False  True False  True False]]
+
+
+# Solution 2
+m = np.zeros(64, dtype=np.int)
+m[::2] = 1
+m.shape = 8, 8
+print(m)
+m.dtype = np.bool
+print(m)
+\end{python}
+\end{corrige}
+\else
+\fi
+
+\section*{Exercice 7}
+% gh
+\begin{enumerate}
+\item 
+  Créer une matrice aléatoire de taille $5\times 15$, constituées d'entiers et
+  l'afficher.
+
+\item
+  Mettre à zéro tous les éléments de la première ligne de cette matrice.
+
+\item
+  Déterminer la moyenne des éléments de cette matrice. 
+\item
+  Construire le vecteur
+  dont les composantes sont les moyennes des lignes de la matrice.
+\item
+  Déterminer la moyenne des éléments de ce vecteur.
+\end{enumerate}
+
+\ifprof 
+\begin{corrige}
+\begin{python}
+#! /usr/local/bin/python3.4
+# -*- coding:utf-8 -*-
+    
+import numpy as np
+
+m = np.random.randint(0, 10, (5, 15))
+print(m)
+# [[2 9 1 0 9 9 0 6 1 0 5 8 9 3 7]
+#  [8 6 5 1 6 5 2 9 0 8 9 0 0 2 5]
+#  [5 5 1 1 6 7 8 6 5 9 9 2 3 3 6]
+#  [6 1 6 3 0 3 9 6 0 5 5 8 2 8 9]
+#  [0 5 9 1 8 9 5 9 3 7 4 2 0 0 9]]
+
+m[0,:] = 0
+print(m)
+# [[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+#  [8 6 5 1 6 5 2 9 0 8 9 0 0 2 5]
+#  [5 5 1 1 6 7 8 6 5 9 9 2 3 3 6]
+#  [6 1 6 3 0 3 9 6 0 5 5 8 2 8 9]
+#  [0 5 9 1 8 9 5 9 3 7 4 2 0 0 9]]
+
+moyenne = m.mean()
+print(moyenne)
+# 3.78666666667
+
+v = m.mean(axis=1)
+print(v)
+# [ 0.          4.4         5.06666667  4.73333333  4.73333333]
+
+print(v.mean())
+# 3.78666666667
+\end{python}
+\end{corrige}
+\else
+\fi
+%
+%\section*{Exercice  -- }
+%
+%\ifprof 
+%\begin{corrige}
+%\begin{python}
+%\end{python}
+%\end{corrige}
+%\else
+%\fi
+%
+%
+%\section*{Exercice  -- }
+%
+%\ifprof 
+%\begin{corrige}
+%\begin{python}
+%\end{python}
+%\end{corrige}
+%\else
+%\fi
+%
+%
+%\section*{Exercice  -- }
+%
+%\ifprof 
+%\begin{corrige}
+%\begin{python}
+%\end{python}
+%\end{corrige}
+%\else
+%\fi
+%
+
+\ifprof
+\else
+\end{multicols}
+\fi
+
+\end{document}
+\section*{Exercice  -- }
+
+\ifprof 
+\begin{corrige}
+\begin{python}
+\end{python}
+\end{corrige}
+\else
+\fi
+
+\ifprof 
+\else
+\fi
+
+
+\section*{Exercice}
+\setcounter{exo}{0}
+\subparagraph{}
+\textit{}
+\ifprof
+\begin{corrige}
+\end{corrige}
+\else
+\f
