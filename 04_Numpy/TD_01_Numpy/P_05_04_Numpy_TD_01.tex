@@ -42,14 +42,14 @@
 \def\xxonglet{Part. 5 -- Ch. 4}
 
 \def\xxactivite{TD -- 01}
-\def\xxauteur{\textsl{Guillaume Haberer}}
+\def\xxauteur{\textsl{}}
 
 \def\xxcompetences{%
 \textsl{%
 \textbf{Savoirs et compétences :}
-\begin{itemize}[label=\ding{112},font=\color{ocre}] 
-\item Alg -- C17 : tris d’un tableau à une dimension de valeurs numériques (tri par insertion, tri rapide, tri fusion).
-\end{itemize}
+%\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+%\item Alg -- C17 : tris d’un tableau à une dimension de valeurs numériques (tri par insertion, tri rapide, tri fusion).
+%\end{itemize}
 }}
 
 \def\xxfigures{}%figues de la page de garde
@@ -79,6 +79,133 @@ Ch 4 : Utilisation de numpy -- \xxactivite%
 \else
 \begin{multicols}{2}
 \fi
+\section*{Exercice 0 -- Création de matrices}
+\subparagraph{}\textit{Créer les matrices suivantes : $\begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 6 & 1 & 1 \end{pmatrix}$ et $\begin{pmatrix} 0 & 0 & 0 & 0 & 0 \\ 2 &0& 0& 0& 0 \\ 0& 3& 0& 0& 0\\ 0& 0& 4 &0& 0 \\
+ 0 &0 &0 &5 &0 \\ 0& 0& 0& 0 &6\end{pmatrix}$.}
+
+\ifprof
+\begin{corrige}
+\begin{python}
+a = np.ones((4,4))
+a[3,1] = 6
+a[2,3] = 2
+
+b = np.diag(np.arange(1,7))
+b = b[:,1:] 
+\end{python}
+\end{corrige}
+\else
+\fi
+
+\subparagraph{}\textit{Créer une matrice 3x3 dont les valeurs vont de 0 à 8.}
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.arange(9).reshape(3,3)
+print(Z)
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\subparagraph{}\textit{Créer une matrice 3x3x3 avec des valeurs aléatoires.}
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.random.random((3,3,3))
+
+\end{python}
+\end{corrige}
+\else
+\fi
+
+\subparagraph{}\textit{Créer une matrice 10x10 de 0 avec des 1 sur les bords}
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.ones((10,10))
+Z[1:-1,1:-1] = 0
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\subparagraph{}\textit{Créer une matrice 8x8 de 0 et de 1 ayant la << forme >> d'un jeu d'échec. }
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.zeros((8,8),dtype=int)
+Z[1::2,::2] = 1
+Z[::2,1::2] = 1 
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\subparagraph{}\textit{Créer une matrice 8x8 de booléens ayant la << forme >> d'un jeu d'échec. }
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.zeros((8,8),dtype=bool)
+Z[1::2,::2] = True
+Z[::2,1::2] = True
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\subparagraph{}\textit{Normer une matrice aléatoire de taille 5x5 ($z_i = \dfrac{z_i-z_{\text{min}}}{z_i-z_{\text{max}}}$}
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.random.random((5,5))
+Zmax, Zmin = Z.max(), Z.min()
+Z = (Z - Zmin)/(Zmax - Zmin)
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\subparagraph{}\textit{Calculer le produit matriciel d'une matrice aléatoire 5x3 et 3x2.}
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.dot(np.random.random((5,3)), np.random.random((3,2)))
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\subparagraph{}\textit{Soit un tableau de dix éléments numéroter de 0 à 10. Modifier ce tableau pour que les valeurs comprises entre 3 et 8 soient remplacées par leur opposé.}
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.arange(10)
+Z[(3 < Z) & (Z <= 8)] *= -1
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
+\subparagraph{}\textit{Créer une matrice 5x5 dont chaque ligne est de la forme [0,1,2,3,4].}
+\ifprof
+\begin{corrige}
+\begin{python}
+Z = np.zeros((5,5))
+Z += np.arange(5)
+\end{python}
+\end{corrige}
+\else
+\fi
+
+
 \section*{Exercice 1 -- Calcul de somme}
 Pour cet exercice, on prend $n=1000000$. On pourra augmenter ou
 diminuer cette valeur en fonction de la machine utilisée.
@@ -409,46 +536,46 @@ print('La solution est {}'.format(m[:,4]))
 \fi
 
 
-\section*{Exercice  6}
+%\section*{Exercice  6}
 % http://www.loria.fr/~rougier/teaching/numpy.100/
-Créer une matrice $8\times 8$, remplie de $0$ et de $1$ comme un
-échiquier.
+%Créer une matrice $8\times 8$, remplie de $0$ et de $1$ comme un
+%échiquier.
+%
+%\ifprof 
+%\begin{corrige}
+%\begin{python}
+%#! /usr/local/bin/python3.4
+%# -*- coding:utf-8 -*-
+%    
+%import numpy as np
+%# Solution 1
+%m = np.zeros((8, 8), dtype = np.bool)
+%m[1::2, ::2] = True
+%m[::2, 1::2] = True
+%print(m)
+%# [[False  True False  True False  True False  True]
+%#  [ True False  True False  True False  True False]
+%#  [False  True False  True False  True False  True]
+%#  [ True False  True False  True False  True False]
+%#  [False  True False  True False  True False  True]
+%#  [ True False  True False  True False  True False]
+%#  [False  True False  True False  True False  True]
+%#  [ True False  True False  True False  True False]]
+%
+%
+%# Solution 2
+%m = np.zeros(64, dtype=np.int)
+%m[::2] = 1
+%m.shape = 8, 8
+%print(m)
+%m.dtype = np.bool
+%print(m)
+%\end{python}
+%\end{corrige}
+%\else
+%\fi
 
-\ifprof 
-\begin{corrige}
-\begin{python}
-#! /usr/local/bin/python3.4
-# -*- coding:utf-8 -*-
-    
-import numpy as np
-# Solution 1
-m = np.zeros((8, 8), dtype = np.bool)
-m[1::2, ::2] = True
-m[::2, 1::2] = True
-print(m)
-# [[False  True False  True False  True False  True]
-#  [ True False  True False  True False  True False]
-#  [False  True False  True False  True False  True]
-#  [ True False  True False  True False  True False]
-#  [False  True False  True False  True False  True]
-#  [ True False  True False  True False  True False]
-#  [False  True False  True False  True False  True]
-#  [ True False  True False  True False  True False]]
-
-
-# Solution 2
-m = np.zeros(64, dtype=np.int)
-m[::2] = 1
-m.shape = 8, 8
-print(m)
-m.dtype = np.bool
-print(m)
-\end{python}
-\end{corrige}
-\else
-\fi
-
-\section*{Exercice 7}
+\section*{Exercice 6}
 % gh
 \begin{enumerate}
 \item 
@@ -505,6 +632,19 @@ print(v.mean())
 \end{corrige}
 \else
 \fi
+
+
+%\subparagraph{}\textit{}
+%\ifprof
+%\begin{corrige}
+%\begin{python}
+%
+%\end{python}
+%\end{corrige}
+%\else
+%\fi
+
+
 %
 %\section*{Exercice  -- }
 %
