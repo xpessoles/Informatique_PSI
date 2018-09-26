@@ -221,8 +221,8 @@ def convolution(img,M):
     return imgc
         
 img_255 = conv_1_2_255(img)
-M1 = [[1/8,1/8,1/8],[1/8,1/8,1/8],[1/8,1/8,1/8]]
-M2 = [[1,1,1],[1,8,1],[1,1,1]]
+M1 = [[1/8,1/8,1/8],[1/8,-1/8,1/8],[1/8,1/8,1/8]]
+M2 = [[1,1,1],[1,-3,1],[1,1,1]]
 img_cv1 = convolution(img_255,M1)
 img_cv2 = convolution(img_255,M2)
 
@@ -230,4 +230,4 @@ img_11 = conv_255_2_1(img_cv1)
 img_12 = conv_255_2_1(img_cv2)
 
 #M=np.array(M)
-affichage2(img,img_11,img_12)
+affichage3(img,img_11,img_12)
