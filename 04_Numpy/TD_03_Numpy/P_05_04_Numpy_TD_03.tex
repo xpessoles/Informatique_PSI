@@ -190,37 +190,66 @@ qui nous permet d'utiliser les instructions~:
 
 \subsection*{Quelques fonctions élémentaires}
 Télécharger l'image ***.
-\subparagraph{}\textit{Ouvrir l'image avec \texttt{matplotlib.image.imread} et l'afficher.}
+\subparagraph{}\textit{Ouvrir l'image avec \\ \texttt{matplotlib.image.imread} et l'afficher.}
 
 
-\subparagraph{}\textit{Déterminer pour l'image \texttt{playmobil.png}~: la taille, le
-  \texttt{dtype}, la couleur du  pixel en position (300,300) et les
+\subparagraph{}\textit{Déterminer pour l'image téléchargée la taille, le
+  \texttt{dtype}, la couleur du pixel en position (300,300) et les
   valeurs max. et min. des éléments.}
 
+\subparagraph{}\textit{Écrire une deux fonctions \texttt{conv\_1\_2\_255} et \texttt{conv\_255\_2\_1} permettant respectivement :
+\begin{itemize}
+\item << d'étaler >> chacun des niveaux de couleurs de 0 à 255 (en valeurs entières);
+\item << de normer >> chacun des niveaux de couleurs de 0 à 1 (en valeurs flottantes);
+\end{itemize}.}
+
+L'histogramme de couleurs représente le nombre de pixels pour chaque couche de couleur. En retouche d'image, la modification de l'histogramme peut par exemple modifier le contraste d'une photo. 
+
+\subparagraph{}\textit{Tracer l'histogramme de chacune des couleurs de l'image.}
+
+\begin{rem}
+Il semble être plus rapide de créer la liste du nombre d'occurrences de chaque couleur de pixel puis de tracer cette liste, plutôt que d'utiliser la méthode \texttt{plt.hist}.
+\end{rem}
 
 
 
-\subsection*{Jouons avec les couleurs}
-\subparagraph{}\textit{En utilisant le codage donné précédemment, << où >> est codée la couleur bleue ?}
 
-Pour saturer l'image en bleue, le niveau de bleu doit être à 1 dans chacun des pixels de l'image. 
 
-\subparagraph{}\textit{Réaliser la saturation en bleu.}
 
+\subsection*{Jouons avec les couleurs, le noir et le blanc}
+%\subparagraph{}\textit{En utilisant le codage donné précédemment, << où >> est codée la couleur bleue ?}
+
+\subparagraph{}\textit{Afficher uniquement les trames rouge, verte et bleue (pour la trame de rouge, seuls les pixels rouges seront conservés, les autres seront mis à 0).}
+
+Pour saturer l'image en une couleur, le niveau de cette couleur doit être à 1 dans chacun des pixels de l'image. 
+
+\subparagraph{}\textit{Afficher les images saturées en rouge, vert et bleu.}
+\ifprof
+\begin{corrige}
 \begin{python}
 img[:,:,2]=1
 \end{python}
+\end{corrige}
+\else
+\fi
 
 \subparagraph{}\textit{Réaliser une inversion des couleurs en remplaçant le niveau $n$ de chaque couleur par $1-n$.}
+\ifprof
+\begin{corrige}
 \begin{python}
 img[:,:,:]=1-img[:,:,:]
 img=1-img # Autre solution
 \end{python}
+\end{corrige}
+\else
+\fi
+
+\vspace{.5cm}
 
 Plusieurs méthodes permettent de transformer une image en couleur en image en noir et blanc. Il est possible d'attribuer à chaque niveau de couleur d'un pixel la moyenne des niveaux de couleur du pixel considéré. 
 
 
-\subparagraph{}\textit{Transformer l'image en noir et blanc en utilsant la définition précédente. Réaliser une fonction qui permet de pondérer les niveaux de couleurs.}
+\subparagraph{}\textit{Transformer l'image en noir et blanc en utilisant la définition précédente. Pour cela, réaliser une fonction \texttt{convert\_nb\_moy} qui permet de pondérer les niveaux de couleurs.}
 
 
 \subparagraph{}\textit{Réaliser une transformation en noir et blanc en réalisant la moyenne du minimum et du maximum des 3 niveaux.}
@@ -242,16 +271,10 @@ On note $M=\begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}$. C
 
 \subparagraph{}\textit{Écrire la fonction \texttt{convolution(image,matrice)} permettant d'appliquer la convolution à une image.}
 
+\textit{Vous pourrez tester votre fonction avec les matrices suivantes : 
+$\begin{pmatrix} 1/8 & 1/8 & 1/8 \\ 1/8 & -1/8 & 1/8 \\ 1/8 & 1/8 & 1/8 \end{pmatrix}$ 
+$\begin{pmatrix} 1 & 1 & 1 \\ 1 & -2 & 1 \\ 1 & 1 & 1 \end{pmatrix}$. Quel est l'effet de la convolution sur l'image ?}
 
-\subsection*{Histogramme des couleurs}
-On histogramme de couleurs représente le nombre de pixels pour chaque couche de couleur. En retouche d'image, la modification de l'histogramme peut par exemple modifier le contraste d'une photo. 
-Lorsqu'on importe une image avec le module image, la valeur des couleurs est << normée >> alors que nativement les couleurs sont codées sur 8 bits (de 0 à 255).  
-
-\subparagraph{}\textit{Tracer l'histogramme des couleurs de l'image en noir et blanc.}
-
-\begin{rem}
-Avec Python, il est plus rapide de créer la liste du nombre d'occurrences de chaque couleur de pixel puis de tracer cette liste, plutôt que d'utiliser la méthode \texttt{plt.hist}.
-\end{rem}
 
 \ifprof
 \else

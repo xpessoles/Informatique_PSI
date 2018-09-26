@@ -11,53 +11,94 @@ import math
 
 img = mpimg.imread("PhotoBD.png")
 
+
 def affichage1(img1):
-    imshow(img1)
+    """ Affichage d'une seule image"""
+    plt.imshow(img1)
     plt.show()
 
 
 def affichage2(img1,img2):
+    """ Affichage de deux images"""
     f, ((ax1, ax2)) = plt.subplots(1, 2, sharex='col', sharey='row')
     ax1.imshow(img1)
     ax2.imshow(img2)
-    ax1.axis("equal")
-    ax2.axis("equal")
     plt.show()
 
 def affichage3(img1,img2,img3):
+    """ Affichage de trois images"""
     f, ((ax1, ax2,ax3)) = plt.subplots(1, 3, sharex='col', sharey='row')
     ax1.imshow(img1)
     ax2.imshow(img2)    
     ax3.imshow(img3)
 
-    ax1.axis("equal")
-    ax2.axis("equal")
     plt.show()
 
     
 
-# Affichage de l'image
+
+## Question 1 : affichage de l'image
 # plt.imshow(img)
 # plt.show()
 
-(h,l,p) = img.shape
+## Question 2 : 
+(h,l,p) = img.shape                 # Taille de l'image
+print("Couleur du pixel 200x200 : ",img[300,300,:] )
 
-# Saturation en bleu : 
-#img[:,:,2]=1
+print("Niveau de rouge mini et maxi : ",img[:,:,0].min(),"et",img[:,:,0].max())
+print("Niveau de vert  mini et maxi : ",img[:,:,1].min(),"et",img[:,:,1].max())
+print("Niveau de bleu  mini et maxi : ",img[:,:,2].min(),"et",img[:,:,2].max())
 
 
-# Inversion des couleurs
-# img[:,:,:]=1-img[:,:,:]
-# img=1-img
+## Question 3 : [0,1] -> [0,255] et [0,255] -> [0,1] 
+def conv_1_2_255(img):
+    """ 
+    Conversion des niveaux de couleurs de [0,1] -> [0,255]
+     * Entrée :
+      - img(numpy.ndarray) : image de shape (h,l,3) 
+     * Sortie :
+      - img(numpy.ndarray) : image de shape (h,l,3)
+    """
+    a = 255*img
+    a = a.astype(int)
+    return a
 
-"""for i in range(h):
-    for j in range(l):
-        img[i,j,0]=1-img[i,j,0]
-        img[i,j,1]=1-img[i,j,1]
-        img[i,j,2]=1-img[i,j,2]
-"""
+def conv_255_2_1(img):
+    """ 
+    Conversion des niveaux de couleurs de [0,1] -> [0,255]
+     * Entrée :
+      - img(numpy.ndarray) : image de shape (h,l,3) 
+     * Sortie :
+      - img(numpy.ndarray) : image de shape (h,l,3)
+    """
+    return (1/255)*img
+    
+    
+## Question 4 : Histogramme des couleurs
 
-# Séparation des couleurs
+def histogramme(img):
+    """ Fonction permettant de tracer l'histogramme de chacune des couleurs
+     * Entrée :
+      - img(numpy.ndarray) : image de shape (h,l,3) (Codes couleurs comprises entre 0 et 1)
+    """
+ 
+    img = conv_1_2_255(img)
+    histo = [[0 for j in range(256)]for j in range(3)]
+    (l,h,p)=img.shape
+    for i in range(l):
+        for j in range (h):
+            for k in range(3) :
+                histo[k][img[i,j,k]]+=1
+                
+    plt.plot(histo[0],"r")
+    plt.plot(histo[1],"g")
+    plt.plot(histo[2],"b")
+    plt.show()
+    return histo
+# histogramme(img)
+
+
+## Question 5 Trame des couleurs
 imgr=np.zeros(img.shape)
 imgr[:,:,0]=img[:,:,0]
 
@@ -67,27 +108,60 @@ imgv[:,:,1]=img[:,:,1]
 imgb=np.zeros(img.shape)
 imgb[:,:,2]=img[:,:,2]
 
-"""
-f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex='col', sharey='row')
-ax1.imshow(img)
-ax2.imshow(imgr)
-ax3.imshow(imgv)
-ax4.imshow(imgb)
-plt.show()
-"""
+#affichage3(imgr,imgv,imgb)
 
-# Transformation en noir et blanc
-def convert_nb(img,a,b,c):
+
+## Question 6 : Images saturées
+
+img_sr = img.copy()
+img_sr[:,:,0]=1
+
+img_sv = img.copy()
+img_sv[:,:,1]=1
+
+img_sb = img.copy()
+img_sb[:,:,2]=1
+#affichage3(img_sr,img_sv,img_sb)
+
+## Question 7 : Images inversées
+
+# img[:,:,:]=1-img[:,:,:]
+img_inv= 1-img
+
+#affichage2(img,img_inv)
+
+
+## Question 8 : Transformation en noir et blanc
+def convert_nb_moy(img,a,b,c):
+    """
+    Conversion d'une image en noir et blanc par pondération de chaque niveau de couleur
+    """
     imgnb = np.zeros(img.shape)
-    imgnb[:,:,0]=(a*img[:,:,0]+b*img[:,:,1]+c*img[:,:,2])#*(1/(a+b+c))
+    imgnb[:,:,0]=(a/(a+b+c)*img[:,:,0]+b/(a+b+c)*img[:,:,1]+c/(a+b+c)*img[:,:,2])#*(1/(a+b+c))
     imgnb[:,:,1]=imgnb[:,:,0]
     imgnb[:,:,2]=imgnb[:,:,0]
     return imgnb
 
-imgnb1 = convert_nb(img,1/3,1/3,1/3)
-imgnb2 = convert_nb(img,.21,.71,.07)
-imgnb3 = convert_nb(img,1,2,1)
-imgnb4 = convert_nb(img,10,5,1)
+imgnb1 = convert_nb_moy(img,1,1,1)
+imgnb2 = convert_nb_moy(img,10,1,1)
+imgnb3 = convert_nb_moy(img,1,2,1)
+imgnb4 = convert_nb_moy(img,10,5,1)
+
+"""
+h1 = histogramme(imgnb1)
+h2 = histogramme(imgnb2)
+h3 = histogramme(imgnb3)
+h4 = histogramme(imgnb4)
+
+plt.plot(h1[0])
+plt.plot(h2[0])
+plt.plot(h3[0])
+plt.plot(h4[0])
+"""
+#affichage3(img,imgnb1,imgnb2)
+#affichage3(img,imgnb3,imgnb4)
+
+## Question 9 : Transformation en noir et blanc
 
 def convert_nb_2(img):
     imgnb = np.zeros(img.shape)
@@ -98,6 +172,25 @@ def convert_nb_2(img):
                 imgnb[i,j,k]=0.5*(max(img[i,j,:])+max(img[i,j,:]))
     return imgnb
         
+
+# affichage2(img,convert_nb_2(img))       
+        
+## Question 10  tracer des fonctions
+les_x = np.linspace(0,1,1000)
+
+def f2(x):
+    return 0.5+0.5*math.sin(math.pi*(x-0.5))
+
+vf2 = np.vectorize(f2)
+
+"""
+plt.plot(les_x,np.sqrt(les_x))
+plt.plot(les_x,vf2(les_x))
+plt.show()
+"""
+
+## Question 11 tracer des fonctions
+
 def contraste(img,f):
     imgc = np.zeros(img.shape)
     (h,l,p) = img.shape
@@ -108,87 +201,33 @@ def contraste(img,f):
                 
     return imgc
 
-def f2(x):
-    return 0.5+0.5*math.sin(math.pi*(x-0.5))
-"""
-imgnb = convert_nb(img,1/3,1/3,1/3)
+
+imgnb = convert_nb_moy(img,1/3,1/3,1/3)
 img1 = contraste(img,math.sqrt)
 img2 = contraste(img,f2)
-"""
+
+#affichage3(img,img1,img2)       
+
+## Question 12
+
 
 def convolution(img,M):
     imgc = np.zeros(img.shape)
     (h,l,p) = img.shape
     for i in range(1,h-1):
         for j in range(1,l-1):
-                imgc[i,j]=np.sum(M*img [i-1:i+2,j-1:j+2])
+            for k in range (p):
+                imgc[i,j,k]=np.sum(M*img [i-1:i+2,j-1:j+2,k])
     return imgc
         
+img_255 = conv_1_2_255(img)
+M1 = [[1/8,1/8,1/8],[1/8,1/8,1/8],[1/8,1/8,1/8]]
+M2 = [[1,1,1],[1,8,1],[1,1,1]]
+img_cv1 = convolution(img_255,M1)
+img_cv2 = convolution(img_255,M2)
 
-M=[[1/8,1/8,1/8],[1/8,1/8,1/8],[1/8,1/8,1/8]]
-M=[[1,1,1],[1,8,1],[1,1,1]]
+img_11 = conv_255_2_1(img_cv1)
+img_12 = conv_255_2_1(img_cv2)
+
 #M=np.array(M)
-#affichage2(img,convolution(img,M))
-
-### Histogramme
-
-def hist_nb(img):
-    """ Fonction convertissant une image en noir et blanc, puis traçant son histogramme de couleurs"""
-    imgnb1 = convert_nb(img,1/3,1/3,1/3)
-    img_histo = np.floor(255*imgnb1[:,:,1])
-
-    #histo=256*[0]
-    #(l,h)=img_histo.shape
-    #for i in range(l):
-    #    for j in range (h):
-    #        a = int(img_histo[i,j])
-    #        histo[a]+=1
-    
-    histo=[]
-    (l,h)=img_histo.shape
-    for i in range(l):
-        for j in range (h):
-            histo.append(img_histo[i,j])
-    
-    
-    plt.hist(img_histo)
-    plt.show()
-
-### Image en noir et blanc
-
-#def gristonb(img):
-img_gris1 = convert_nb(img,1/3,1/3,1/3)
-img_gris1[0:100,0:100,:]=0
-img_gris = convert_nb(img,1/3,1/3,1/3)
-#img_noir = img_gris<0.5
-#img_bl = img_gris>0.5
-img_nb=img_noir+img_bl
-(l,h,p)=img_gris.shape
-img_nb=np.zeros(img_gris.shape)
-img_nb_2=np.zeros(img_gris.shape)
-
-"""for i in range(l):
-    for j in range (h):
-        if img_gris[i,j,0]<0.5:
-            img_nb[i,j,:]=0
-        else :
-            img_nb[i,j,:]=1
-"""
-for i in range(l-1):
-    for j in range (h-1):
-        img_nb_2[i,j,:]=1
-        delta = img_gris[i,j,0]-0.5
-        img_gris[i,j+1,:]=img_gris[i,j,:]+delta/2
-        img_gris[i+1,j,:]=img_gris[i,j,:]+delta/4
-        img_gris[i+1,j+1,:]=img_gris[i,j,:]+delta/4
-        
-        
- 
-plt.imshow(img_gris)
-plt.show()       
-
-#affichage3(img_gris1,img_nb,img_nb_2)
-"""
-plt.imshow(convert_nb_2(img))
-plt.show()
-"""
+affichage2(img,img_11,img_12)
