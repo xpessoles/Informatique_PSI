@@ -11,7 +11,7 @@
 %\fichefalse
 
 \proftrue
-%\proffalse
+\proffalse
 
 \tdtrue
 %\tdfalse
@@ -158,7 +158,7 @@ Z[::2,1::2] = True
 \fi
 
 
-\subparagraph{}\textit{Normer une matrice aléatoire de taille 5x5 $\left(z_i = \dfrac{z_i-z_{\text{min}}}{z_i-z_{\text{max}}}\right)$.}
+\subparagraph{}\textit{Normer une matrice aléatoire de taille 5x5 $\left(z_i = \dfrac{z_i-z_{\text{min}}}{z_{\text{max}}-z_{\text{min}}}\right)$.}
 \ifprof
 \begin{corrige}
 \begin{python}
@@ -182,7 +182,7 @@ Z = np.dot(np.random.random((5,3)), np.random.random((3,2)))
 \fi
 
 
-\subparagraph{}\textit{Soit un tableau de dix éléments numéroter de 0 à 10. Modifier ce tableau pour que les valeurs comprises entre 3 et 8 soient remplacées par leur opposé.}
+\subparagraph{}\textit{Soit un tableau de dix éléments numérotés de 0 à 10. Modifier ce tableau pour que les valeurs comprises entre 3 et 8 soient remplacées par leur opposé.}
 \ifprof
 \begin{corrige}
 \begin{python}
