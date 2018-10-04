@@ -222,7 +222,7 @@ def convolution(img,M):
         
 img_255 = conv_1_2_255(img)
 M1 = [[1/8,1/8,1/8],[1/8,-1/8,1/8],[1/8,1/8,1/8]]
-M2 = [[1,1,1],[1,-3,1],[1,1,1]]
+M2 = [[1,1,1],[1,-2,1],[1,1,1]]
 img_cv1 = convolution(img_255,M1)
 img_cv2 = convolution(img_255,M2)
 
