@@ -209,8 +209,6 @@ img2 = contraste(img,f2)
 #affichage3(img,img1,img2)       
 
 ## Question 12
-
-
 def convolution(img,M):
     imgc = np.zeros(img.shape)
     (h,l,p) = img.shape
