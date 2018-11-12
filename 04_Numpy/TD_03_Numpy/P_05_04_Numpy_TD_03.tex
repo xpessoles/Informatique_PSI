@@ -26,10 +26,10 @@
 \def\discipline{Informatique}
 \def\xxtete{Informatique}
 \def\classe{PSI$\star$}
-\def\xxnumpartie{Partie 5}
+\def\xxnumpartie{}%Partie 5}
 \def\xxpartie{Algorithmique \& Programmation (Suite)}
 
-\def\xxnumchapitre{Chapitre 4}
+\def\xxnumchapitre{Chapitre 2}
 \def\xxchapitre{\hspace{.12cm} Utilisation de Numpy}
 
 \def\xxtitreexo{Traitement d'images avec numpy}
@@ -39,24 +39,24 @@
 \def\xxposonglettext{1.45}
 \def\xxposonglety{13}%10
 
-\def\xxonglet{Part. 5 -- Ch. 4}
+\def\xxonglet{Ch. 2}%Part. 5 -- Ch. 4}
 
-\def\xxactivite{TD -- 02}
-\def\xxauteur{\textsl{Guillaume Haberer}}
+\def\xxactivite{502}
+\def\xxauteur{\textsl{G. Haberer -- X. Pessoles}}
 
 \def\xxcompetences{%
 \textsl{%
 \textbf{Savoirs et compétences :}
-%\begin{itemize}[label=\ding{112},font=\color{ocre}] 
-%\item Alg -- C17 : tris d’un tableau à une dimension de valeurs numériques (tri par insertion, tri %rapide, tri fusion).
-%\end{itemize}
+\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item Savoir utiliser une bibliothèque de calcul scientifique. %Alg -- C17 : tris d’un tableau à une dimension de valeurs numériques (tri par insertion, tri %rapide, tri fusion).
+\end{itemize}
 }}
 
-\def\xxfigures{}%figues de la page de garde
+\def\xxfigures{\includegraphics[width=.75\textwidth]{images/logo}}%figues de la page de garde
 
 \def\xxpied{%
-Partie 5 -- Algorithmique et Programmation\\
-Ch 4 : Utilisation de numpy -- \xxactivite%
+%Partie 5 -- Algorithmique et Programmation\\
+Ch 2 : Utilisation de numpy -- \xxactivite%
 }
 
 
@@ -68,7 +68,7 @@ Ch 4 : Utilisation de numpy -- \xxactivite%
 \begin{document}
 %\chapterimage{png/Fond_Cin}
 \input{style/new_pagegarde}
-\vspace{5cm}
+\vspace{4cm}
 \pagestyle{fancy}
 \thispagestyle{plain}
 
@@ -189,41 +189,74 @@ qui nous permet d'utiliser les instructions~:
 
 
 \subsection*{Quelques fonctions élémentaires}
-Télécharger l'image ***.
-\subparagraph{}\textit{Ouvrir l'image avec \texttt{matplotlib.image.imread} et l'afficher.}
+Télécharger l'image sur le site de la classe (ou toute autre image de résolution inférieure à 600 x 800).
+\subparagraph{}\textit{Ouvrir l'image avec \\ \texttt{matplotlib.image.imread} et l'afficher.}
 
 
-\subparagraph{}\textit{Déterminer pour l'image \texttt{playmobil.png}~: la taille, le
-  \texttt{dtype}, la couleur du  pixel en position (300,300) et les
+\subparagraph{}\textit{Déterminer pour l'image téléchargée la taille, le
+  \texttt{dtype}, la couleur du pixel en position (300,300) et les
   valeurs max. et min. des éléments.}
 
+\subparagraph{}\textit{Écrire  deux fonctions \\
+\texttt{conv\_1\_to\_255(img:np.ndarray)->(img:np.ndarray)} et 
+\texttt{conv\_255\_to\_1(img:np.ndarray)->(img:np.ndarray)} permettant respectivement :
+\begin{itemize}
+\item << d'étaler >> chacun des niveaux de couleurs de 0 à 255 (en valeurs entières);
+\item << de normer >> chacun des niveaux de couleurs de 0 à 1 (en valeurs flottantes);
+\end{itemize}.}
+
+L'histogramme de couleurs représente le nombre de pixels pour chaque couche de couleur. En retouche d'image, la modification de l'histogramme peut par exemple modifier le contraste d'une photo. 
+
+\subparagraph{}\textit{Tracer l'histogramme de chacune des couleurs de l'image. Pour cela implémenter la fonction \texttt{histo(img:np.ndarray)->(None)}.}
+
+\begin{rem}
+Il semble être plus rapide de créer la liste du nombre d'occurrences de chaque couleur de pixel puis de tracer cette liste, plutôt que d'utiliser la méthode \texttt{plt.hist}.
+\end{rem}
 
 
 
-\subsection*{Jouons avec les couleurs}
-\subparagraph{}\textit{En utilisant le codage donné précédemment, << où >> est codée la couleur bleue ?}
 
-Pour saturer l'image en bleue, le niveau de bleu doit être à 1 dans chacun des pixels de l'image. 
 
-\subparagraph{}\textit{Réaliser la saturation en bleu.}
 
+\subsection*{Jouons avec les couleurs, le noir et le blanc}
+%\subparagraph{}\textit{En utilisant le codage donné précédemment, << où >> est codée la couleur bleue ?}
+
+\subparagraph{}\textit{Afficher uniquement les trames rouge, verte et bleue (pour la trame de rouge, seuls les pixels rouges seront conservés, les autres seront mis à 0).}
+
+Pour saturer l'image en une couleur, le niveau de cette couleur doit être à 1 dans chacun des pixels de l'image. 
+
+\subparagraph{}\textit{Afficher les images saturées en rouge, vert et bleu.}
+\ifprof
+\begin{corrige}
 \begin{python}
 img[:,:,2]=1
 \end{python}
+\end{corrige}
+\else
+\fi
 
 \subparagraph{}\textit{Réaliser une inversion des couleurs en remplaçant le niveau $n$ de chaque couleur par $1-n$.}
+\ifprof
+\begin{corrige}
 \begin{python}
 img[:,:,:]=1-img[:,:,:]
 img=1-img # Autre solution
 \end{python}
+\end{corrige}
+\else
+\fi
+
+\vspace{.5cm}
 
 Plusieurs méthodes permettent de transformer une image en couleur en image en noir et blanc. Il est possible d'attribuer à chaque niveau de couleur d'un pixel la moyenne des niveaux de couleur du pixel considéré. 
 
 
-\subparagraph{}\textit{Transformer l'image en noir et blanc en utilsant la définition précédente. Réaliser une fonction qui permet de pondérer les niveaux de couleurs.}
+\subparagraph{}\textit{Transformer l'image en noir et blanc en utilisant la définition précédente. Pour cela, réaliser une fonction \\ \texttt{convert\_nb\_moy(img:np.ndarray)->} \\ 
+\texttt{(img:np.ndarray)} qui permet de pondérer les niveaux de couleurs.}
 
 
-\subparagraph{}\textit{Réaliser une transformation en noir et blanc en réalisant la moyenne du minimum et du maximum des 3 niveaux.}
+\subparagraph{}\textit{Réaliser une transformation en noir et blanc en réalisant la moyenne du minimum et du maximum des 3 niveaux. On appellera cette fonction  \texttt{convert\_nb\_minmax(img:np.ndarray)->} \\ 
+\texttt{(img:np.ndarray)}}
 
 \subsection*{Amélioration du contraste}
 On va ici modifier le contraste d'une image en niveau de gris. 
@@ -237,147 +270,36 @@ Pour cela, on va accentuer les différences entre les niveaux en utilisant une f
 La méthode de convolution permet, suivant les cas, de flouter ou de détecter des concours. 
 Selon cette méthode, le niveau de couleur de chaque pixel est recalculé en fonction de ses voisins. 
 
-\begin{center}
-\begin{tikzpicture}[scale=.5]
-\draw (0,0) grid (8,6);
-\draw (1.5,1.5) node {$g $} ;
-\draw (1.5,2.5) node {$d $} ;
-\draw (1.5,3.5) node {$a $} ;
-\draw (2.5,1.5) node {$h $} ;
-\draw (2.5,2.5) node {$e$} ;
-\draw (2.5,3.5) node {$b $} ;
-\draw (3.5,1.5) node {$i $} ;
-\draw (3.5,2.5) node {$f $} ;
-\draw (3.5,3.5) node {$c $} ;
 
-\draw (-.5,2.5) node {$y$} ;
-\draw (2.5,6.5) node {$x$} ;
-\end{tikzpicture}
-\end{center}
+On note $M=\begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}$. Chaque pixel $(i,j)$ est alors remplacé ainsi : $\text{img}[i, j] = a \times \text{img}[i-1, j-1] + b \times \text{img}[i-1, j]+ c \times \text{img}[i-1, j+1] + \ldots + i \times \text{img}[i+1, j+1]$.
 
-On note $M=\begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}$. Chaque pixel $(i,j)$ est alors remplacé ainsi : $\text{img}[x, y] = a \times \text{img}[x-1, y+1] + b \times \text{img}[x, y+1]+ c \times \text{img}[x+1, y+1] + \ldots + i \times \text{img}[x+1, y-1]$.
-
-\subparagraph{}\textit{Écrire la fonction \texttt{convolution(image,matrice)} permettant d'appliquer la convolution à une image.}
+\subparagraph{}\textit{Écrire la fonction \\ \texttt{convolution(image:np.ndarray,matrice:np.ndarray) ->} \texttt{(img:np.ndarray)} permettant d'appliquer la convolution à une image.}
 
 
-\ifprof
-\begin{corrige}
-\begin{python}
-#! /usr/local/bin/python3.4
-# -*- coding:utf-8 -*-
-    
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-
-# question (a)
-img = mpimg.imread('./theme_image_1_playmobil.png')  
-
-# plt.figure(1)
-# plt.imshow(img)
-# plt.show()
-
-# question (b)
-
-print(img.shape)
-# (564, 1000, 3)
-# il y a 564 pixels en hauteur et 1000 en largeur,
-# et 3 composantes couleur pour chaque pixel.
- 
-print(img.dtype)
-# float32
-
-print(img[300,300,:])
-# [ 0.11764706  0.24705882  0.41568628]
-
-print(img.max())
-print(img.min())
-# 1.0
-# 0.0
-
-# question (c)
-# En observant l'image, quitte à zoomer, on voit que le fond n'est pas uniforme.
-# Pour répondre précisément à la question, dénombrons les valeurs différentes
-# dans la zone en haut à gauche (strictement) du pixel (300,300)
-zone = img[0:300,0:300,:]
-# couleurs = []
-# for i in range(300):
-#     for j in range(300):
-#         if list(zone[i,j,:]) not in couleurs:
-#             couleurs.append(list(zone[i,j,:]))
-# print(len(couleurs))
-# 3734
-# Il y a 3734 couleurs différentes sur les 90 000 pixels considérés.
-# Le fond n'est donc clairement pas uniforme,
-# même si, à l'oeil, il peut sembler uniforme.
-
-# question (d)
-
-playmobil = mpimg.imread('./theme_image_1_playmobil.png')  
-montagne = mpimg.imread('./theme_image_1_montagne.png')
-
-# on choisit un pixel bleu de référence
-reference_bleue = playmobil[300,300,:]
-
-# pour décider de la valeur du seuil, correspondant à une distance "faible",
-# on fait des essais. 
-seuil = .30
-
-# Une première version sans utiliser toutes les fonctionnalités de numpy
-
-# les pixels qui ont une couleur proche du pixel de référence sont remplacés
-# par les pixels de montagne correspondants
-# les autres pixels (qui correspondent donc aux playmobils) ne sont pas modifiés
-n,p,q = img2.shape
-for i in range(n):
-    for j in range(p):
-        if np.sqrt((playmobil[i,j,0]-pixel_ref[0])**2 + (playmobil[i,j,1]-pixel_ref[1])**2
-                   + (playmobil[i,j,2]-pixel_ref[2])**2)< seuil :
-            playmobil[i,j,:] = img1[i,j,:]
-
-# plt.figure()
-# plt.imshow(playmobil)
-# plt.show()
-
-# Une deuxième version en utilisant les opérations terme à terme de numpy
-
-# on sélectionne les pixels à une distance inférieure au seuil
-# en utilisant un masque
-mask = np.sqrt( (playmobil[:,:,0] - reference_bleue[0])**2
-               +(playmobil[:,:,1] - reference_bleue[1])**2
-               +(playmobil[:,:,2] - reference_bleue[2])**2) < seuil
-print(mask.shape)
-# (564, 1000)
-mask.shape = (564, 1000, 1)
-masque_complet = np.concatenate((mask, mask, mask), axis=2)
-
-playmobil_sans_bleu = playmobil * (1 - masque_complet)
-# plt.figure(2)
-# plt.imshow(playmobil_sans_bleu)
-# plt.show()
-
-montagne_decoupee = montagne * masque_complet
-# plt.figure(3)
-# plt.imshow(montagne_decoupee)
-# plt.show()
-
-images_superposees = playmobil_sans_bleu + montagne_decoupee
-# plt.figure(4)
-# plt.imshow(images_superposees)
-# plt.show()
-
-# question (e)
-mpimg.imsave("theme_image_1_fake.png", images_superposees)
-\end{python}
-\end{corrige}
-\else
-\fi
+\subparagraph{}\textit{Tester votre fonction avec les matrices suivantes : 
+$\begin{pmatrix} 1/8 & 1/8 & 1/8 \\ 1/8 & -1/8 & 1/8 \\ 1/8 & 1/8 & 1/8 \end{pmatrix}$ 
+$\begin{pmatrix} 1 & 1 & 1 \\ 1 & -2 & 1 \\ 1 & 1 & 1 \end{pmatrix}$. Quel est l'effet de la convolution sur l'image ? Expliquer l'erreur affichée par l'interpréteur.}
 
 
+\subsection*{Réduction d'image}
+\subparagraph{}\textit{Proposer un algorithme permettant de réduire la taille d'une image et le mettre en \oe{}uvre.}
 \ifprof
 \else
 \end{multicols}
 \fi
+
+
+\begin{py}
+\begin{python}
+def affichage3(img1,img2,img3):
+    """ Affichage de trois images"""
+    f, ((ax1, ax2,ax3)) = plt.subplots(1, 3, sharex='col', sharey='row')
+    ax1.imshow(img1)
+    ax2.imshow(img2)    
+    ax3.imshow(img3)
+    plt.show()
+\end{python}
+\end{py}
 
 \end{document}
 \section*{Exercice  -- }
