@@ -14,7 +14,7 @@ Tps_simu = 30000        # s
 Nech_tps = 10000
 Nech_e = 60
 ItMax_k = 4000 
-dt = 25 # pas de temps de 10 secondes
+dt = 10 # pas de temps de 10 secondes
 dx = e / (Nech_e +1)
 
 N=Nech_e
