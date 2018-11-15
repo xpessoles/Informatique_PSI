@@ -18,7 +18,7 @@
 
 %\courstrue
 \coursfalse
-
+\usepackage{siunitx}
 % -------------------------------------
 % Déclaration des titres
 % -------------------------------------
@@ -48,6 +48,8 @@
 \textsl{%
 \textbf{Savoirs et compétences :}
 \begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item Problème dynamique à une dimension, linéaire ou non, conduisant à la résolution approchée
+d’une équation différentielle ordinaire par la méthode d’Euler (ici, il y aura plusieurs dimensions...)
 \item Savoir utiliser une bibliothèque de calcul scientifique. %Alg -- C17 : tris d’un tableau à une dimension de valeurs numériques (tri par insertion, tri %rapide, tri fusion).
 \end{itemize}
 }}
@@ -70,7 +72,7 @@ Ch 4 : Résolution numérique des équations différentielles -- \xxactivite%
 
 %\chapterimage{png/Fond_Cin}
 \input{style/new_pagegarde}
-\vspace{4.5cm}
+\vspace{5cm}
 \pagestyle{fancy}
 \thispagestyle{plain}
 
@@ -78,7 +80,27 @@ Ch 4 : Résolution numérique des équations différentielles -- \xxactivite%
 \else
 \begin{multicols}{2}
 \fi
-\section*{Mise en situation}
+
+
+\section*{Exercice préliminaire}
+\textit{Cet exerice n'a aucun lien avec le problème qui suit.}
+On rappelle que l'équation différentielle permettant de modéliser le mouvement d'un pendule est donnée par : 
+$$
+\ddot{\theta} + \dfrac{g}{l} \sin \theta = 0.
+$$
+On note : 
+\begin{itemize}
+\item $\theta$ l'angle du fil avec la verticale;
+\item $g=\SI{9.81}{m.s^{-2}}$ l'accélération de la pesanteur;
+\item $l=\SI{0,5}{m}$ la longueur du fil. 
+\end{itemize}
+
+\subparagraph{}\textit{Donner le schéma numérique permettant d'exprimer la solution numérique de l'équation différentielle.}
+
+\subparagraph{}\textit{Résoudre numériquement l'équation différentielle pour $\theta(0)=\dfrac{\pi}{3}$ et $\dot{\theta}(0)=0$.}
+
+
+\section*{Mise en situation du problème ed thermique}
 \ifprof
 \else
 \vspace{.25cm}
