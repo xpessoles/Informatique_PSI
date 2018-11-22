@@ -97,10 +97,11 @@ On note :
 
 \subparagraph{}\textit{Donner le schéma numérique permettant d'exprimer la solution numérique de l'équation différentielle.}
 
-\subparagraph{}\textit{Résoudre numériquement l'équation différentielle pour $\theta(0)=\dfrac{\pi}{3}$ et $\dot{\theta}(0)=0$.}
+\subparagraph{}\textit{Résoudre numériquement l'équation différentielle pour $\theta(0)=\dfrac{\pi}{3}$ et $\dot{\theta}(0)=0$. Les résulats sont attendus sous forme de groupe. }
 
 
-\section*{Mise en situation du problème ed thermique}
+\section*{Mise en situation du problème de thermique}
+\setcounter{exo}{0}
 \ifprof
 \else
 \vspace{.25cm}
@@ -113,13 +114,14 @@ souhaite étudier l'évolution du profil de température dans le mur au cours du
 Le mur a une épaisseur $e=40\;\text{cm}$. Les propriétés physiques du mur sont constantes : conductivité thermique $\lambda = 1,65\; \text{W.m}^{-1}.\text{K}^{-1}$, capacité thermique massique : $c_p = 1\, 000\; \text{J}.\text{kg}^{-1}.\text{K}^{-1}$, masse volumique : $\rho = 2\, 150 \; \text{kg}.\text{m}^{-3}$. 
 
 
+On suppose que les longueurs $L_y$ et $L_z$ suivant $\vect{y}$ et $\vect{z}$ sont très grandes devant l'épaisseur $e$. En conséquence, on suppose que la température $T$ dans le mur ne dépend que du temps $t$ et de la coordonnée $x$. 
+
 \begin{center}
 \includegraphics[width=\linewidth]{images/figure_01}
 \end{center}
 
 
 
-On suppose que les longueurs $L_y$ et $L_z$ suivant $\vect{y}$ et $\vect{z}$ sont très grandes devant l'épaisseur $e$. En conséquence, on suppose que la température $T$ dans le mur ne dépend que du temps $t$ et de la coordonnée $x$. 
 
 \begin{obj}
 L'objectif est de déterminer l'évolution du flux thermique dans le mur au cours du temps. Pour cela, on s'appuiera sur la résolution d'une équation différentielle en utilisant un schéma explicite puis implicite.
@@ -410,7 +412,7 @@ On a : $T_0^k = 20^o C$ et $T^k_{N+1}=-10^o C$.
 \subparagraph{}\textit{Montrer que pour tout instant $k$, le problème peut se mettre sous la forme matricielle suivante : }
 $$
 T^{k+1} = M \cdot T^k + rV \quad \text{avec} \quad T^k =
- \begin{pmatrix} T_1^k \\  T_2 ^k \\ ... \\  T_{N-1}^{k} \\ T_{N}^{k}  \end{pmatrix}.
+ \begin{pmatrix} T_1^k \\  T_2 ^k \\ ... \\  T_{N-1}^{k} \\ T_{N}^{k}  \end{pmatrix}
 $$
 \textit{avec M une matrice carrée $N\times N$, $V$ un vecteur de taille $N$ que l'on explicitera.}
 \ifprof
@@ -485,14 +487,14 @@ Ainsi, à chaque pas de temps $k$, on calculera un vecteur $T^k$ contenant la te
 \end{corrige}
 \else
 \fi
-
-\ifprof
-\else
-\vspace{.5cm}
-
-\noindent
-Une annexe est fournie en fin de sujet vous rappelant quelques fonction de la bibliothèque \textbf{Numpy}.
-\fi
+%
+%\ifprof
+%\else
+%\vspace{.5cm}
+%
+%\noindent
+%Une annexe est fournie en fin de sujet vous rappelant quelques fonction de la bibliothèque \textbf{Numpy}.
+%\fi
 
 \subparagraph{}
 \textit{On donne \texttt{ T0} le vecteur température à l'instant $k=0$. 
@@ -537,7 +539,7 @@ La température à l'instant $t_k$ est exprimée en fonction de la température 
 ultérieur $t_{k+1}$.
 Le système d'équation peut être écrit sous la forme matricielle : 
 \begin{equation} \label{eq_implicite}
-\mathbf{M T^{k+1} = T^k + rV}.
+\mathbf{M T^{k+1} = T^k + rV}
 \end{equation}
 avec : 
 
