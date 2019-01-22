@@ -64,8 +64,6 @@ def chute_libre_grain(sablier,col,simu):
         
         
 def chute_grain(sablier,col,simu):
-    
-
     #Recherche du sens
     # Cas du premier grain
     if taille(sablier,col)==1 and taille(sablier,col-1)==0 and taille(sablier,col+1)==0:
@@ -139,27 +137,40 @@ def trace_tas(tas):
 
 
 def trace_ecoulement(tas):
+    plt.plot([-1,larg,larg,-1,-1],[-1,-1,haut+1,haut+1,-1])
+    plt.axis("equal")
     for t in tas:
-        trace_tas(tas)
+        print(t)
+        trace_tas(t)
         plt.pause(0.01) # pause avec duree en secondes
-        
-        
+    tmp =input("Presser une touche pour stopper...")
+    plt.close()
 
-simu = simulation(nb_grain,larg,haut)
+## CHUTE d'un GRAIN
 
-
-"""
+sablier = creation_sablier(larg,haut)
+simu=[]
+col=3
 # Chute d'un grain
 chute_libre_grain(sablier,col,simu)
 chute_libre_grain(sablier,col,simu)
 chute_libre_grain(sablier,col,simu)
 chute_libre_grain(sablier,col,simu)
+
+trace_ecoulement(simu)
+
+"""        
+
+#simu = simulation(nb_grain,larg,haut)
+
+
+"""
+
 """
 #trace_ecoulement(simu)
 
 
-plt.plot([-1,larg,larg,-1,-1],[-1,-1,haut+1,haut+1,-1])
-plt.axis("equal")
+
 
 
 for t in simu:
@@ -168,3 +179,4 @@ for t in simu:
 
 
 plt.show()
+"""

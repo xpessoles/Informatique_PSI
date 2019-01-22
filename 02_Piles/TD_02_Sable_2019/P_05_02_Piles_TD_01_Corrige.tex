@@ -1,0 +1,97 @@
+\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
+\usepackage[%
+    pdftitle={Informatique : Piles et files},
+    pdfauthor={Xavier Pessoles}]{hyperref}
+
+\input{../../style/new_style}
+\input{../../style/macros_SII}
+
+\fichetrue
+%\fichefalse
+
+\proftrue
+%\proffalse
+
+\tdtrue
+%\tdfalse
+
+%\courstrue
+\coursfalse
+
+\newcommand{\bfsf}[1]{\textbf{\textsl{#1}}}
+
+% -------------------------------------
+% Déclaration des titres
+% -------------------------------------
+
+\def\discipline{Informatique}
+\def\xxtete{Informatique}
+\def\classe{PSI$\star$}
+\def\xxnumpartie{Partie 5}
+\def\xxpartie{Algorithmique \& Programmation II}
+
+\def\xxnumchapitre{Chapitre 2}
+\def\xxchapitre{\hspace{.12cm} Piles et files}
+
+\def\xxposongletx{2}
+\def\xxposonglettext{1.45}
+\def\xxposonglety{13}%10
+
+\def\xxonglet{Part. 5 -- Ch. 2}
+
+\def\xxactivite{TD 1}
+\def\xxauteur{\textsl{Jean-Pierre Becirspahic}}
+
+\def\xxcompetences{%
+\textsl{%
+\textbf{Savoirs et compétences :}
+\begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item Alg -- C16 : Piles - Algorithmes de manipulation : fonctions «push» et «pop».
+\end{itemize}
+}}
+
+\def\xxfigures{}%figues de la page de garde
+
+\def\xxpied{%
+Partie 5 -- Algorithmique et Programmation\\
+Ch 2 : Piles et files-- \xxactivite%
+}
+
+\def\xxtitreexo{Exercices d'applications}
+\def\xxsourceexo{\hspace{.2cm} Informatique pour tous en CPGE -- \textit{Wack \& al.}}
+
+\def\espacebandeautitre{0cm}
+\setcounter{secnumdepth}{5}
+%---------------------------------------------------------------------------
+\begin{document}
+\input{../../style/new_pagegarde}
+\vspace{5cm}
+\pagestyle{fancy}
+\thispagestyle{plain}
+
+\setcounter{secnumdepth}{5}
+\def\columnseprulecolor{\color{ocre}}
+\setlength{\columnseprule}{0.4pt} 
+
+\ifprof
+\else
+\begin{multicols}{2}
+\fi
+%---------------------------------------------------------------------------
+
+
+\input{P_05_02_Piles_TD_01.tex}
+
+
+\ifprof
+\else
+\end{multicols}
+\fi
+%\begin{thebibliography}{2}
+%\bibitem{1}{Patrick Beynet, \textit{Supports de cours de TSI 2}, Lycée Rouvière, Toulon.}
+%\bibitem{2}{<< Mandel zool 08 satellite antenna >>. Sous licence CC BY-SA via Wikimedia Commons - 
+%\url{https://fr.wikipedia.org/wiki/Ensemble_de_Mandelbrot#/media/File:Mandel_zoom_08_satellite_antenna.jpg}}
+%\bibitem{3}{\url{http://www.obside.fr/fractales/pages/Recursif/}}
+%\end{thebibliography}
+\end{document}
+
