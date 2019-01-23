@@ -1,92 +1,9 @@
-\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
-\usepackage[%
-    pdftitle={Informatique : Numpy},
-    pdfauthor={Xavier Pessoles}]{hyperref}
-    
-\input{style/new_style}
-\input{style/macros_SII}
 
-\usepackage{multicol}
-\fichetrue
-%\fichefalse
-
-\proftrue
-\proffalse
-
-\tdtrue
-%\tdfalse
-
-%\courstrue
-\coursfalse
-
-% -------------------------------------
-% Déclaration des titres
-% -------------------------------------
-
-\def\discipline{Informatique}
-\def\xxtete{Informatique}
-\def\classe{PSI$\star$}
-\def\xxnumpartie{}%Partie 5}
-\def\xxpartie{Algorithmique \& Programmation (Suite)}
-
-\def\xxnumchapitre{Chapitre 6}
-\def\xxchapitre{\hspace{.12cm} Piles et files}
-
-\def\xxtitreexo{Sablier }
-\def\xxsourceexo{}%\hspace{.2cm} Informatique pour tous en CPGE -- \textit{Wack \& al.}}
-
-\def\xxposongletx{2}
-\def\xxposonglettext{1.45}
-\def\xxposonglety{13}%10
-
-\def\xxonglet{Ch. 6}%Part. 5 -- Ch. 4}
-
-\def\xxactivite{506}
-\def\xxauteur{\textsl{G. Haberer -- X. Pessoles}}
-
-\def\xxcompetences{%
-\textsl{%
-\textbf{Savoirs et compétences :}
-\begin{itemize}[label=\ding{112},font=\color{ocre}] 
-\item Alg -- C16 : Piles - Algorithmes de manipulation : fonctions «push» et «pop».
-\end{itemize}
-}}
+\section*{Exercice 1 - Le marchand de sable}
+On se propose de modéliser la constitution d'un tas de sable ainsi que l'écoulement des grains dans un sablier. Afin de simplifier le problème, on se restreindra à travailler en 2 dimensions. Le tas sera modélisé par une pile de grains de sable. 
 
 
-\def\xxfigures{\includegraphics[width=1.3cm]{images/sablier_p}}%figues de la page de garde
-
-\def\xxpied{%
-%Partie 5 -- Algorithmique et Programmation\\
-Ch 6 : Piles et files -- \xxactivite%
-}
-
-
-
-\setcounter{secnumdepth}{5}
-%---------------------------------------------------------------------------
-
-
-\begin{document}
-%\chapterimage{png/Fond_Cin}
-\input{style/new_pagegarde}
-\vspace{5cm}
-\pagestyle{fancy}
-\thispagestyle{plain}
-
-
-\def\columnseprulecolor{\color{ocre}}
-\setlength{\columnseprule}{0.4pt} 
-\begin{multicols}{2}
-
-\textbf{Pour réaliser ce TP, vous utiliserez le fichier \texttt{sablier.py} permettant de tracer la chute d'un grain de sable ou l'évolution du sablier.}
-
-\subsection*{Présentation}
-
-On se propose de modéliser l'écoulement des grains dans un sablier. Afin de simplifier le problème, on se restreindra à 2 dimensions. Le tas de sable sera modélisé par des piles de grains de sable. 
-
-
-Dans le cas du sablier, les grains tombent toujours sur la même pile. Le processus de constitution de la pile est donné dans la figure suivante.
-
+Dans le cas du sablier, les grains tombent toujours sur la même pile. Le processus de constitution de la pile est le suivant : 
 \begin{center}
 \includegraphics[width=\linewidth]{images/sablier_02}
 \end{center}
@@ -97,7 +14,7 @@ Dans le cas du sablier, les grains tombent toujours sur la même pile. Le proces
 \subsection*{Gestion d'une pile de sable}
 
 \begin{obj}
-Modéliser la chute d'un grain de sable sur une colonne. 
+Modéliser l'écoulement d'un grain de sable sur une colonne. 
 \end{obj}
 
 
@@ -118,13 +35,13 @@ Une pile de 3 grains de sable dans une pile de taille 5 sera modélisée par la 
 
 
 \subparagraph{}
-\textit{Utiliser la fonction  \texttt{trace\_chute} pour tracer la chute de grains sur une pile (cette fonction prend comme argument la liste des états d'une pile).}
+\textit{Utiliser la fonction  \texttt{trace\_ecoulement} pour tracer l'écoulement des grains sur une pile.}
 
 
 
-%
-%\subparagraph{}
-%\textit{Redéfinir la fonction \texttt{empiler} en la nommant \texttt{empilerSable} pour que le seul élément empilable soit la chaîne de caractères "*". Ainsi, une pile de sable sera constituée d'une pile d'étoiles. }
+
+\subparagraph{}
+\textit{Redéfinir la fonction \texttt{empiler} en la nommant \texttt{empilerSable} pour que le seul élément empilable soit la chaîne de caractères "*". Ainsi, une pile de sable sera constituée d'une pile d'étoiles. }
 
 \subsection*{Gestion du tas de sable}
 \begin{obj}
@@ -148,10 +65,8 @@ Pour observer la chute d'un grain, on stockera dans une variable \texttt{simu} l
 
 \subparagraph{}\textit{Implémenter la fonction \\ \texttt{chute\_libre\_grain} d'arguments \texttt{sablier}, \texttt{col} (numéro de la colonne ou le grain chute) et \texttt{simu}. Cette fonction retourne la variable \texttt{simu}. }
 
-\newpage
 
 \subparagraph{}\textit{Visualiser la chute d'un grain en utilisant la fonction \texttt{trace\_sablier} . }
-
 
 \subsection*{Modélisation de la chute d'un grain}
 \begin{obj}
@@ -258,31 +173,3 @@ On identifie les 3 cas suivants pour déterminer le sens de chute d'un grain :
 %
 %\subparagraph{}
 %\textit{Implémenter la fonction \texttt{affichage} permettant d'afficher un tas sous la forme définie ci-dessus. Tester l'affichage du tas créé à la question précédente.}
-\end{multicols}
-
-
-\end{document}
-\section*{Exercice  -- }
-
-\ifprof 
-\begin{corrige}
-\begin{python}
-\end{python}
-\end{corrige}
-\else
-\fi
-
-\ifprof 
-\else
-\fi
-
-
-\section*{Exercice}
-\setcounter{exo}{0}
-\subparagraph{}
-\textit{}
-\ifprof
-\begin{corrige}
-\end{corrige}
-\else
-\f
