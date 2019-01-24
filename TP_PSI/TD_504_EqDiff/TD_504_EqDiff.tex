@@ -82,12 +82,13 @@ Ch 4 : Résolution numérique des équations différentielles -- \xxactivite%
 \fi
 
 
-\section*{Exercice préliminaire}
+\subsection*{Exercice préliminaire}
 \textit{Cet exerice n'a aucun lien avec le problème qui suit.}
 On rappelle que l'équation différentielle permettant de modéliser le mouvement d'un pendule est donnée par : 
-$$
+$
 \ddot{\theta} + \dfrac{g}{l} \sin \theta = 0.
-$$
+$
+
 On note : 
 \begin{itemize}
 \item $\theta$ l'angle du fil avec la verticale;
@@ -97,10 +98,10 @@ On note :
 
 \subparagraph{}\textit{Donner le schéma numérique permettant d'exprimer la solution numérique de l'équation différentielle.}
 
-\subparagraph{}\textit{Résoudre numériquement l'équation différentielle pour $\theta(0)=\dfrac{\pi}{3}$ et $\dot{\theta}(0)=0$. Les résulats sont attendus sous forme de groupe. }
+\subparagraph{}\textit{Résoudre numériquement l'équation différentielle pour $\theta(0)=\dfrac{\pi}{3}$ et $\dot{\theta}(0)=0$. Les résulats sont attendus sous forme de courbes. }
 
 
-\section*{Mise en situation du problème de thermique}
+\subsection*{Mise en situation du problème de thermique}
 \setcounter{exo}{0}
 \ifprof
 \else
@@ -115,6 +116,9 @@ Le mur a une épaisseur $e=40\;\text{cm}$. Les propriétés physiques du mur son
 
 
 On suppose que les longueurs $L_y$ et $L_z$ suivant $\vect{y}$ et $\vect{z}$ sont très grandes devant l'épaisseur $e$. En conséquence, on suppose que la température $T$ dans le mur ne dépend que du temps $t$ et de la coordonnée $x$. 
+\begin{obj}
+L'objectif est de déterminer l'évolution du flux thermique dans le mur au cours du temps. Pour cela, on s'appuiera sur la résolution d'une équation différentielle en utilisant un schéma explicite puis implicite.
+\end{obj}
 
 \begin{center}
 \includegraphics[width=\linewidth]{images/figure_01}
@@ -123,16 +127,14 @@ On suppose que les longueurs $L_y$ et $L_z$ suivant $\vect{y}$ et $\vect{z}$ son
 
 
 
-\begin{obj}
-L'objectif est de déterminer l'évolution du flux thermique dans le mur au cours du temps. Pour cela, on s'appuiera sur la résolution d'une équation différentielle en utilisant un schéma explicite puis implicite.
-\end{obj}
+
 \fi
 \subsection*{Équation gouvernant la température}
 \ifprof
 \else
 En l'absence de source d'énergie, l'équation régissant le transport de la chaleur s'exprime ainsi :
 \begin{equation}
-\mathbf{\rho c_p \dfrac{\partial T(x,y,z,t)}{\partial t} =  \lambda  \Delta T(x,y,z,t)}
+\mathbf{\rho c_p \dfrac{\partial T(x,y,z,t)}{\partial t} =  \lambda  \Delta T(x,y,z,t)}.
 \end{equation}
 On rappelle la définition du Laplacien d'une fonction suffisamment régulière 
 $\Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}
@@ -635,7 +637,6 @@ $$
 Dans cet algorithme, on calcule les coefficients suivants : 
 $
 c'_0 = \dfrac{c_0}{b_0} \quad c'_i = \dfrac{c_i}{b_i - a_i c'_{i-1}}  \quad \text{pour} \quad i=1,2,\ldots, N-2$
-
 et $
 d'_0 = \dfrac{d_0}{b_0} \quad d'_i = \dfrac{d_i-a_i d'_{i-1}}{b_i - a_i c'_{i-1}}  \quad \text{pour} \quad i=1,2,\ldots, N-1.
 $
@@ -705,12 +706,13 @@ d'entrée se trouvera un vecteur $T_0$ de dimension $N$, défini en dehors de la
   dimensions $N\times \text{\text{Itmax}}$.  Chaque colonne de cette matrice contient le vecteur $T^k$
    dont les éléments sont les valeurs de la température aux $N$ points $x_1$, ..., $x_N$, 
  points à l'intérieur du mur à l'instant $k$ :
-$$
+ 
+ \footnotesize
+$
 T^k = \begin{pmatrix} T_1^k \\  T_2 ^k \\ ... \\  T_{N-1}^{k} \\ T_{N}^{k}  \end{pmatrix}
-$$
-
-$$
-T\_\text{tous}\_k = 
+$
+$
+T\_\text{ts}\_k = 
 \begin{pmatrix} 
 T_1^1   & T_1^2  & \cdots & T_1^{\text{Itmax}-1} & T_{1}^{\text{Itmax}} \vspace{0.3cm} \\
 T_2^1   & T_2^2  & \cdots & T_2^{\text{Itmax}-1} & T_2^{\text{Itmax} }  \vspace{0.15cm}\\
@@ -718,8 +720,9 @@ T_2^1   & T_2^2  & \cdots & T_2^{\text{Itmax}-1} & T_2^{\text{Itmax} }  \vspace{
 T_{N-1}^1   & T_{N-1}^2  & \cdots & T_{N-1}^{\text{Itmax}-1} & T_{N-1}^{\text{Itmax}} \vspace{0.3cm} \\
 T_{N}^1   & T_{N}^2  & \cdots & T_{N}^{\text{Itmax}-1} & T_{N}^{\text{Itmax}}  \\
  \end{pmatrix}.
-$$
+$
 
+\normalsize
 
 On souhaite arrêter le calcul lorsque la température ne varie presque plus dans le temps. 
 Dans ce but, on évaluera la norme  de $T^k - T^{k-1}$ à chaque itération. 

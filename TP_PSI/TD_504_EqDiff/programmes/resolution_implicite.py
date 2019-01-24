@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from math import sqrt
 
-e = 0.40                # cm
+e = 0.40                # m
 Tint = 20 + 273.15      # 
 Text1 = 10 + 273.15     # 
 Text2 = -10 + 273.15    # 
