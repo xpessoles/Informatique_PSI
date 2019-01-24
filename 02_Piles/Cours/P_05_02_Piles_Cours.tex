@@ -159,6 +159,20 @@ La différence majeure est  que dans le premier cas, il faut vérifier qu'une pi
 \end{rem}
 
 \section{Les piles}
+\begin{defi}
+De façon formelle, une pile est une structure de donnée munie de quatre opérations élémentaires : 
+\begin{itemize}
+\item \texttt{créer\_pile()} : opération permettant de créer une pile;
+\item \texttt{empiler(p,el)} : opération permettant d'empiler l'élément \texttt{el} sur la pile \texttt{p};
+\item \texttt{dépiler(p)} : opération permettant de supprimer le dernier élément de la pile \texttt{p} et de renvoyer sa valeur;
+\item \texttt{pile\_vide(p)} : opération permettant de renvoyer un booléen indiquant si la pile est vide ou non.
+\end{itemize}
+Ces 4 opérations sont faites en temps constant. 
+
+\textbf{Toutes les fonctions permettant de manipuler les piles seront réalisées à partir de ces opérations élémentaires.}
+\end{defi}
+
+
 \subsection{Quelques exemples d'applications}
 
 \begin{enumerate}
@@ -169,117 +183,141 @@ La différence majeure est  que dans le premier cas, il faut vérifier qu'une pi
 \end{enumerate}
 
 \subsection{Implémentation d'une pile}
-Dans cette section, nous allons considérer simultanément qu'une pile est implémentée sous forme d'une liste. Une autre méthode (qui n'est pas au programme serait de créer une nouvelle classe d'objets Python).
+Dans cette section, nous allons considérer simultanément qu'une pile est implémentée sous forme d'une liste. Une autre méthode (qui n'est pas à la limite du programme) serait de créer une nouvelle classe d'objets Python.
 
-\begin{rappel}
-Ainsi, pour déclarer une pile, on utilise la méthode usuelle pour l'initialisation d'une liste. 
-\begin{python}
-pile_liste = []
-\end{python}
-\end{rappel}
+\subsubsection*{Création d'une pile}
+Proposer une implémentation de l'opération \texttt{créer\_pile()}
 
-\subsubsection{Ajouter un élément au sommet de la pile -- \textbf{empiler}}
-Les spécifications de la fonction \textbf{empiler} sont les suivantes :
-
-\begin{tabular}{p{\linewidth}}
-\hline
-\textbf{Algorithme : empiler} \\
-Ajouter un élément au sommet de la pile \\
-\hline
-\textbf{Entrée} : 
-\begin{itemize}
-\item pile : une pile
-\item el : un élément à empiler
-\end{itemize}
-\textbf{Sortie} : 
-\begin{itemize}
-\item pile  : une pile composée de la pile initiale et de l'élément à empiler.
-\end{itemize} \\
-\hline 
-\end{tabular}
-
-\vspace{.5cm}
-
-\noindent \begin{minipage}[c]{.48\linewidth}
-\begin{pseudo}
-\begin{tabular}{p{.5cm}p{5cm}}
-\hline
-\multicolumn{2}{p{\linewidth}}{\textbf{empiler(pile,el)} :}  \\
-& pile $\leftarrow$ pile+[el] \\
-& \textbf{retourner} pile \\
-\hline
-\end{tabular}
-\end{pseudo}
-\end{minipage}\hfill
-\begin{minipage}[c]{.48\linewidth}
-\begin{py}
-\begin{python}
-def empiler(pile,el):
-    pile.append(el)
-\end{python}
+\begin{py}~\\
+\vspace{2cm}
 \end{py}
-\end{minipage}
+
+\subsubsection*{Ajouter un élément au sommet de la pile -- \textbf{empiler(p,el)}}
+Proposer une implémentation de l'opération \texttt{empiler(p,el)}
+
+\begin{py}~\\
+\vspace{3cm}
+\end{py}
+
+%%Les spécifications de la fonction \textbf{empiler} sont les suivantes :
+%
+%\begin{tabular}{p{\linewidth}}
+%\hline
+%\textbf{Algorithme : empiler} \\
+%Ajouter un élément au sommet de la pile \\
+%\hline
+%\textbf{Entrée} : 
+%\begin{itemize}
+%\item pile : une pile
+%\item el : un élément à empiler
+%\end{itemize}
+%\textbf{Sortie} : 
+%\begin{itemize}
+%\item pile  : une pile composée de la pile initiale et de l'élément à empiler.
+%\end{itemize} \\
+%\hline 
+%\end{tabular}
+%
+%\vspace{.5cm}
+%
+%\noindent \begin{minipage}[c]{.48\linewidth}
+%\begin{pseudo}
+%\begin{tabular}{p{.5cm}p{5cm}}
+%\hline
+%\multicolumn{2}{p{\linewidth}}{\textbf{empiler(pile,el)} :}  \\
+%& pile $\leftarrow$ pile+[el] \\
+%& \textbf{retourner} pile \\
+%\hline
+%\end{tabular}
+%\end{pseudo}
+%\end{minipage}\hfill
+%\begin{minipage}[c]{.48\linewidth}
+%\begin{py}
+%\begin{python}
+%def empiler(pile,el):
+%    pile.append(el)
+%\end{python}
+%\end{py}
+%\end{minipage}
 
 
 \begin{rem}
 En python le passage des arguments se faisant par référence, retourner la pile n'est pas indispensable car dans ce cas l'adresse de la liste n'a pas été changée.
-Le \texttt{append} est équivalent à l'opération de concaténation suivante :
-\begin{python}
-pile = pile+[el]
-\end{python}
+%Le \texttt{append} est équivalent à l'opération de concaténation suivante :
+%\begin{python}
+%pile = pile+[el]
+%\end{python}
 \end{rem}
 
-\subsubsection{Supprimer l'élément au sommet de la pile}
-Les spécifications de la fonction \textbf{dépiler} sont les suivantes :
 
-\begin{tabular}{p{\linewidth}}
-\hline
-\textbf{Algorithme : depiler} \\
-Supprimer le dernier élément de la pile et retourner cet élément\\
-\hline
-\textbf{Entrée} : 
-\begin{itemize}
-\item pile : une pile
-\end{itemize}
-\textbf{Sortie} : 
-\begin{itemize}
-\item el : élément qui était au sommet de la pile.
-\end{itemize} \\
-\hline 
-\end{tabular}
 
-\vspace{.5cm}
+\subsubsection*{Supprimer un élément au sommet de la pile -- \textbf{dépiler(p)}}
+Proposer une implémentation de l'opération \texttt{dépiler(p)}.
 
-\noindent \begin{minipage}[c]{.48\linewidth}
-\begin{pseudo}
-\begin{tabular}{p{.5cm}p{.5cm}p{5cm}}
-\hline
-\multicolumn{3}{p{\linewidth}}{\textbf{depiler(pile)} :}  \\
-& \multicolumn{2}{l}{n$\leftarrow$ \textbf{Taille(}pile\textbf{)}}\\
-& \multicolumn{2}{l}{el$\leftarrow$ pile[n]}\\
-& \multicolumn{2}{l}{pile\_s $\leftarrow$ []}\\
-& \multicolumn{2}{l}{\textbf{Pour} i \textbf{allant de} 1 \textbf{à} n-1 \textbf{faire}}\\
-& & pile\_s[i]$\leftarrow$ pile[i]\\
-& \multicolumn{2}{l}{\textbf{Fin Pour}}\\
-& \multicolumn{2}{l}{pile $\leftarrow$ pile\_s}\\
-& \multicolumn{2}{l}{\textbf{Retourner} el}\\
-
-\hline
-\end{tabular}
-\end{pseudo}
-\end{minipage}\hfill
-\begin{minipage}[c]{.48\linewidth}
-\begin{py}
-\begin{python}
-def depiler(pile):
-    assert len(pile)>0
-    return pile.pop()
-\end{python}
+\begin{py} ~\\
+\vspace{3cm}
 \end{py}
-\end{minipage}
-\begin{rem}
-En Python, la méthode $\texttt{pop}$ retourne automatiquement le dernier élément d'une liste et le supprime de celle-ci.
-\end{rem}
+
+\subsubsection*{Vérifier si la pile est vide -- \textbf{pile\_vide(p)}}
+Proposer une implémentation de l'opération \textbf{pile\_vide(p)}.
+
+
+\begin{py}~\\
+\vspace{3cm}
+\end{py}
+
+
+
+%Les spécifications de la fonction \textbf{dépiler} sont les suivantes :
+%
+%\begin{tabular}{p{\linewidth}}
+%\hline
+%\textbf{Algorithme : depiler} \\
+%Supprimer le dernier élément de la pile et retourner cet élément\\
+%\hline
+%\textbf{Entrée} : 
+%\begin{itemize}
+%\item pile : une pile
+%\end{itemize}
+%\textbf{Sortie} : 
+%\begin{itemize}
+%\item el : élément qui était au sommet de la pile.
+%\end{itemize} \\
+%\hline 
+%\end{tabular}
+%
+%%\vspace{.5cm}
+%
+%\noindent \begin{minipage}[c]{.48\linewidth}
+%\begin{pseudo}
+%\begin{tabular}{p{.5cm}p{.5cm}p{5cm}}
+%\hline
+%\multicolumn{3}{p{\linewidth}}{\textbf{depiler(pile)} :}  \\
+%& \multicolumn{2}{l}{n$\leftarrow$ \textbf{Taille(}pile\textbf{)}}\\
+%& \multicolumn{2}{l}{el$\leftarrow$ pile[n]}\\
+%& \multicolumn{2}{l}{pile\_s $\leftarrow$ []}\\
+%& \multicolumn{2}{l}{\textbf{Pour} i \textbf{allant de} 1 \textbf{à} n-1 \textbf{faire}}\\
+%& & pile\_s[i]$\leftarrow$ pile[i]\\
+%& \multicolumn{2}{l}{\textbf{Fin Pour}}\\
+%& \multicolumn{2}{l}{pile $\leftarrow$ pile\_s}\\
+%& \multicolumn{2}{l}{\textbf{Retourner} el}\\
+%
+%\hline
+%\end{tabular}
+%\end{pseudo}
+%\end{minipage}\hfill
+%\begin{minipage}[c]{.48\linewidth}
+%\begin{py}
+%\begin{python}
+%def depiler(pile):
+%    assert len(pile)>0
+%    return pile.pop()
+%\end{python}
+%\end{py}
+%\end{minipage}
+%\begin{rem}
+%En Python, la méthode $\texttt{pop}$ retourne automatiquement le dernier élément d'une liste et le supprime de celle-ci.
+%\end{rem}
 
 \section{Les files}
 \subsection{Quelques exemples d'application}
