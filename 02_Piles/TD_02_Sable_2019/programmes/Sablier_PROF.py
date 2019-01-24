@@ -9,17 +9,6 @@ import matplotlib.pyplot as plt
 import random
 import copy
 
-# Largeur du sablier
-larg = 5#11
-
-# Hauteur du sablier
-haut = 5#8
-
-# Colonne de chute 
-col = 1#5
-
-nb_grain=10
-
 def creation_sablier(larg,haut):
     sablier=[]
     for i in range (larg):
@@ -64,35 +53,30 @@ def chute_libre_grain(sablier,col,simu):
         
         
 def chute_grain(sablier,col,simu):
-    
-
-    #Recherche du sens
     # Cas du premier grain
     if taille(sablier,col)==1 and taille(sablier,col-1)==0 and taille(sablier,col+1)==0:
         return None
-    
+
+    # Recherche du sens
     col_ch = col   # Colonne de chute
     col_g = col-1  # Colonne de gauche
     col_d = col+1  # Colonne de droite
     
-    sens=0
-    # Sens alaéatoire
     tcol_g = taille(sablier,col_g)
     tcol_d = taille(sablier,col_d)
     tcol = taille(sablier,col)
     
-    # SENS A REVOIR ???
+    sens=0
+    # SENS A REVOIR*********
+    #print(col,tcol_g,tcol_d,taille(sablier,col_ch))
     
-    print(col,tcol_g,tcol_d,taille(sablier,col_ch))
     if tcol_g == tcol_d and (taille(sablier,col_ch)>tcol_g or  taille(sablier,col_ch)>tcol_d):
         sens = random.choice([-1,1])
     if sens == 0 :  
         sens = random.choice([-1,1])
-        print(">>>>><<<<<<")
-    #sens=1
-     
-    #if col+sens!=0 or col+sens!= len(sablier) : #-1 ?
-    
+
+    #sens=1     
+    #if col+sens!=0 or col+sens!= len(sablier) : #-1 ?    
     # On continue l'évolution tant que
     # le grain n'a pas atteint le bord gauche
     
@@ -138,28 +122,46 @@ def trace_tas(tas):
 #draw_tas(tas)
 
 
-def trace_ecoulement(tas):
+def trace_sablier(tas):
+    plt.plot([-1,larg,larg,-1,-1],[-1,-1,haut+1,haut+1,-1])
+    plt.axis("equal")
     for t in tas:
-        trace_tas(tas)
+        trace_tas(t)
         plt.pause(0.01) # pause avec duree en secondes
-        
-        
+    tmp =input("Presser une touche pour stopper...")
+    plt.close()
+
+
+
+# Largeur du sablier
+larg = 5#11
+
+# Hauteur du sablier
+haut = 5#8
+
+# Colonne de chute 
+col = 1#5
+
+nb_grain=10
+
+
+## CHUTE libre de 4 GRAINS
+"""sablier = creation_sablier(larg,haut)
+simu=[]
+col=3
+# Chute d'un grain
+for i in range (4):
+    chute_libre_grain(sablier,col,simu)
+trace_sablier(simu)
+"""
+## Simulation avec 10 grains
 
 simu = simulation(nb_grain,larg,haut)
+trace_sablier(simu)
+
 
 
 """
-# Chute d'un grain
-chute_libre_grain(sablier,col,simu)
-chute_libre_grain(sablier,col,simu)
-chute_libre_grain(sablier,col,simu)
-chute_libre_grain(sablier,col,simu)
-"""
-#trace_ecoulement(simu)
-
-
-plt.plot([-1,larg,larg,-1,-1],[-1,-1,haut+1,haut+1,-1])
-plt.axis("equal")
 
 
 for t in simu:
@@ -168,3 +170,4 @@ for t in simu:
 
 
 plt.show()
+"""
