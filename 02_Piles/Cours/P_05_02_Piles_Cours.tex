@@ -75,22 +75,24 @@ On distingue :
 \item les files : le premier entré est le premier à sortir, « FIFO » (First In First Out).
 \end{itemize}\vspace{.25cm}
 \noindent\begin{minipage}[c]{.53\linewidth}
-\indent Ainsi, ces structures de données nécessitent la réalisation de fonctions spécifiques :
+\indent Ainsi, ces structures de données nécessitent la réalisation d'opérations élémentaires :
 \begin{itemize}[label=\ding{112},font=\color{ocre}] 
 \item pour les piles :
 \begin{itemize}[label=\ding{112},font=\color{ocre}] 
 \item créer une pile,
 \item ajouter au sommet : empiler (« push »),
 \item supprimer du sommet : dépiler (« pop »),
-\item est\_vide,est\_pleine, taille, sommet;
+\item est\_vide.
 \end{itemize} 
 \item pour les files :
 \begin{itemize}[label=\ding{112},font=\color{ocre}] 
+\item créer une file,
 \item ajouter en queue : enfiler (« enqueue »);
 \item supprimer tête : défiler (« dequeue »);
-\item est\_vide, est\_pleine.
+\item est\_vide.
 \end{itemize}
 \end{itemize}
+D'autres fonctions peuvent être créer à patir de ces opérations élémentaires.
 \end{minipage} \hfill
 \begin{minipage}[c]{.45\linewidth}
 \includegraphics[width=\linewidth]{images/fifo_lifo}
