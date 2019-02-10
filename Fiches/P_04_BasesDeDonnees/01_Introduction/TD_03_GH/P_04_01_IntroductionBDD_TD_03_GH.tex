@@ -1,0 +1,143 @@
+\documentclass[10pt,fleqn]{article} % Default font size and left-justified equations
+\usepackage[%
+    pdftitle={Informatique : Bases de données},
+    pdfauthor={Xavier Pessoles}]{hyperref}
+
+\input{style/new_style}
+\input{style/macros_SII}
+
+\fichetrue
+%\fichefalse
+
+\proftrue
+\proffalse
+
+%\tdtrue
+\tdfalse
+
+%\courstrue
+\coursfalse
+
+% -------------------------------------
+% Déclaration des titres
+% -------------------------------------
+
+\def\discipline{Informatique}
+\def\xxtete{Informatique}
+
+\def\classe{Fiche PT}
+\def\xxnumpartie{Partie 4}
+\def\xxpartie{Base de données}
+
+\def\xxnumchapitre{Chapitre 1}
+\def\xxchapitre{\hspace{.12cm} Introduction aux bases de données}
+
+\def\xxposongletx{2}
+\def\xxposonglettext{1.45}
+\def\xxposonglety{19}%16
+
+\def\xxonglet{Part. 4 -- Ch. 1}
+
+\def\xxactivite{TD 2}
+\def\xxauteur{\textsl{Patrick Beynet}}
+
+\def\xxcompetences{%
+\textsl{%
+\textbf{Savoirs et compétences :}\\
+}}
+
+\def\xxfigures{
+%incgraphics[width=.8\textwidth]{}%images/prot_01}
+}%figues de la page de garde
+
+\def\xxpied{%
+Partie 4 -- Bases de données \\
+Ch 1 : Introduction aux bases de données -- \xxactivite%
+}
+
+%\def\xxtitreexo{Coucou}
+%\def\sourceexo{Coucou}f
+\setcounter{secnumdepth}{5}
+%---------------------------------------------------------------------------
+
+
+\begin{document}
+%\chapterimage{png/Fond_Cin}
+\input{style/new_pagegarde}
+\vspace{2cm}
+\pagestyle{fancy}
+\thispagestyle{plain}
+
+\begin{multicols}{2}
+\subsection*{Mines Ponts 2016}
+
+\subparagraph{}~\\
+Cléfs primaires : (nom, année); (iso, année).
+
+\subparagraph{}~\\
+%\begin{itemize}
+%\item requête récupère depuis la table palu toutes les données de l’année 2010:  SELECT * FROM palu WHERE annee = 2010;
+%\item qui correspondent à des pays où le nombre de décès dus au paludisme est supérieur ou égal à 1 000 : 
+%WHERE deces >= 1000;
+%\end{itemize}
+\begin{sql}
+SELECT * FROM palu 
+	WHERE aneee = 2010 AND deces >= 1000;
+\end{sql}
+
+\subparagraph{}~\\
+%La requête nécessite des 
+%Le résultat attendu à le schéma relationnel suivant : (pays, taux d'incidence) ou encore , (pays, cas*100000/pop). Ces informations provenant des deux tables. Il faut donc réaliser une jointure. Cette jointure peut se faire sur le code iso du pays.  
+
+\begin{sql}
+SELECT nom,cas*100000/pop
+	FROM palu
+	JOIN demographie 
+	ON palu.iso=demographie.pays
+	WHERE annee = 2011 AND periode = 2011;
+
+SELECT nom,cas*100000/pop
+	FROM palu
+	JOIN demographie 
+	ON palu.iso=demographie.pays 
+		AND palu.annee=demographie.periode
+ 	WHERE annee = 2011;
+\end{sql}
+
+\subparagraph{}~\\
+Pour avoir la liste des pays classés par ordre décroissant du nombre de cas de paludisme en 2010, la requète est la suivante. (Pas besoin de grouper ici car (nom,annee) est une clef primaire. 
+\begin{sql}
+SELECT nom, cas
+	FROM palu
+	WHERE annee = 2010 
+	ORDER BY cas DESC
+	LIMIT 1 OFFSET 1; 
+\end{sql}
+
+\begin{sql}
+SELECT nom, MAX(cas)
+	FROM palu
+	WHERE annee = 2010 AND cas != (
+			SELECT MAX(cas)
+			FROM palu
+			WHERE annee = 2010
+			ORDER BY cas DESC)
+	ORDER BY cas DESC;
+\end{sql}
+
+
+\subparagraph{}~\\
+
+\texttt{sorted(deces2010, key=lambda col: col[1])}
+
+\end{multicols}
+%\begin{exemple}
+%Exemple de ligne : 
+%\begin{python}
+%'Blinn Lake Seaplane Base,-162.753005981445,55.2515983581543,seaplane_base\n'
+%\end{python}
+%\end{exemple}
+
+\end{document}
+
+
