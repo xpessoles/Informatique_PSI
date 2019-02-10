@@ -1,0 +1,148 @@
+-- POUR S'ENTRAINER 
+-- 1
+SELECT * FROM etudiant;
+
+-- 2
+-- $\pi_{(\mathtt{nom}, \mathtt{prenom})}(\mathtt{etudiant})$
+SELECT nom, prenom FROM etudiant;
+
+-- 3
+SELECT DISTINCT ville FROM etudiant;
+
+-- 4
+-- $\pi_{(\mathtt{nom}, \mathtt{prenom})}(\sigma_{\mathtt{CP}=69380}(\mathtt{etudiant}))$
+SELECT nom, prenom FROM etudiant
+       WHERE CP = 69380;
+
+-- 5
+SELECT nom, prenom FROM etudiant
+       WHERE ville = 'Lyon' OR ville = 'Villeurbanne';
+
+-- 6
+SELECT nom, prenom FROM etudiant
+       WHERE telephone LIKE '07%';
+       -- LIKE : sur les chaînes de caractères
+       -- % = joker quelconque, _ = joker sur 1 seul caractère
+
+-- ================
+-- 7
+SELECT etudiant.nom FROM etudiant, prof
+       WHERE prof.id = etudiant.id_prof_principal
+       AND prof.bureau = 'B014';
+
+-- 8
+-- $\pi_{\mathtt{etudiant.nom}}(\sigma_{\mathtt{prof.bureau}='B014'}(\mathtt{etudiant} \underset{\mathtt{prof.id}=\mathttt{etudiant.id\_prof\_principal}{\Join} \mathtt{prof}))$ 
+SELECT etudiant.nom FROM etudiant
+       JOIN prof ON prof.id = etudiant.id_prof_principal
+       WHERE prof.bureaU = 'B014';
+
+-- 9
+SELECT COUNT(*) FROM etudiant
+       JOIN prof ON prof.id = etudiant.id_prof_principal
+       WHERE prof.discipline = 'physique';
+
+-- ================
+-- 10
+SELECT COUNT(*) FROM notes
+       WHERE langues > 10;
+
+-- 11
+SELECT classe, AVG(math) FROM notes
+       JOIN etudiant ON notes.id_etudiant = etudiant.id
+       GROUP BY classe;
+
+-- 12
+SELECT classe, COUNT(*) FROM notes
+       JOIN etudiant ON notes.id_etudiant = etudiant.id
+       WHERE si <= 10
+       GROUP BY classe;
+
+-- 13
+SELECT MAX(info) FROM notes;
+
+-- 14
+SELECT nom FROM etudiant
+       JOIN notes ON notes.id_etudiant = etudiant.id
+       WHERE info = (
+       	     SELECT MAX(info) FROM notes
+	     );
+
+-- 15
+SELECT nom, maxf, etudiant.classe FROM etudiant
+       JOIN (
+       	    SELECT classe AS maxclasse, MAX(francais) AS maxf FROM notes
+	    	   JOIN etudiant ON notes.id_etudiant = etudiant.id
+		   GROUP BY classe
+       ) ON maxclasse = classe
+       JOIN notes ON notes.id_etudiant = etudiant.id
+       WHERE maxf = notes.francais;
+
+-- 16
+SELECT nom, prenom FROM etudiant ORDER BY nom ASC;
+       
+       
+
+-- ccINP 2017
+SELECT id_comptage, date, voie, q_exp, v_exp FROM comptages
+       JOIN stations ON stations.id = comptages.id_station
+       WHERE nom = 'M8B';
+
+SELECT date, SUM(q_exp) FROM comptages_M8B
+       GROUP BY date;
+
+-- Mines-Ponts 2017
+SELECT id_croisement_fin FROM voie
+       WHERE id_croisement_debut = c;
+       
+SELECT longitude, latitude FROM croisement
+       JOIN voie ON croisement.id = id_croisement_fin
+       WHERE id_croisement_debut = c;
+
+-- cette requête renvoie les identifiants des croisements atteignables
+-- en utilisant deux voies à partir du croisement ayant l'identifiant c,
+-- avec donc un croisement intermédiaire.
+
+-- X-ÉNS 2017
+SELECT idensemble FROM membre
+       JOIN points ON id = idpoint
+       WHERE x = a AND y = b;
+
+SELECT x, y FROM points
+       JOIN membre AS m1 ON id = m1.idpoint
+       JOIN membre AS m2 on id = m2.idpoint
+       WHERE m1.idensemble = i
+       AND m2.idensemble = j;
+
+SELECT p.id FROM points AS p
+       JOIN membre AS m ON m.idpoint = p.id
+       JOIN membre AS m1 ON m1.idensemble = m.idensemble
+       JOIN points AS p1 ON m1.idpoint = p1.id
+       WHERE p1.x = a AND p1.y = b;
+
+-- Centrale-Supélec 2017
+SELECT ex_num FROM explo
+       WHERE ex_deb IS NOT NULL
+       AND ex_fin IS NULL;
+
+SELECT pi_num, pi_x, pi_y FROM pi
+       WHERE ex_num = 42;	-- par exemple, le 42
+
+SELECT (MAX(pi_x)-MIN(pi_x))/1000 * (MAX(pi_y)-MIN(pi_y))/1000 FROM pi
+       JOIN explo ON pi.ex_num = explo.ex_num
+       WHERE ex_deb IS NOT NULL
+       AND ex_fin IS NOT NULL	-- l'exploration est terminée
+       GROUP BY pi.ex_num;
+
+-- q4 : je ne comprends pas la question
+-- Un entier est (peut-être) stocké sur 64 bits, soit entre 0 et 2^64-1
+-- Donc la surface maximale sera (2^64-1)^2=3.4e38 en mm^2
+-- soit 3.4e26 km^2
+-- En supposant bien-sûr que le calcul se fasse en basculant automatiquement en flottants
+-- sinon c'est 2^64-1=1.8e19 le plus grand nombre envisageable.
+
+SELECT in_num, COUNT(*), SUM(it_dur) FROM intyp
+       JOIN analy ON intyp.ty_num = analy.ty_num
+       JOIN explo ON explo.ex_num = analy.ex_num
+       WHERE ex_deb IS NOT NULL
+       AND ex_fin IS NULL	-- l'exploration est en cours
+       GROUP BY in_num;
