@@ -68,11 +68,15 @@ Ch 1 : Introduction aux bases de données -- \xxactivite%
 \pagestyle{fancy}
 \thispagestyle{plain}
 
+
+\def\columnseprulecolor{\color{ocre}}
+\setlength{\columnseprule}{0.4pt} 
+
 \begin{multicols}{2}
 \subsection*{Mines Ponts 2016}
 
 \subparagraph{}~\\
-Cléfs primaires : (nom, année); (iso, année).
+Cléfs primaires pour palu : (nom, année); (iso, année).
 
 \subparagraph{}~\\
 %\begin{itemize}
@@ -105,7 +109,7 @@ SELECT nom,cas*100000/pop
 \end{sql}
 
 \subparagraph{}~\\
-Pour avoir la liste des pays classés par ordre décroissant du nombre de cas de paludisme en 2010, la requète est la suivante. (Pas besoin de grouper ici car (nom,annee) est une clef primaire. 
+%Pour avoir la liste des pays classés par ordre décroissant du nombre de cas de paludisme en 2010, la requète est la suivante. (Pas besoin de grouper ici car (nom,annee) est une clef primaire. 
 \begin{sql}
 SELECT nom, cas
 	FROM palu
@@ -125,10 +129,66 @@ SELECT nom, MAX(cas)
 	ORDER BY cas DESC;
 \end{sql}
 
+\begin{sql}
+SELECT nom, MAX(cas)
+	FROM palu
+	WHERE annee = 2010 AND cas != (
+			SELECT MAX(cas)
+			FROM palu
+			WHERE annee = 2010);
+\end{sql}
+
 
 \subparagraph{}~\\
 
 \texttt{sorted(deces2010, key=lambda col: col[1])}
+
+
+\subsection*{Centrale Supelec 2018}
+\setcounter{exo}{0}
+\subparagraph{}~\\
+%On souhaite des couples (SI\_DIM,nombre de simulations ayant une dimension SI\_DIM). 
+\begin{sql}
+SELECT SI_DIM, COUNT(*)
+	FROM SIMULATION
+	GROUP BY SI_DIM;
+\end{sql}
+
+\subparagraph{}~\\
+%Écrire une requête SQL qui donne, pour chaque simulation, le nombre de rebonds enregistrés et
+%la vitesse moyenne des particules qui frappent une paroi.
+\begin{sql}
+SELECT SI_NUM, COUNT(*), AVG(RE_VIT)
+	FROM REBOND
+	GROUP BY SI_NUM;
+\end{sql}
+
+
+\subparagraph{}~\\
+%Écrire une requête SQL qui, pour une simulation n donnée, calcule, pour chaque paroi, la variation
+%de quantité de mouvement due aux chocs des particules sur cette paroi tout au long de
+%la simulation. On se rappellera que lors du rebond d’une particule sur une paroi la composante
+%de sa vitesse normale à la paroi est inversée, ce qui correspond à une variation de quantité de
+%mouvement de 2mjv?j où m désigne la masse de la particule et v? la composante de sa vitesse
+%normale à la paroi.
+%On cherche des couples RE\_DIR,  (2*PA\_M,RE\_VP).
+%Il faut faire une jointure entre les tables REBOND et PARTICULES  sur le PA\_NUM
+%pour les . 
+
+\begin{sql}
+SELECT  RE_DIR,  (2*PA_M*RE_VP)
+	FROM PARTICULE AS PART
+	JOIN REBOND AS REB
+	ON PART.PA_NUM =  REB.PA_NUM
+	WHERE SIMU.SI_NUM = n
+	GROUP BY RE_NUM
+\end{sql}
+
+
+
+
+
+
 
 \end{multicols}
 %\begin{exemple}
