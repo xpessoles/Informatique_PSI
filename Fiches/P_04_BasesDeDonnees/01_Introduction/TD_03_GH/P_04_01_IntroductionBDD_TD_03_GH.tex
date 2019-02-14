@@ -176,7 +176,7 @@ SELECT SI_NUM, COUNT(*), AVG(RE_VIT)
 %pour les . 
 
 \begin{sql}
-SELECT  RE_DIR,  (2*PA_M*RE_VP)
+SELECT  RE_DIR,  SUM(2*PA_M*RE_VP)
 	FROM PARTICULE AS PART
 	JOIN REBOND AS REB
 	ON PART.PA_NUM =  REB.PA_NUM
@@ -185,7 +185,28 @@ SELECT  RE_DIR,  (2*PA_M*RE_VP)
 \end{sql}
 
 
+\subsection*{X-ENS 2017}
+\setcounter{exo}{0}
 
+\subparagraph{}~\\
+\subparagraph{}~\\
+
+Exemple pour sélectionne juste les idpoints avec un produit cartésien. 
+\begin{sql}
+SELECT  M1.idpoint , M2.idpoint 
+	FROM MEMBRE as M1, MEMBRE as M2 
+	WHERE M1.idensemble="A" and M2.idensemble="B" AND  M1.idpoint = M2.idpoint 
+\end{sql}
+
+Pour sélectionner les coordonnées (x,y)
+\begin{sql}
+SELECT x,y FROM 
+	POINTS JOIN 
+	(SELECT  M1.idpoint , M2.idpoint 
+	FROM MEMBRE as M1, MEMBRE as M2 
+	WHERE M1.idensemble="A" and M2.idensemble="B" AND  M1.idpoint = M2.idpoint) AS MM
+	ON POINTS.id = MM.idpoint
+\end{sql}
 
 
 
