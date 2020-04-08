@@ -42,7 +42,7 @@ def trace_matrice(A):
 def trace_matrices(AA):
     for A in AA:
         trace_matrice(A)
-        plt.pause(0.005) # pause avec duree en secondes
+        plt.pause(0.001) # pause avec duree en secondes
  
 
 
