@@ -1,4 +1,0 @@
-pythontutor >> Evolution des variables.
-
-
-
